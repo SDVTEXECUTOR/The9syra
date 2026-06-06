@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>The9syra</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #0f0f0f; color: white; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        
+        /* Khung phát nhạc */
+        #playerSection { display: none; width: 400px; text-align: center; background: #1a1a1a; padding: 20px; border-radius: 15px; }
+        #coverArt { width: 300px; height: 300px; object-fit: cover; border-radius: 10px; margin-bottom: 20px; border: 2px solid #333; }
+        audio { width: 100%; margin-top: 15px; }
+        
+        /* Danh sách */
+        .video-list { width: 400px; display: grid; gap: 15px; }
+        .video-item { display: flex; background: #1a1a1a; padding: 10px; border-radius: 8px; cursor: pointer; align-items: center; transition: 0.2s; }
+        .video-item:hover { background: #333; }
+        .video-item img { width: 80px; height: 80px; object-fit: cover; border-radius: 5px; margin-right: 15px; }
+        
+        #homeBtn { padding: 10px 20px; margin-bottom: 15px; cursor: pointer; background: #444; color: white; border: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+    <div id="playerSection">
+        <button id="homeBtn" onclick="goHome()">⬅ Quay lại</button>
+        <img id="coverArt" src="" alt="Album Art">
+        <h2 id="songTitle">Title</h2>
+        <audio id="mainAudio" controls>
+            <source src="" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <div class="video-list" id="listSection">
+        <div class="video-item" onclick="playSong('WE LEAVE AS LEGENDS', 'Music_/WE LEAVE AS LEGENDS.mp3', 'Picture/WLAL.png')">
+            <img src="Picture/WLAL.png">
+            <h3>WE LEAVE AS LEGENDS</h3>
+        </div>
+        
+        <div class="video-item" onclick="playSong('LEGACY OF THE REALM', 'Music_/LEGACY OF THE REALM (Official Anthem of the Game World).mp3', 'Picture/LEGACY.png')">
+            <img src="Picture/LEGACY.png">
+            <h3>LEGACY OF THE REALM</h3>
+        </div>
+    </div>
+
+    <script>
+        const playerSection = document.getElementById('playerSection');
+        const listSection = document.getElementById('listSection');
+        const mainAudio = document.getElementById('mainAudio');
+        const songTitle = document.getElementById('songTitle');
+        const coverArt = document.getElementById('coverArt');
+
+        function playSong(title, src, img) {
+            songTitle.innerText = title;
+            mainAudio.src = src;
+            coverArt.src = img;
+            
+            playerSection.style.display = 'block';
+            listSection.style.display = 'none';
+            
+            mainAudio.play();
+        }
+
+        function goHome() {
+            playerSection.style.display = 'none';
+            listSection.style.display = 'grid';
+            mainAudio.pause();
+            mainAudio.src = "";
+        }
+    </script>
+</body>
+</html>
