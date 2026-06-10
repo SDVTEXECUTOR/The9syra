@@ -518,6 +518,15 @@
             transform: translateY(-2px);
         }
 
+        .admin-btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .admin-btn-danger:hover {
+            background: #c82333;
+        }
+
         .multiplier-display {
             background: #667eea;
             color: white;
@@ -650,6 +659,319 @@
             font-size: 0.9em;
             background: #f8f9fa;
             border-top: 1px solid #e9ecef;
+        }
+
+        /* ============ NOTIFICATION SYSTEM ============ */
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 400px;
+        }
+
+        .notification {
+            background: white;
+            border-radius: 12px;
+            padding: 15px 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideInRight 0.4s ease;
+            border-left: 5px solid #667eea;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .notification.removing {
+            animation: slideOutRight 0.3s ease forwards;
+        }
+
+        .notification.success {
+            border-left-color: #28a745;
+        }
+
+        .notification.error {
+            border-left-color: #dc3545;
+        }
+
+        .notification.warning {
+            border-left-color: #ffc107;
+        }
+
+        .notification.info {
+            border-left-color: #17a2b8;
+        }
+
+        .notification-icon {
+            font-size: 1.5em;
+            flex-shrink: 0;
+        }
+
+        .notification-body {
+            flex: 1;
+        }
+
+        .notification-title {
+            font-weight: bold;
+            font-size: 0.95em;
+            color: #333;
+            margin-bottom: 2px;
+        }
+
+        .notification-message {
+            font-size: 0.85em;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .notification-close {
+            background: none;
+            border: none;
+            font-size: 1.2em;
+            cursor: pointer;
+            color: #999;
+            padding: 0 5px;
+            transition: color 0.2s;
+        }
+
+        .notification-close:hover {
+            color: #333;
+        }
+
+        .notification-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: #667eea;
+            animation: shrink 5s linear forwards;
+        }
+
+        .notification.success .notification-progress { background: #28a745; }
+        .notification.error .notification-progress { background: #dc3545; }
+        .notification.warning .notification-progress { background: #ffc107; }
+        .notification.info .notification-progress { background: #17a2b8; }
+
+        @keyframes slideInRight {
+            from { transform: translateX(120%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideOutRight {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(120%); opacity: 0; }
+        }
+
+        @keyframes shrink {
+            from { width: 100%; }
+            to { width: 0%; }
+        }
+
+        /* ============ ADBLOCK WARNING ============ */
+        .adblock-warning {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 99999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .adblock-warning.active {
+            display: flex;
+        }
+
+        .adblock-warning-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            animation: popIn 0.5s;
+        }
+
+        .adblock-warning-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            animation: pulse 1.5s infinite;
+        }
+
+        .adblock-warning h2 {
+            color: #dc3545;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .adblock-warning p {
+            color: #495057;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .adblock-warning .lang-en {
+            color: #6c757d;
+            font-style: italic;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+
+        .adblock-warning .retry-btn {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 15px;
+        }
+
+        .adblock-warning .retry-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+        }
+
+        /* ============ UPDATE LOG ============ */
+        .update-log-section {
+            background: linear-gradient(135deg, #e7f3ff 0%, #f0e6ff 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 25px;
+            border: 2px solid #667eea;
+        }
+
+        .update-log-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .update-log-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .update-log-item {
+            background: white;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #667eea;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+
+        .update-log-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .update-log-date {
+            background: #667eea;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.75em;
+            font-weight: bold;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .update-log-text {
+            color: #495057;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .update-log-text strong {
+            color: #667eea;
+        }
+
+        /* ============ PROFILE SECTION ============ */
+        .profile-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 2px solid #e9ecef;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .profile-details h3 {
+            color: #333;
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+
+        .profile-details p {
+            color: #6c757d;
+            font-size: 0.95em;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .profile-stat-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .profile-stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .profile-stat-label {
+            font-size: 0.85em;
+            color: #6c757d;
+            margin-top: 5px;
         }
 
         /* ============ MISSION PAGE STYLES ============ */
@@ -974,7 +1296,7 @@
             overflow: hidden;
         }
 
-        /* Restart Button - Nút Restart khi quay lại tab */
+        /* Restart Button */
         .restart-btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -1084,10 +1406,29 @@
             .tab-content { padding: 20px; }
             .mission-body { padding: 20px; }
             .restart-btn { font-size: 1.2em; padding: 15px 30px; }
+            .notification-container { max-width: 90%; right: 5%; }
+            .profile-header { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
 <body>
+    <!-- ============ NOTIFICATION CONTAINER ============ -->
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <!-- ============ ADBLOCK WARNING ============ -->
+    <div class="adblock-warning" id="adblockWarning">
+        <div class="adblock-warning-content">
+            <div class="adblock-warning-icon">🚫</div>
+            <h2>AdBlock Detected!</h2>
+            <p><strong>Please disable any ad-blocking extensions/tools!</strong></p>
+            <p class="lang-en">Vui lòng tắt mọi tiện ích/công cụ chặn quảng cáo!</p>
+            <p style="font-size: 0.85em; color: #6c757d; margin-top: 15px;">
+                We rely on ads to keep this service free. Thank you for your understanding!
+            </p>
+            <button class="retry-btn" onclick="retryAdblockCheck()">✅ I've disabled it - Retry</button>
+        </div>
+    </div>
+
     <!-- ============ MAIN PAGE ============ -->
     <div id="mainPage">
         <!-- Modal Đăng nhập/Đăng ký -->
@@ -1185,6 +1526,36 @@
             <!-- Tab Giới thiệu -->
             <div id="info" class="tab-content active">
                 <h2>📖 Giới thiệu về ChickenP Game</h2>
+                
+                <!-- Profile Section -->
+                <div class="profile-section" id="profileSection">
+                    <div class="profile-header">
+                        <div class="profile-avatar" id="profileAvatar">?</div>
+                        <div class="profile-details">
+                            <h3 id="profileName">...</h3>
+                            <p id="profileJoinDate">Đang tải...</p>
+                        </div>
+                    </div>
+                    <div class="profile-stats">
+                        <div class="profile-stat-card">
+                            <div class="profile-stat-value" id="statPoints">0</div>
+                            <div class="profile-stat-label">💰 ChickenP</div>
+                        </div>
+                        <div class="profile-stat-card">
+                            <div class="profile-stat-value" id="statEarned">0</div>
+                            <div class="profile-stat-label">📈 Tổng kiếm</div>
+                        </div>
+                        <div class="profile-stat-card">
+                            <div class="profile-stat-value" id="statQuests">0</div>
+                            <div class="profile-stat-label">🎯 Quest hoàn thành</div>
+                        </div>
+                        <div class="profile-stat-card">
+                            <div class="profile-stat-value" id="statRole">Member</div>
+                            <div class="profile-stat-label">👤 Vai trò</div>
+                        </div>
+                    </div>
+                </div>
+
                 <p style="margin-top: 20px; line-height: 1.8; color: #495057;">
                     Chào mừng bạn đến với <strong>ChickenP Game</strong> - một trò chơi thú vị nơi bạn có thể kiếm điểm ChickenP và mua sắm các vật phẩm hấp dẫn!
                 </p>
@@ -1203,6 +1574,76 @@
                         <li style="padding: 10px; background: #f8f9fa; margin-bottom: 10px; border-radius: 5px;">
                             🔐 <strong>Bảo mật:</strong> Chống cheat/bot/tools với IP verification
                         </li>
+                        <li style="padding: 10px; background: #f8f9fa; margin-bottom: 10px; border-radius: 5px;">
+                            👤 <strong>Profile:</strong> Xem thông tin cá nhân và thống kê
+                        </li>
+                        <li style="padding: 10px; background: #f8f9fa; margin-bottom: 10px; border-radius: 5px;">
+                            🔔 <strong>Thông báo:</strong> Hệ thống notification riêng của web
+                        </li>
+                        <li style="padding: 10px; background: #f8f9fa; margin-bottom: 10px; border-radius: 5px;">
+                            🛡️ <strong>Admin System:</strong> BAN/UNBAN, UNWARN, GIFT, quản lý quyền
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- UPDATE LOG Section -->
+                <div class="update-log-section">
+                    <h3>📝 UPDATE LOG</h3>
+                    <ul class="update-log-list">
+                        <li class="update-log-item">
+                            <span class="update-log-date">10/06/2026</span>
+                            <span class="update-log-text">
+                                <strong>🔔 Notification System:</strong> Thêm hệ thống thông báo riêng của web với nhiều loại (success, error, warning, info)
+                            </span>
+                        </li>
+                        <li class="update-log-item">
+                            <span class="update-log-date">10/06/2026</span>
+                            <span class="update-log-text">
+                                <strong>🚫 BAN System:</strong> Thêm tính năng BAN user trong Admin Panel. Admin thường không thể BAN admin khác, chỉ Root Admin mới có quyền BAN tất cả.
+                            </span>
+                        </li>
+                        <li class="update-log-item">
+                            <span class="update-log-date">10/06/2026</span>
+                            <span class="update-log-text">
+                                <strong>👤 Profile Section:</strong> Thêm phần hiển thị thông tin cá nhân (tên, ngày tham gia, thống kê) ở tab Giới thiệu
+                            </span>
+                        </li>
+                        <li class="update-log-item">
+                            <span class="update-log-date">10/06/2026</span>
+                            <span class="update-log-text">
+                                <strong>📝 UPDATE LOG:</strong> Thêm phần ghi lại các cập nhật mới của web
+                            </span>
+                        </li>
+                        <li class="update-log-item">
+                            <span class="update-log-date">10/06/2026</span>
+                            <span class="update-log-text">
+                                <strong>🛡️ Adblock Detection:</strong> Thêm tính năng phát hiện Adblock và yêu cầu người dùng tắt để sử dụng web
+                            </span>
+                        </li>
+                        <li class="update-log-item">
+                            <span class="update-log-date">09/06/2026</span>
+                            <span class="update-log-text">
+                                <strong>🎯 Quest System:</strong> Hệ thống nhiệm vụ 4 bước (Verify Link, Quiz, Ad, Countdown)
+                            </span>
+                        </li>
+                        <li class="update-log-item">
+                            <span class="update-log-date">09/06/2026</span>
+                            <span class="update-log-text">
+                                <strong>🛒 Shop:</strong> Cửa hàng vật phẩm với HotDog (1,200 ChickenP)
+                            </span>
+                        </li>
+                        <li class="update-log-item">
+                            <span class="update-log-date">09/06/2026</span>
+                            <span class="update-log-text">
+                                <strong>⚙️ Admin Panel:</strong> Multiplier, UNWARN, UNBAN, ADD ADMIN, UNADMIN, GIFT ChickenP
+                            </span>
+                        </li>
+                        <li class="update-log-item">
+                            <span class="update-log-date">08/06/2026</span>
+                            <span class="update-log-text">
+                                <strong>🚀 Initial Release:</strong> Phiên bản đầu tiên của ChickenP Game với Firebase Database
+                            </span>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -1210,6 +1651,7 @@
             <!-- Tab Shop -->
             <div id="shop" class="tab-content">
                 <h2>🛒 Shop - Cửa hàng vật phẩm</h2>
+                <p style="margin-top: 10px; color: #6c757d;">Mua sắm vật phẩm với ChickenP của bạn!</p>
                 <div style="margin-top: 20px;">
                     <div class="shop-item">
                         <div>
@@ -1251,6 +1693,19 @@
                     <h3>⚙️ Bảng điều khiển Admin</h3>
                     
                     <div class="admin-grid">
+                        <!-- BAN User -->
+                        <div class="admin-card">
+                            <h4>🚫 BAN User</h4>
+                            <p style="font-size: 0.9em; color: #6c757d; margin-bottom: 10px;">
+                                Khóa tài khoản người dùng. <br>
+                                <small style="color: #dc3545;">⚠️ Admin thường không thể BAN admin khác. Chỉ Root Admin mới có quyền BAN tất cả.</small>
+                            </p>
+                            <div class="admin-input-group">
+                                <input type="text" id="banUsername" placeholder="Tên người dùng cần BAN">
+                                <button class="admin-btn admin-btn-danger" onclick="banUser()">🚫 BAN</button>
+                            </div>
+                        </div>
+
                         <!-- Multiplier Control -->
                         <div class="admin-card">
                             <h4>🔢 Hệ số nhân ChickenP</h4>
@@ -1276,7 +1731,7 @@
                         </div>
 
                         <div class="admin-card">
-                            <h4>🚫 UNBAN (Bỏ ban)</h4>
+                            <h4>🔓 UNBAN (Bỏ ban)</h4>
                             <p style="font-size: 0.9em; color: #6c757d; margin-bottom: 10px;">Mở khóa tài khoản bị ban</p>
                             <div class="admin-input-group">
                                 <input type="text" id="unbanUsername" placeholder="Tên người dùng">
@@ -1414,7 +1869,6 @@
                     <div class="task-body">
                         <p style="margin-bottom: 15px;">Chờ 30 giây để hoàn thành. <strong>Rời khỏi tab sẽ dừng đếm!</strong></p>
                         
-                        <!-- Paused Notice - Hiện khi rời tab -->
                         <div class="paused-notice" id="pausedNotice">
                             <h3>⏸️ Đã tạm dừng!</h3>
                             <p>Bạn đã rời khỏi tab. Đếm ngược đã dừng lại.</p>
@@ -1429,10 +1883,8 @@
                             <div id="countdownPrompt"></div>
                             <div class="countdown-area" id="countdownArea"></div>
                             
-                            <!-- Nút Bắt đầu (lần đầu) -->
                             <button class="btn" id="countdownStartBtn" onclick="startCountdown()" style="margin-top: 15px;">▶️ Bắt đầu đếm ngược</button>
                             
-                            <!-- Nút Restart (khi quay lại tab) -->
                             <button class="restart-btn" id="restartBtn" onclick="restartCountdown()">
                                 🔄 RESTART - Tiếp tục đếm
                             </button>
@@ -1455,6 +1907,9 @@
             </div>
         </div>
     </div>
+
+    <!-- Adblock bait elements (hidden) -->
+    <div class="adsbox ad-banner pub_300x250 pub_300x250_text pub_728x90_text" style="width:1px;height:1px;position:absolute;left:-9999px;top:-9999px;" id="adBait"></div>
 
     <script>
         // Firebase Configuration
@@ -1480,11 +1935,118 @@
         let userListener = null;
         let cooldownInterval = null;
 
+        // ============ NOTIFICATION SYSTEM ============
+        function showNotification(title, message, type = 'info', duration = 5000) {
+            const container = document.getElementById('notificationContainer');
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            
+            const icons = {
+                success: '✅',
+                error: '❌',
+                warning: '⚠️',
+                info: 'ℹ️'
+            };
+
+            notification.innerHTML = `
+                <div class="notification-icon">${icons[type] || 'ℹ️'}</div>
+                <div class="notification-body">
+                    <div class="notification-title">${title}</div>
+                    <div class="notification-message">${message}</div>
+                </div>
+                <button class="notification-close" onclick="closeNotification(this)">×</button>
+                <div class="notification-progress" style="animation-duration: ${duration}ms;"></div>
+            `;
+
+            container.appendChild(notification);
+
+            // Auto remove
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.classList.add('removing');
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            notification.remove();
+                        }
+                    }, 300);
+                }
+            }, duration);
+        }
+
+        function closeNotification(btn) {
+            const notification = btn.closest('.notification');
+            notification.classList.add('removing');
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 300);
+        }
+
+        // ============ ADBLOCK DETECTION ============
+        let adblockDetected = false;
+
+        function detectAdblock() {
+            return new Promise((resolve) => {
+                // Method 1: Check bait element
+                const bait = document.getElementById('adBait');
+                if (bait) {
+                    const baitStyle = window.getComputedStyle(bait);
+                    if (baitStyle.display === 'none' || baitStyle.visibility === 'hidden' || bait.offsetHeight === 0) {
+                        resolve(true);
+                        return;
+                    }
+                }
+
+                // Method 2: Check for blocked scripts/resources
+                const testImg = new Image();
+                testImg.onload = () => resolve(false);
+                testImg.onerror = () => resolve(true);
+                
+                // Try loading a known ad-related resource
+                testImg.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+                
+                // Method 3: Check for common adblock properties
+                setTimeout(() => {
+                    if (window.google_jobrunner || window.uabInject) {
+                        resolve(true);
+                    } else {
+                        resolve(false);
+                    }
+                }, 100);
+            });
+        }
+
+        async function checkAdblock() {
+            const detected = await detectAdblock();
+            if (detected) {
+                adblockDetected = true;
+                document.getElementById('adblockWarning').classList.add('active');
+                return true;
+            }
+            return false;
+        }
+
+        function retryAdblockCheck() {
+            document.getElementById('adblockWarning').classList.remove('active');
+            setTimeout(async () => {
+                const stillBlocked = await checkAdblock();
+                if (!stillBlocked) {
+                    showNotification('Thành công!', 'Adblock đã được tắt. Cảm ơn bạn!', 'success');
+                } else {
+                    document.getElementById('adblockWarning').classList.add('active');
+                }
+            }, 500);
+        }
+
         // ============ URL PARAMS CHECK ============
         const urlParams = new URLSearchParams(window.location.search);
         const linkToken = urlParams.get('link-token');
 
         window.onload = async function() {
+            // Check adblock first
+            await checkAdblock();
+            
             await initializeAdminAccount();
             
             if (linkToken) {
@@ -1505,6 +2067,11 @@
                     showMainInterface();
                     listenToUserData();
                     checkCooldown();
+                    
+                    // Show welcome notification
+                    setTimeout(() => {
+                        showNotification('Chào mừng!', `Xin chào ${currentUser.username}! Chúc bạn chơi game vui vẻ! 🐔`, 'success', 4000);
+                    }, 1000);
                 }
             }
         };
@@ -1516,17 +2083,16 @@
         let countdownTimer = null;
         let countdownSeconds = 30;
         let countdownPaused = false;
-        let countdownStopped = false; // Trạng thái dừng khi rời tab
+        let countdownStopped = false;
         let promptShown = false;
         let starShown = false;
-        let countdownStarted = false; // Đã bắt đầu đếm chưa
+        let countdownStarted = false;
 
         function openMissionPage() {
             document.getElementById('mainPage').style.display = 'none';
             document.getElementById('missionPage').classList.add('active');
             document.getElementById('missionUser').innerText = 'User: ' + currentUser.username;
             
-            // Get quest data from Firebase
             loadMissionData();
         }
 
@@ -1546,7 +2112,6 @@
                     return;
                 }
                 
-                // Display link for Task 1
                 const fullURL = buildQuestURL(missionData.token, missionData.ip, missionData.accountId);
                 document.getElementById('task1Link').innerText = fullURL;
                 
@@ -1594,7 +2159,6 @@
             currentTask = taskNum;
             updateProgress();
             
-            // Scroll to task
             document.getElementById('task' + taskNum + 'Card').scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
@@ -1604,11 +2168,11 @@
             const expected = buildQuestURL(missionData.token, missionData.ip, missionData.accountId);
             
             if (input === expected) {
-                alert('✅ Xác thực link thành công!');
+                showNotification('✅ Thành công!', 'Xác thực link thành công! Chuyển sang nhiệm vụ 2...', 'success', 3000);
                 activateTask(2);
                 startQuiz();
             } else {
-                alert('❌ Link không khớp! Vui lòng kiểm tra lại.');
+                showNotification('❌ Thất bại!', 'Link không khớp! Vui lòng kiểm tra lại.', 'error', 3000);
                 document.getElementById('task1Input').classList.add('error-flash');
                 setTimeout(() => {
                     document.getElementById('task1Input').classList.remove('error-flash');
@@ -1639,7 +2203,6 @@
                     answer = a * b;
                 }
                 
-                // Generate options
                 const options = new Set([answer]);
                 while (options.size < 4) {
                     const fake = answer + Math.floor(Math.random() * 10) - 5;
@@ -1704,7 +2267,6 @@
             } else {
                 btn.classList.add('wrong');
                 quizState.wrong++;
-                // Highlight correct answer
                 allOptions.forEach(o => {
                     if (parseInt(o.innerText) === q.answer) {
                         o.classList.add('correct');
@@ -1734,7 +2296,6 @@
             } else {
                 quizState.attempts++;
                 if (quizState.attempts >= 2) {
-                    // Redirect to YouTube Kids
                     resultDiv.innerHTML = `
                         <div style="background: #f8d7da; color: #721c24; padding: 30px; border-radius: 15px;">
                             <h3>😢 Rất tiếc!</h3>
@@ -1765,7 +2326,7 @@
         // ============ TASK 3: AD ============
         function completeTask3() {
             if (confirm('Bạn có chắc đã xem quảng cáo?')) {
-                alert('✅ Hoàn thành nhiệm vụ 3!');
+                showNotification('✅ Hoàn thành!', 'Nhiệm vụ 3 đã hoàn thành! Chuyển sang nhiệm vụ 4...', 'success', 3000);
                 activateTask(4);
             }
         }
@@ -1780,7 +2341,6 @@
             promptShown = false;
             starShown = false;
             
-            // Ẩn nút restart và paused notice
             document.getElementById('restartBtn').classList.remove('show');
             document.getElementById('pausedNotice').classList.remove('show');
             
@@ -1792,13 +2352,11 @@
                 countdownSeconds--;
                 updateCountdownDisplay();
                 
-                // Random pause between 25-20s
                 if (!promptShown && countdownSeconds >= 20 && countdownSeconds <= 25 && Math.random() < 0.3) {
                     pauseCountdownWithPrompt('👆 Hãy chạm vào màn hình để tiếp tục!');
                     promptShown = true;
                 }
                 
-                // Show star between 15-10s
                 if (!starShown && countdownSeconds >= 10 && countdownSeconds <= 15) {
                     showStar();
                     starShown = true;
@@ -1809,27 +2367,21 @@
                 }
             }, 1000);
             
-            // Detect tab visibility
             document.addEventListener('visibilitychange', handleVisibilityChange);
         }
 
-        // Hàm Restart - chạy tiếp từ giây hiện tại
         function restartCountdown() {
-            // Ẩn paused notice và restart button
             document.getElementById('pausedNotice').classList.remove('show');
             document.getElementById('restartBtn').classList.remove('show');
             
-            // Reset trạng thái
             countdownStopped = false;
             countdownPaused = false;
             
-            // Tiếp tục đếm (không reset về 30)
             console.log('Restart countdown from ' + countdownSeconds + 's');
         }
 
         function updateCountdownDisplay() {
             document.getElementById('countdownDisplay').innerText = countdownSeconds;
-            // Cập nhật thời gian trong paused notice
             document.getElementById('pausedTime').innerText = countdownSeconds;
         }
 
@@ -1840,7 +2392,6 @@
             promptDiv.innerText = message;
             promptDiv.style.display = 'block';
             
-            // Click anywhere to continue
             const area = document.getElementById('countdownArea');
             area.onclick = () => {
                 countdownPaused = false;
@@ -1855,7 +2406,6 @@
             star.className = 'star-target';
             star.innerText = '⭐';
             
-            // Random position
             const maxX = area.clientWidth - 60;
             const maxY = area.clientHeight - 60;
             star.style.left = Math.max(10, Math.random() * maxX) + 'px';
@@ -1877,36 +2427,28 @@
             
             area.appendChild(star);
             
-            // Add prompt
             const promptDiv = document.getElementById('countdownPrompt');
             promptDiv.className = 'countdown-prompt';
             promptDiv.innerText = '⭐ Tìm và nhấn vào ngôi sao!';
             promptDiv.style.display = 'block';
         }
 
-        // Xử lý khi rời/vào lại tab
         function handleVisibilityChange() {
             if (!countdownStarted || countdownSeconds <= 0) return;
             
             if (document.hidden) {
-                // Rời tab → DỪNG đếm
                 countdownStopped = true;
                 
-                // Ẩn countdown area, hiện paused notice và nút restart
                 document.getElementById('countdownArea').style.display = 'none';
                 document.getElementById('countdownPrompt').style.display = 'none';
                 document.getElementById('countdownDisplay').style.opacity = '0.3';
                 
-                // Hiện paused notice với thời gian còn lại
                 document.getElementById('pausedTime').innerText = countdownSeconds;
                 document.getElementById('pausedNotice').classList.add('show');
                 
-                // Hiện nút restart
                 document.getElementById('restartBtn').classList.add('show');
                 
             } else {
-                // Vào lại tab → KHÔNG tự động chạy, chờ user ấn Restart
-                // Giữ nguyên trạng thái stopped, user phải ấn nút Restart
                 console.log('Tab visible again. Waiting for restart...');
             }
         }
@@ -1915,24 +2457,19 @@
             clearInterval(countdownTimer);
             document.removeEventListener('visibilitychange', handleVisibilityChange);
             
-            // Mark quest as used
             await database.ref('quests/' + currentUser.username + '/used').set(true);
             await database.ref('quests/' + currentUser.username + '/completedAt').set(Date.now());
             
-            // Add 1 ChickenP
             const pointsRef = database.ref('users/' + currentUser.username + '/points');
             await pointsRef.transaction((current) => (current || 0) + 1);
             
-            // Update stats
             await database.ref('users/' + currentUser.username).update({
                 totalEarned: firebase.database.ServerValue.increment(1),
                 earnCount: firebase.database.ServerValue.increment(1)
             });
             
-            // Set cooldown
             await database.ref('cooldowns/' + currentUser.username).set(Date.now() + 60000);
             
-            // Show completion
             document.querySelectorAll('.task-card').forEach(c => {
                 c.className = 'task-card completed';
             });
@@ -1945,7 +2482,6 @@
             
             document.getElementById('missionComplete').style.display = 'block';
             
-            // Show reward popup
             const reward = document.createElement('div');
             reward.className = 'reward-popup';
             reward.innerHTML = '🎉 +1 ChickenP!';
@@ -1953,7 +2489,6 @@
             
             setTimeout(() => {
                 reward.remove();
-                // Try to close tab or redirect
                 if (window.opener) {
                     window.close();
                 } else {
@@ -2122,11 +2657,38 @@
             }
             
             updateUserInfo();
+            updateProfile();
         }
 
         function updateUserInfo() {
             const points = parseFloat(currentUser.points) || 0;
             document.getElementById('userPoints').innerText = points.toLocaleString();
+        }
+
+        function updateProfile() {
+            if (!currentUser) return;
+            
+            // Avatar - first letter of username
+            const avatar = document.getElementById('profileAvatar');
+            avatar.innerText = currentUser.username.charAt(0).toUpperCase();
+            
+            // Name
+            document.getElementById('profileName').innerText = currentUser.username;
+            
+            // Join date
+            const joinDate = currentUser.createdAt ? new Date(currentUser.createdAt).toLocaleDateString('vi-VN') : 'N/A';
+            document.getElementById('profileJoinDate').innerText = `📅 Tham gia: ${joinDate}`;
+            
+            // Stats
+            document.getElementById('statPoints').innerText = (parseFloat(currentUser.points) || 0).toLocaleString();
+            document.getElementById('statEarned').innerText = (currentUser.totalEarned || 0).toLocaleString();
+            document.getElementById('statQuests').innerText = (currentUser.earnCount || 0).toLocaleString();
+            
+            // Role
+            let role = '👤 Member';
+            if (currentUser.isRootAdmin) role = '🔥 Root Admin';
+            else if (currentUser.isAdmin) role = '👑 Admin';
+            document.getElementById('statRole').innerText = role;
         }
 
         function listenToUserData() {
@@ -2141,6 +2703,7 @@
                     currentUser = { username: currentUser.username, ...userData };
                     localStorage.setItem('currentUser', JSON.stringify(currentUser));
                     updateUserInfo();
+                    updateProfile();
                     
                     document.getElementById('adminBadge').style.display = currentUser.isAdmin ? 'inline-block' : 'none';
                     document.getElementById('rootAdminBadge').style.display = currentUser.isRootAdmin ? 'inline-block' : 'none';
@@ -2185,6 +2748,7 @@
                 if (remaining <= 0) {
                     clearInterval(cooldownInterval);
                     showQuestButton();
+                    showNotification('⏰ Sẵn sàng!', 'Cooldown đã kết thúc. Bạn có thể làm quest mới!', 'info', 3000);
                 }
             }, 1000);
         }
@@ -2197,7 +2761,6 @@
         // ============ START QUEST ============
         async function startQuest() {
             try {
-                // Get IP
                 let deviceIP = 'unknown';
                 try {
                     const response = await fetch('https://api.ipify.org?format=json');
@@ -2224,26 +2787,26 @@
                 
                 await database.ref('quests/' + currentUser.username).set(questData);
                 
-                // Open mission page in new tab
                 const missionURL = window.location.origin + window.location.pathname + '?link-token=2020:XLY=' + token;
                 const newTab = window.open(missionURL, '_blank');
                 
                 if (!newTab) {
-                    alert('Trình duyệt đã chặn tab mới. Vui lòng cho phép mở tab mới và thử lại.');
+                    showNotification('❌ Lỗi!', 'Trình duyệt đã chặn tab mới. Vui lòng cho phép mở tab mới và thử lại.', 'error', 5000);
+                } else {
+                    showNotification('🎯 Quest bắt đầu!', 'Nhiệm vụ mới đã được mở trong tab mới. Chúc bạn hoàn thành!', 'success', 4000);
                 }
                 
-                // Start cooldown immediately (60s)
                 await database.ref('cooldowns/' + currentUser.username).set(Date.now() + 60000);
                 startCooldownDisplay(60);
                 
             } catch (error) {
-                alert('Lỗi khi bắt đầu nhiệm vụ: ' + error.message);
+                showNotification('❌ Lỗi!', 'Lỗi khi bắt đầu nhiệm vụ: ' + error.message, 'error', 5000);
             }
         }
 
         function showTab(tabName, event) {
             if (tabName === 'admin' && !currentUser.isAdmin) {
-                alert('Bạn không có quyền truy cập!');
+                showNotification('❌ Truy cập bị từ chối!', 'Bạn không có quyền truy cập trang Admin!', 'error', 3000);
                 return;
             }
 
@@ -2272,7 +2835,7 @@
 
         async function buyItem(itemName, price) {
             if (currentUser.points < price) {
-                alert('Không đủ ChickenP để mua!');
+                showNotification('❌ Không đủ!', 'Không đủ ChickenP để mua vật phẩm này!', 'error', 3000);
                 return;
             }
 
@@ -2280,12 +2843,12 @@
                 try {
                     const result = await subtractPointsSafely(currentUser.username, price);
                     if (result.committed) {
-                        alert(`Mua ${itemName} thành công! 🎉`);
+                        showNotification('🎉 Mua thành công!', `Bạn đã mua ${itemName} thành công!`, 'success', 4000);
                     } else {
-                        alert('Không đủ ChickenP!');
+                        showNotification('❌ Thất bại!', 'Không đủ ChickenP!', 'error', 3000);
                     }
                 } catch (error) {
-                    alert('Lỗi khi mua: ' + error.message);
+                    showNotification('❌ Lỗi!', 'Lỗi khi mua: ' + error.message, 'error', 3000);
                 }
             }
         }
@@ -2316,7 +2879,7 @@
 
         async function setMultiplier() {
             if (!currentUser.isRootAdmin) {
-                alert('Chỉ Root Admin mới có thể thay đổi hệ số nhân!');
+                showNotification('❌ Không có quyền!', 'Chỉ Root Admin mới có thể thay đổi hệ số nhân!', 'error', 3000);
                 return;
             }
 
@@ -2324,82 +2887,182 @@
             showConfirm('Xác nhận thay đổi hệ số nhân', `Bạn có chắc muốn đặt hệ số nhân thành ${value}x?`, async () => {
                 try {
                     await database.ref('config/globalMultiplier').set(value);
-                    alert('✅ Đã cập nhật hệ số nhân thành ' + value + 'x');
+                    showNotification('✅ Thành công!', `Đã cập nhật hệ số nhân thành ${value}x`, 'success', 3000);
                     loadMultiplier();
                 } catch (error) {
-                    alert('Lỗi: ' + error.message);
+                    showNotification('❌ Lỗi!', error.message, 'error', 3000);
+                }
+            });
+        }
+
+        // ============ BAN USER FUNCTION ============
+        function banUser() {
+            const username = document.getElementById('banUsername').value.trim();
+            if (!username) {
+                showNotification('❌ Lỗi!', 'Vui lòng nhập tên người dùng cần BAN!', 'error', 3000);
+                return;
+            }
+
+            // Can't ban yourself
+            if (username === currentUser.username) {
+                showNotification('❌ Lỗi!', 'Bạn không thể BAN chính mình!', 'error', 3000);
+                return;
+            }
+
+            // Can't ban root admin
+            if (username === ROOT_ADMIN_USERNAME) {
+                showNotification('❌ Lỗi!', 'Không thể BAN Root Admin!', 'error', 3000);
+                return;
+            }
+
+            showConfirm('🚫 BAN User', `Bạn có chắc muốn BAN tài khoản "${username}"?`, async () => {
+                try {
+                    const snapshot = await database.ref('users/' + username).once('value');
+                    if (!snapshot.exists()) {
+                        showNotification('❌ Không tìm thấy!', `Không tìm thấy người dùng "${username}"!`, 'error', 3000);
+                        return;
+                    }
+
+                    const targetUser = snapshot.val();
+
+                    // Check if target is admin
+                    if (targetUser.isAdmin) {
+                        // Only root admin can ban other admins
+                        if (!currentUser.isRootAdmin) {
+                            showNotification('❌ Không có quyền!', 
+                                `Admin thường không thể BAN admin khác! "${username}" là Admin. Chỉ Root Admin mới có quyền này.`, 
+                                'error', 5000);
+                            return;
+                        }
+                    }
+
+                    // Perform BAN
+                    await database.ref('users/' + username + '/banned').set(true);
+                    
+                    // Log the ban action
+                    await database.ref('adminLogs/bans').push({
+                        bannedUser: username,
+                        bannedBy: currentUser.username,
+                        timestamp: Date.now(),
+                        reason: 'Admin action'
+                    });
+
+                    showNotification('🚫 BAN thành công!', 
+                        `Đã BAN tài khoản "${username}" thành công!`, 
+                        'warning', 5000);
+                    
+                    document.getElementById('banUsername').value = '';
+
+                } catch (error) {
+                    showNotification('❌ Lỗi!', 'Lỗi khi BAN: ' + error.message, 'error', 3000);
                 }
             });
         }
 
         function unwarnUser() {
             const username = document.getElementById('unwarnUsername').value.trim();
-            if (!username) { alert('Vui lòng nhập tên người dùng!'); return; }
+            if (!username) {
+                showNotification('❌ Lỗi!', 'Vui lòng nhập tên người dùng!', 'error', 3000);
+                return;
+            }
 
             showConfirm('UNWARN User', `Bạn có chắc muốn bỏ cảnh báo cho ${username}?`, async () => {
                 try {
                     const snapshot = await database.ref('users/' + username).once('value');
-                    if (!snapshot.exists()) { alert('❌ Không tìm thấy người dùng!'); return; }
+                    if (!snapshot.exists()) {
+                        showNotification('❌ Không tìm thấy!', 'Không tìm thấy người dùng!', 'error', 3000);
+                        return;
+                    }
                     await database.ref('users/' + username + '/warned').set(false);
-                    alert('✅ Đã UNWARN thành công!');
+                    showNotification('✅ Thành công!', `Đã UNWARN thành công cho "${username}"!`, 'success', 3000);
                     document.getElementById('unwarnUsername').value = '';
                 } catch (error) {
-                    alert('Lỗi: ' + error.message);
+                    showNotification('❌ Lỗi!', error.message, 'error', 3000);
                 }
             });
         }
 
         function unbanUser() {
             const username = document.getElementById('unbanUsername').value.trim();
-            if (!username) { alert('Vui lòng nhập tên người dùng!'); return; }
+            if (!username) {
+                showNotification('❌ Lỗi!', 'Vui lòng nhập tên người dùng!', 'error', 3000);
+                return;
+            }
 
             showConfirm('UNBAN User', `Bạn có chắc muốn bỏ BAN cho ${username}?`, async () => {
                 try {
                     const snapshot = await database.ref('users/' + username).once('value');
-                    if (!snapshot.exists()) { alert('❌ Không tìm thấy người dùng!'); return; }
+                    if (!snapshot.exists()) {
+                        showNotification('❌ Không tìm thấy!', 'Không tìm thấy người dùng!', 'error', 3000);
+                        return;
+                    }
                     await database.ref('users/' + username + '/banned').set(false);
-                    alert('✅ Đã UNBAN thành công!');
+                    showNotification('✅ Thành công!', `Đã UNBAN thành công cho "${username}"!`, 'success', 3000);
                     document.getElementById('unbanUsername').value = '';
                 } catch (error) {
-                    alert('Lỗi: ' + error.message);
+                    showNotification('❌ Lỗi!', error.message, 'error', 3000);
                 }
             });
         }
 
         function addAdmin() {
-            if (!currentUser.isRootAdmin) { alert('Chỉ Root Admin mới có thể thêm Admin!'); return; }
+            if (!currentUser.isRootAdmin) {
+                showNotification('❌ Không có quyền!', 'Chỉ Root Admin mới có thể thêm Admin!', 'error', 3000);
+                return;
+            }
             const username = document.getElementById('addAdminUsername').value.trim();
-            if (!username) { alert('Vui lòng nhập tên người dùng!'); return; }
-            if (username === ROOT_ADMIN_USERNAME) { alert('Không thể thêm Root Admin!'); return; }
+            if (!username) {
+                showNotification('❌ Lỗi!', 'Vui lòng nhập tên người dùng!', 'error', 3000);
+                return;
+            }
+            if (username === ROOT_ADMIN_USERNAME) {
+                showNotification('❌ Lỗi!', 'Không thể thêm Root Admin!', 'error', 3000);
+                return;
+            }
 
             showConfirm('ADD ADMIN', `Bạn có chắc muốn cấp quyền ADMIN cho ${username}?`, async () => {
                 try {
                     const snapshot = await database.ref('users/' + username).once('value');
-                    if (!snapshot.exists()) { alert('❌ Không tìm thấy người dùng!'); return; }
+                    if (!snapshot.exists()) {
+                        showNotification('❌ Không tìm thấy!', 'Không tìm thấy người dùng!', 'error', 3000);
+                        return;
+                    }
                     await database.ref('users/' + username).update({ isAdmin: true, isRootAdmin: false });
-                    alert('✅ Đã thêm ADMIN thành công!');
+                    showNotification('✅ Thành công!', `Đã thêm ADMIN cho "${username}" thành công!`, 'success', 3000);
                     document.getElementById('addAdminUsername').value = '';
                 } catch (error) {
-                    alert('Lỗi: ' + error.message);
+                    showNotification('❌ Lỗi!', error.message, 'error', 3000);
                 }
             });
         }
 
         function unadminUser() {
-            if (!currentUser.isRootAdmin) { alert('Chỉ Root Admin mới có thể gỡ quyền Admin!'); return; }
+            if (!currentUser.isRootAdmin) {
+                showNotification('❌ Không có quyền!', 'Chỉ Root Admin mới có thể gỡ quyền Admin!', 'error', 3000);
+                return;
+            }
             const username = document.getElementById('unadminUsername').value.trim();
-            if (!username) { alert('Vui lòng nhập tên admin!'); return; }
-            if (username === ROOT_ADMIN_USERNAME) { alert('Không thể gỡ quyền Root Admin!'); return; }
+            if (!username) {
+                showNotification('❌ Lỗi!', 'Vui lòng nhập tên admin!', 'error', 3000);
+                return;
+            }
+            if (username === ROOT_ADMIN_USERNAME) {
+                showNotification('❌ Lỗi!', 'Không thể gỡ quyền Root Admin!', 'error', 3000);
+                return;
+            }
 
             showConfirm('UNADMIN', `Bạn có chắc muốn gỡ quyền ADMIN của ${username}?`, async () => {
                 try {
                     const snapshot = await database.ref('users/' + username).once('value');
-                    if (!snapshot.exists()) { alert('❌ Không tìm thấy người dùng!'); return; }
+                    if (!snapshot.exists()) {
+                        showNotification('❌ Không tìm thấy!', 'Không tìm thấy người dùng!', 'error', 3000);
+                        return;
+                    }
                     await database.ref('users/' + username).update({ isAdmin: false, isRootAdmin: false });
-                    alert('✅ Đã gỡ quyền ADMIN thành công!');
+                    showNotification('✅ Thành công!', `Đã gỡ quyền ADMIN của "${username}" thành công!`, 'success', 3000);
                     document.getElementById('unadminUsername').value = '';
                 } catch (error) {
-                    alert('Lỗi: ' + error.message);
+                    showNotification('❌ Lỗi!', error.message, 'error', 3000);
                 }
             });
         }
@@ -2407,24 +3070,30 @@
         function giftPoints() {
             const username = document.getElementById('giftUsername').value.trim();
             const amountStr = document.getElementById('giftAmount').value.trim();
-            if (!username || !amountStr) { alert('Vui lòng nhập đầy đủ thông tin!'); return; }
+            if (!username || !amountStr) {
+                showNotification('❌ Lỗi!', 'Vui lòng nhập đầy đủ thông tin!', 'error', 3000);
+                return;
+            }
 
             const amount = parseFloat(amountStr);
             if (isNaN(amount) || amount < 0.00000000000000000000001 || amount > 100000) {
-                alert('Số ChickenP phải từ 0.00000000000000000000001 đến 100000!');
+                showNotification('❌ Lỗi!', 'Số ChickenP phải từ 0.00000000000000000000001 đến 100000!', 'error', 3000);
                 return;
             }
 
             showConfirm('GIFT ChickenP', `Bạn có chắc muốn tặng ${amount.toLocaleString()} ChickenP cho ${username}?`, async () => {
                 try {
                     const snapshot = await database.ref('users/' + username).once('value');
-                    if (!snapshot.exists()) { alert('❌ Không tìm thấy người dùng!'); return; }
+                    if (!snapshot.exists()) {
+                        showNotification('❌ Không tìm thấy!', 'Không tìm thấy người dùng!', 'error', 3000);
+                        return;
+                    }
                     await addPointsSafely(username, amount);
-                    alert(`✅ Đã tặng ${amount.toLocaleString()} ChickenP cho ${username}!`);
+                    showNotification('🎁 Thành công!', `Đã tặng ${amount.toLocaleString()} ChickenP cho "${username}"!`, 'success', 4000);
                     document.getElementById('giftUsername').value = '';
                     document.getElementById('giftAmount').value = '';
                 } catch (error) {
-                    alert('Lỗi: ' + error.message);
+                    showNotification('❌ Lỗi!', error.message, 'error', 3000);
                 }
             });
         }
@@ -2454,8 +3123,4 @@
         }
     </script>
 </body>
-</html> giữ nguyên  Update thêm cái ở tab admin thêm cái tên BAN ở đây nhập tên và xác nhận và rồi ban ng đó ! (và nó sẽ ko ban đc admin nếu mấy admin đc thêm ban admin khác sẽ ko đc ! nhưng nếu root ban admin thì đc ) update thêm cái notify kiểu riếng của web
-
-update cái tính năng chính ✅ Kiếm điểm: Hoàn thành quest để nhận ChickenP
-🛍️ Shop: Mua sắm vật phẩm với ChickenP và add thêm cái phần tên 
-UPDATE LOGở đây bạn sẽ điền những cái đã update mói   nếu web phát hiện adblock nó sẽ hiên nên thông báo  Please disable any ad-blocking extensions/tools! - Vui lòng tắt mọi tiện ích/công cụ chặn quảng cáo! nếu xác minh đc adblock thì đưa ra ! 
+</html>
