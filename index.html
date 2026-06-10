@@ -974,6 +974,65 @@
             overflow: hidden;
         }
 
+        /* Restart Button - Nút Restart khi quay lại tab */
+        .restart-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            border-radius: 15px;
+            font-size: 1.5em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 20px 0;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            display: none;
+        }
+
+        .restart-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.6);
+        }
+
+        .restart-btn.show {
+            display: inline-block;
+            animation: popIn 0.5s;
+        }
+
+        .paused-notice {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+            padding: 25px;
+            border-radius: 15px;
+            border: 3px solid #ffc107;
+            margin: 20px 0;
+            display: none;
+            animation: popIn 0.5s;
+        }
+
+        .paused-notice.show {
+            display: block;
+        }
+
+        .paused-notice h3 {
+            color: #856404;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .paused-notice p {
+            color: #856404;
+            font-size: 1.1em;
+            margin: 10px 0;
+        }
+
+        .paused-notice .time-remaining {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 15px 0;
+        }
+
         /* Reward animation */
         .reward-popup {
             position: fixed;
@@ -1024,6 +1083,7 @@
             .quiz-question { font-size: 1.3em; }
             .tab-content { padding: 20px; }
             .mission-body { padding: 20px; }
+            .restart-btn { font-size: 1.2em; padding: 15px 30px; }
         }
     </style>
 </head>
@@ -1352,12 +1412,30 @@
                         <span class="task-status status-locked" id="task4Status">Chưa mở</span>
                     </div>
                     <div class="task-body">
-                        <p style="margin-bottom: 15px;">Chờ 30 giây để hoàn thành. <strong>Đừng rời khỏi tab này!</strong></p>
-                        <div class="countdown-container">
+                        <p style="margin-bottom: 15px;">Chờ 30 giây để hoàn thành. <strong>Rời khỏi tab sẽ dừng đếm!</strong></p>
+                        
+                        <!-- Paused Notice - Hiện khi rời tab -->
+                        <div class="paused-notice" id="pausedNotice">
+                            <h3>⏸️ Đã tạm dừng!</h3>
+                            <p>Bạn đã rời khỏi tab. Đếm ngược đã dừng lại.</p>
+                            <div class="time-remaining">
+                                Còn lại: <span id="pausedTime">30</span> giây
+                            </div>
+                            <p>Nhấn nút bên dưới để tiếp tục!</p>
+                        </div>
+                        
+                        <div class="countdown-container" id="countdownContainer">
                             <div class="countdown-display" id="countdownDisplay">30</div>
                             <div id="countdownPrompt"></div>
                             <div class="countdown-area" id="countdownArea"></div>
+                            
+                            <!-- Nút Bắt đầu (lần đầu) -->
                             <button class="btn" id="countdownStartBtn" onclick="startCountdown()" style="margin-top: 15px;">▶️ Bắt đầu đếm ngược</button>
+                            
+                            <!-- Nút Restart (khi quay lại tab) -->
+                            <button class="restart-btn" id="restartBtn" onclick="restartCountdown()">
+                                🔄 RESTART - Tiếp tục đếm
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -1438,8 +1516,10 @@
         let countdownTimer = null;
         let countdownSeconds = 30;
         let countdownPaused = false;
+        let countdownStopped = false; // Trạng thái dừng khi rời tab
         let promptShown = false;
         let starShown = false;
+        let countdownStarted = false; // Đã bắt đầu đếm chưa
 
         function openMissionPage() {
             document.getElementById('mainPage').style.display = 'none';
@@ -1695,13 +1775,19 @@
             document.getElementById('countdownStartBtn').style.display = 'none';
             countdownSeconds = 30;
             countdownPaused = false;
+            countdownStopped = false;
+            countdownStarted = true;
             promptShown = false;
             starShown = false;
+            
+            // Ẩn nút restart và paused notice
+            document.getElementById('restartBtn').classList.remove('show');
+            document.getElementById('pausedNotice').classList.remove('show');
             
             updateCountdownDisplay();
             
             countdownTimer = setInterval(() => {
-                if (countdownPaused) return;
+                if (countdownPaused || countdownStopped) return;
                 
                 countdownSeconds--;
                 updateCountdownDisplay();
@@ -1727,8 +1813,24 @@
             document.addEventListener('visibilitychange', handleVisibilityChange);
         }
 
+        // Hàm Restart - chạy tiếp từ giây hiện tại
+        function restartCountdown() {
+            // Ẩn paused notice và restart button
+            document.getElementById('pausedNotice').classList.remove('show');
+            document.getElementById('restartBtn').classList.remove('show');
+            
+            // Reset trạng thái
+            countdownStopped = false;
+            countdownPaused = false;
+            
+            // Tiếp tục đếm (không reset về 30)
+            console.log('Restart countdown from ' + countdownSeconds + 's');
+        }
+
         function updateCountdownDisplay() {
             document.getElementById('countdownDisplay').innerText = countdownSeconds;
+            // Cập nhật thời gian trong paused notice
+            document.getElementById('pausedTime').innerText = countdownSeconds;
         }
 
         function pauseCountdownWithPrompt(message) {
@@ -1782,9 +1884,30 @@
             promptDiv.style.display = 'block';
         }
 
+        // Xử lý khi rời/vào lại tab
         function handleVisibilityChange() {
-            if (document.hidden && countdownTimer && countdownSeconds > 0) {
-                countdownPaused = true;
+            if (!countdownStarted || countdownSeconds <= 0) return;
+            
+            if (document.hidden) {
+                // Rời tab → DỪNG đếm
+                countdownStopped = true;
+                
+                // Ẩn countdown area, hiện paused notice và nút restart
+                document.getElementById('countdownArea').style.display = 'none';
+                document.getElementById('countdownPrompt').style.display = 'none';
+                document.getElementById('countdownDisplay').style.opacity = '0.3';
+                
+                // Hiện paused notice với thời gian còn lại
+                document.getElementById('pausedTime').innerText = countdownSeconds;
+                document.getElementById('pausedNotice').classList.add('show');
+                
+                // Hiện nút restart
+                document.getElementById('restartBtn').classList.add('show');
+                
+            } else {
+                // Vào lại tab → KHÔNG tự động chạy, chờ user ấn Restart
+                // Giữ nguyên trạng thái stopped, user phải ấn nút Restart
+                console.log('Tab visible again. Waiting for restart...');
             }
         }
 
