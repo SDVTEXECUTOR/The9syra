@@ -265,95 +265,6 @@
             transform: scale(1.05);
         }
 
-        /* ============ CUSTOM NOTIFICATION SYSTEM ============ */
-        .notify-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 10000;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            max-width: 400px;
-        }
-
-        .notify-item {
-            background: white;
-            padding: 15px 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            min-width: 300px;
-            animation: slideInRight 0.4s;
-            border-left: 5px solid #667eea;
-        }
-
-        .notify-item.success {
-            border-left-color: #28a745;
-        }
-
-        .notify-item.error {
-            border-left-color: #dc3545;
-        }
-
-        .notify-item.warning {
-            border-left-color: #ffc107;
-        }
-
-        .notify-item.info {
-            border-left-color: #17a2b8;
-        }
-
-        .notify-icon {
-            font-size: 1.5em;
-            flex-shrink: 0;
-        }
-
-        .notify-content {
-            flex: 1;
-        }
-
-        .notify-title {
-            font-weight: bold;
-            margin-bottom: 3px;
-            color: #212529;
-        }
-
-        .notify-message {
-            color: #495057;
-            font-size: 0.95em;
-        }
-
-        .notify-close {
-            background: none;
-            border: none;
-            font-size: 1.3em;
-            cursor: pointer;
-            color: #6c757d;
-            padding: 0;
-            line-height: 1;
-        }
-
-        .notify-close:hover {
-            color: #dc3545;
-        }
-
-        @keyframes slideInRight {
-            from { transform: translateX(400px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        .notify-item.hiding {
-            animation: slideOutRight 0.4s forwards;
-        }
-
-        @keyframes slideOutRight {
-            to { transform: translateX(400px); opacity: 0; }
-        }
-
-        /* ============ ALERT STYLES ============ */
         .alert {
             padding: 15px;
             border-radius: 8px;
@@ -435,41 +346,75 @@
             cursor: not-allowed;
         }
 
-        .quest-info {
-            background: #e7f3ff;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-            border-left: 4px solid #0066cc;
+        .quest-link-box {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 3px solid #667eea;
+            display: none;
             text-align: left;
         }
 
-        .quest-info strong {
-            color: #0066cc;
+        .quest-link-box.show {
+            display: block;
+            animation: popIn 0.5s;
         }
 
-        .success-box {
-            background: #d4edda;
-            color: #155724;
-            padding: 30px;
-            border-radius: 15px;
-            margin-top: 20px;
-            border: 2px solid #c3e6cb;
-        }
-
-        .success-box h3 {
-            color: #155724;
-            font-size: 2em;
-            margin-bottom: 15px;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 20px;
-            color: #6c757d;
+        .quest-link {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+            margin: 15px 0;
+            border: 2px solid #667eea;
             font-size: 0.9em;
+            line-height: 1.5;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .quest-link-label {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .copy-btn {
+            background: #17a2b8;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #138496;
+            transform: translateY(-2px);
+        }
+
+        .verify-box {
             background: #f8f9fa;
-            border-top: 1px solid #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px dashed #667eea;
+        }
+
+        .verify-box input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
         }
 
         /* Warning Modal */
@@ -573,15 +518,6 @@
             transform: translateY(-2px);
         }
 
-        .admin-btn.danger {
-            background: #dc3545;
-            color: white;
-        }
-
-        .admin-btn.danger:hover {
-            background: #c82333;
-        }
-
         .multiplier-display {
             background: #667eea;
             color: white;
@@ -628,8 +564,13 @@
             color: white;
         }
 
-        .confirm-yes:hover { background: #218838; }
-        .confirm-no:hover { background: #c82333; }
+        .confirm-yes:hover {
+            background: #218838;
+        }
+
+        .confirm-no:hover {
+            background: #c82333;
+        }
 
         @keyframes popIn {
             from { transform: scale(0.8); opacity: 0; }
@@ -654,77 +595,61 @@
             font-weight: bold;
         }
 
-        .badge-admin { background: #ffc107; color: #856404; }
-        .badge-root { background: #ff416c; color: white; }
-        .badge-warned { background: #fd7e14; color: white; }
-        .badge-banned { background: #dc3545; color: white; }
+        .badge-admin {
+            background: #ffc107;
+            color: #856404;
+        }
 
-        .cooldown-display {
-            background: linear-gradient(135deg, #6c757d, #495057);
+        .badge-root {
+            background: #ff416c;
             color: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            font-size: 1.3em;
-            margin: 20px 0;
         }
 
-        .cooldown-display .time {
-            font-size: 2em;
-            font-weight: bold;
-            color: #ffc107;
-            font-family: 'Courier New', monospace;
+        .badge-warned {
+            background: #fd7e14;
+            color: white;
         }
 
-        /* ============ UPDATE LOG STYLES ============ */
-        .update-log {
-            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
-            padding: 25px;
-            border-radius: 15px;
-            margin-top: 30px;
-            border: 2px solid #667eea;
+        .badge-banned {
+            background: #dc3545;
+            color: white;
         }
 
-        .update-log h3 {
-            color: #4a148c;
-            margin-bottom: 15px;
-            font-size: 1.5em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .update-log-item {
-            background: white;
-            padding: 12px 15px;
+        .quest-info {
+            background: #e7f3ff;
+            padding: 15px;
             border-radius: 8px;
-            margin-bottom: 10px;
-            border-left: 4px solid #667eea;
-            display: flex;
-            gap: 10px;
-            align-items: flex-start;
+            margin: 15px 0;
+            border-left: 4px solid #0066cc;
+            text-align: left;
         }
 
-        .update-log-item .version {
-            background: #667eea;
-            color: white;
-            padding: 3px 10px;
-            border-radius: 5px;
-            font-size: 0.85em;
-            font-weight: bold;
-            white-space: nowrap;
+        .quest-info strong {
+            color: #0066cc;
         }
 
-        .update-log-item .desc {
-            color: #495057;
-            flex: 1;
+        .success-box {
+            background: #d4edda;
+            color: #155724;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border: 2px solid #c3e6cb;
         }
 
-        .update-log-item .date {
+        .success-box h3 {
+            color: #155724;
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
             color: #6c757d;
-            font-size: 0.85em;
-            font-style: italic;
-            white-space: nowrap;
+            font-size: 0.9em;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
         }
 
         /* ============ MISSION PAGE STYLES ============ */
@@ -834,9 +759,25 @@
             font-weight: bold;
         }
 
-        .status-active { background: #667eea; color: white; }
-        .status-done { background: #28a745; color: white; }
-        .status-locked { background: #6c757d; color: white; }
+        .status-pending {
+            background: #ffc107;
+            color: #856404;
+        }
+
+        .status-active {
+            background: #667eea;
+            color: white;
+        }
+
+        .status-done {
+            background: #28a745;
+            color: white;
+        }
+
+        .status-locked {
+            background: #6c757d;
+            color: white;
+        }
 
         .task-body {
             display: none;
@@ -849,6 +790,7 @@
             display: block;
         }
 
+        /* Task 1: Verify Link */
         .link-verify-box {
             background: white;
             padding: 20px;
@@ -866,6 +808,7 @@
             margin-bottom: 10px;
         }
 
+        /* Task 2: Quiz */
         .quiz-container {
             background: white;
             padding: 25px;
@@ -925,7 +868,9 @@
             border-radius: 8px;
         }
 
-        .quiz-stat { text-align: center; }
+        .quiz-stat {
+            text-align: center;
+        }
 
         .quiz-stat-value {
             font-size: 2em;
@@ -938,6 +883,7 @@
             color: #6c757d;
         }
 
+        /* Task 3: Ad */
         .ad-container {
             background: white;
             padding: 25px;
@@ -966,6 +912,12 @@
             margin-bottom: 10px;
         }
 
+        .ad-box p {
+            color: #2d3436;
+            font-size: 1.1em;
+        }
+
+        /* Task 4: Countdown */
         .countdown-container {
             background: white;
             padding: 40px;
@@ -1022,40 +974,7 @@
             overflow: hidden;
         }
 
-        .power-btn {
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
-            color: white;
-            border: 4px solid white;
-            font-size: 2em;
-            cursor: pointer;
-            box-shadow: 0 5px 20px rgba(255, 65, 108, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: powerPulse 1.5s infinite;
-            z-index: 101;
-            transition: transform 0.2s;
-        }
-
-        .power-btn:hover {
-            transform: scale(1.1);
-        }
-
-        @keyframes powerPulse {
-            0%, 100% { 
-                box-shadow: 0 5px 20px rgba(255, 65, 108, 0.5);
-                transform: scale(1);
-            }
-            50% { 
-                box-shadow: 0 5px 30px rgba(255, 65, 108, 0.9);
-                transform: scale(1.05);
-            }
-        }
-
+        /* Restart Button - Nút Restart khi quay lại tab */
         .restart-btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -1091,7 +1010,9 @@
             animation: popIn 0.5s;
         }
 
-        .paused-notice.show { display: block; }
+        .paused-notice.show {
+            display: block;
+        }
 
         .paused-notice h3 {
             color: #856404;
@@ -1112,6 +1033,7 @@
             margin: 15px 0;
         }
 
+        /* Reward animation */
         .reward-popup {
             position: fixed;
             top: 50%;
@@ -1135,6 +1057,23 @@
             100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
 
+        .cooldown-display {
+            background: linear-gradient(135deg, #6c757d, #495057);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.3em;
+            margin: 20px 0;
+        }
+
+        .cooldown-display .time {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ffc107;
+            font-family: 'Courier New', monospace;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .header h1 { font-size: 1.8em; }
@@ -1145,210 +1084,380 @@
             .tab-content { padding: 20px; }
             .mission-body { padding: 20px; }
             .restart-btn { font-size: 1.2em; padding: 15px 30px; }
-            .notify-container { max-width: calc(100% - 40px); right: 20px; left: 20px; }
-            .notify-item { min-width: auto; }
         }
     </style>
 </head>
 <body>
-    <!-- Notification Container -->
-    <div class="notify-container" id="notifyContainer"></div>
+    <!-- ============ MAIN PAGE ============ -->
+    <div id="mainPage">
+        <!-- Modal Đăng nhập/Đăng ký -->
+        <div id="loginModal" class="modal active">
+            <div class="modal-content">
+                <h2 id="modalTitle">Đăng nhập / đăng kí để bắt đầu !</h2>
+                <div id="alertBox" class="alert"></div>
+                
+                <div id="loginForm">
+                    <div class="form-group">
+                        <label>Tên đăng nhập</label>
+                        <input type="text" id="loginUsername" placeholder="Nhập tên đăng nhập">
+                    </div>
+                    <div class="form-group">
+                        <label>Mật khẩu</label>
+                        <input type="password" id="loginPassword" placeholder="Nhập mật khẩu">
+                    </div>
+                    <button class="btn" onclick="login()">Đăng nhập</button>
+                    <button class="btn btn-secondary" onclick="showRegister()">Đăng ký tài khoản mới</button>
+                </div>
 
-    <!-- Modal Đăng nhập/Đăng ký -->
-    <div id="loginModal" class="modal active">
-        <div class="modal-content">
-            <h2 id="modalTitle">Đăng nhập / đăng kí để bắt đầu !</h2>
-            <div id="alertBox" class="alert"></div>
-            
-            <div id="loginForm">
-                <div class="form-group">
-                    <label>Tên đăng nhập</label>
-                    <input type="text" id="loginUsername" placeholder="Nhập tên đăng nhập">
+                <div id="registerForm" style="display: none;">
+                    <div class="form-group">
+                        <label>Tên đăng nhập</label>
+                        <input type="text" id="regUsername" placeholder="Chọn tên đăng nhập">
+                    </div>
+                    <div class="form-group">
+                        <label>Mật khẩu</label>
+                        <input type="password" id="regPassword" placeholder="Chọn mật khẩu">
+                    </div>
+                    <button class="btn" onclick="register()">Đăng ký</button>
+                    <button class="btn btn-secondary" onclick="showLogin()">Quay lại đăng nhập</button>
                 </div>
-                <div class="form-group">
-                    <label>Mật khẩu</label>
-                    <input type="password" id="loginPassword" placeholder="Nhập mật khẩu">
+            </div>
+        </div>
+
+        <!-- Warning Modal -->
+        <div id="warningModal" class="modal">
+            <div class="warning-modal">
+                <div class="warning-title">⚠️ CẢNH CÁO ! 1/2 !NẾU 2/2 Ban</div>
+                <div class="warning-text">
+                    <strong>🇻🇳 TIẾNG VIỆT:</strong><br>
+                    VUI LÒNG KHÔNG SỬ DỤNG Cheats/Bot/Tools vui lòng thực hiện nếu không chúng tôi sẽ BAN bạn theo luật của chúng tôi !<br><br>
+                    <strong>🇬🇧 ENGLISH:</strong><br>
+                    PLEASE DO NOT USE Cheats/Bots/Tools. If you do not, we will BANN you according to our rules!
                 </div>
-                <button class="btn" onclick="login()">Đăng nhập</button>
-                <button class="btn btn-secondary" onclick="showRegister()">Đăng ký tài khoản mới</button>
+                <div class="warning-credit">
+                    - By The9syra -<br>
+                    Nếu có sai sót vui lòng báo với chúng tôi / If there are any errors, please let us know.
+                </div>
+                <button class="btn" style="margin-top: 20px; background: white; color: #ff416c;" onclick="closeWarning()">Đã hiểu / Understood</button>
+            </div>
+        </div>
+
+        <!-- Confirm Modal -->
+        <div id="confirmModal" class="modal confirm-modal">
+            <div class="modal-content">
+                <h2 id="confirmTitle">Xác nhận</h2>
+                <p id="confirmMessage">Bạn có chắc chắn?</p>
+                <div class="confirm-buttons">
+                    <button class="confirm-yes" onclick="confirmAction(true)">Xác nhận</button>
+                    <button class="confirm-no" onclick="confirmAction(false)">Hủy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Giao diện chính -->
+        <div class="container" id="mainContainer" style="display: none;">
+            <div class="header">
+                <h1>🐔 ChickenP Game</h1>
+                <p>Chào mừng bạn đến với thế giới ChickenP!</p>
             </div>
 
-            <div id="registerForm" style="display: none;">
-                <div class="form-group">
-                    <label>Tên đăng nhập</label>
-                    <input type="text" id="regUsername" placeholder="Chọn tên đăng nhập">
+            <div class="user-info">
+                <div>
+                    <strong id="currentUser" style="font-size: 1.1em;"></strong>
+                    <span id="adminBadge" class="status-badge badge-admin" style="display: none;">👑 ADMIN</span>
+                    <span id="rootAdminBadge" class="status-badge badge-root" style="display: none;">🔥 ROOT</span>
+                    <span id="warnedBadge" class="status-badge badge-warned" style="display: none;">⚠️ WARNED</span>
+                    <span id="bannedBadge" class="status-badge badge-banned" style="display: none;">🚫 BANNED</span>
                 </div>
-                <div class="form-group">
-                    <label>Mật khẩu</label>
-                    <input type="password" id="regPassword" placeholder="Chọn mật khẩu">
+                <div class="points">
+                    💰 <span id="userPoints">0</span> ChickenP
                 </div>
-                <button class="btn" onclick="register()">Đăng ký</button>
-                <button class="btn btn-secondary" onclick="showLogin()">Quay lại đăng nhập</button>
+                <button class="logout-btn" onclick="logout()">Đăng xuất</button>
+            </div>
+
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('info', event)">📖 Giới thiệu</button>
+                <button class="tab" onclick="showTab('shop', event)">🛒 Shop</button>
+                <button class="tab" onclick="showTab('earn', event)">💎 Kiếm điểm</button>
+                <button class="tab" id="adminTab" onclick="showTab('admin', event)" style="display: none;">⚙️ Admin</button>
+            </div>
+
+            <!-- Tab Giới thiệu -->
+            <div id="info" class="tab-content active">
+                <h2>📖 Giới thiệu về ChickenP Game</h2>
+                <p style="margin-top: 20px; line-height: 1.8; color: #495057;">
+                    Chào mừng bạn đến với <strong>ChickenP Game</strong> - một trò chơi thú vị nơi bạn có thể kiếm điểm ChickenP và mua sắm các vật phẩm hấp dẫn!
+                </p>
+                <div style="margin-top: 30px;">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">🎯 Tính năng chính:</h3>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="padding: 10px; background: #f8f9fa; margin-bottom: 10px; border-radius: 5px;">
+                            ✅ <strong>Kiếm điểm:</strong> Hoàn thành quest để nhận ChickenP
+                        </li>
+                        <li style="padding: 10px; background: #f8f9fa; margin-bottom: 10px; border-radius: 5px;">
+                            🛍️ <strong>Shop:</strong> Mua sắm vật phẩm với ChickenP
+                        </li>
+                        <li style="padding: 10px; background: #f8f9fa; margin-bottom: 10px; border-radius: 5px;">
+                            🎁 <strong>Quest System:</strong> Hệ thống nhiệm vụ 4 bước độc đáo
+                        </li>
+                        <li style="padding: 10px; background: #f8f9fa; margin-bottom: 10px; border-radius: 5px;">
+                            🔐 <strong>Bảo mật:</strong> Chống cheat/bot/tools với IP verification
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Tab Shop -->
+            <div id="shop" class="tab-content">
+                <h2>🛒 Shop - Cửa hàng vật phẩm</h2>
+                <div style="margin-top: 20px;">
+                    <div class="shop-item">
+                        <div>
+                            <h3>🌭 HotDog</h3>
+                            <p>Món ăn ngon miệng cho gà của bạn</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="price">1,200 ChickenP</div>
+                            <button class="buy-btn" onclick="buyItem('HotDog', 1200)">Mua ngay</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Kiếm điểm -->
+            <div id="earn" class="tab-content">
+                <div class="quest-container">
+                    <div class="quest-title">🎯 QUEST</div>
+                    <img src="https://images.unsplash.com/photo-1579621970795-87facc2f976d?w=400&h=250&fit=crop" alt="Money Quest" class="quest-image" onerror="this.src='https://via.placeholder.com/400x250/667eea/ffffff?text=Money+Quest'">
+                    
+                    <div id="questStartBox">
+                        <p style="margin: 20px 0; color: #495057; font-size: 1.1em;">Hoàn thành 4 nhiệm vụ để nhận ChickenP!</p>
+                        <div class="quest-info">
+                            <strong>📋 Phần thưởng:</strong> 1 ChickenP mỗi lần hoàn thành<br>
+                            <strong>⏱️ Thời gian cooldown:</strong> 1 phút giữa các lần<br>
+                            <strong>🔒 Bảo mật:</strong> Token 1 lần duy nhất
+                        </div>
+                        <button class="quest-btn" id="startQuestBtn" onclick="startQuest()">✅ Chấp nhận nhiệm vụ</button>
+                        <div id="cooldownBox" class="cooldown-display" style="display: none;">
+                            ⏰ Chờ <span class="time" id="cooldownTime">60</span> giây để làm nhiệm vụ tiếp theo
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Admin -->
+            <div id="admin" class="tab-content">
+                <div class="admin-section">
+                    <h3>⚙️ Bảng điều khiển Admin</h3>
+                    
+                    <div class="admin-grid">
+                        <!-- Multiplier Control -->
+                        <div class="admin-card">
+                            <h4>🔢 Hệ số nhân ChickenP</h4>
+                            <div class="multiplier-display">
+                                Hệ số hiện tại: <strong id="currentMultiplier">1</strong>x
+                            </div>
+                            <input type="range" min="1" max="100" value="1" class="range-slider" id="multiplierRange" oninput="updateMultiplierDisplay(this.value)">
+                            <div style="text-align: center; margin: 10px 0; color: #6c757d;">
+                                <span>1x</span>
+                                <span style="margin: 0 20px;">50x</span>
+                                <span>100x</span>
+                            </div>
+                            <button class="admin-btn" onclick="setMultiplier()" style="width: 100%;">Áp dụng</button>
+                        </div>
+
+                        <div class="admin-card">
+                            <h4>⚠️ UNWARN (Bỏ cảnh báo)</h4>
+                            <p style="font-size: 0.9em; color: #6c757d; margin-bottom: 10px;">Mở khóa cảnh báo cho người dùng</p>
+                            <div class="admin-input-group">
+                                <input type="text" id="unwarnUsername" placeholder="Tên người dùng">
+                                <button class="admin-btn" onclick="unwarnUser()">UNWARN</button>
+                            </div>
+                        </div>
+
+                        <div class="admin-card">
+                            <h4>🚫 UNBAN (Bỏ ban)</h4>
+                            <p style="font-size: 0.9em; color: #6c757d; margin-bottom: 10px;">Mở khóa tài khoản bị ban</p>
+                            <div class="admin-input-group">
+                                <input type="text" id="unbanUsername" placeholder="Tên người dùng">
+                                <button class="admin-btn" onclick="unbanUser()">UNBAN</button>
+                            </div>
+                        </div>
+
+                        <div class="admin-card">
+                            <h4>👑 ADD ADMIN</h4>
+                            <p style="font-size: 0.9em; color: #6c757d; margin-bottom: 10px;">Chỉ Root Admin mới có quyền này</p>
+                            <div class="admin-input-group">
+                                <input type="text" id="addAdminUsername" placeholder="Tên người dùng">
+                                <button class="admin-btn" onclick="addAdmin()">ADD</button>
+                            </div>
+                        </div>
+
+                        <div class="admin-card" id="unadminCard" style="display: none;">
+                            <h4>❌ UNADMIN (Gỡ admin)</h4>
+                            <p style="font-size: 0.9em; color: #6c757d; margin-bottom: 10px;">Chỉ Root Admin mới có quyền này</p>
+                            <div class="admin-input-group">
+                                <input type="text" id="unadminUsername" placeholder="Tên admin">
+                                <button class="admin-btn" onclick="unadminUser()">UNADMIN</button>
+                            </div>
+                        </div>
+
+                        <div class="admin-card">
+                            <h4>🎁 GIFT ChickenP</h4>
+                            <p style="font-size: 0.9em; color: #6c757d; margin-bottom: 10px;">Tặng ChickenP cho người dùng</p>
+                            <div class="admin-input-group">
+                                <input type="text" id="giftUsername" placeholder="Tên người dùng">
+                            </div>
+                            <div class="admin-input-group">
+                                <input type="text" id="giftAmount" placeholder="Số ChickenP (min: 0.00000000000000000000001 - max: 100000)">
+                            </div>
+                            <button class="admin-btn" onclick="giftPoints()" style="width: 100%;">GIFT</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                ©XLY-The9syra
             </div>
         </div>
     </div>
 
-    <!-- Warning Modal -->
-    <div id="warningModal" class="modal">
-        <div class="warning-modal">
-            <div class="warning-title">⚠️ CẢNH CÁO ! 1/2 !NẾU 2/2 Ban</div>
-            <div class="warning-text">
-                <strong>🇻🇳 TIẾNG VIỆT:</strong><br>
-                VUI LÒNG KHÔNG SỬ DỤNG Cheats/Bot/Tools vui lòng thực hiện nếu không chúng tôi sẽ BAN bạn theo luật của chúng tôi !<br><br>
-                <strong>🇬🇧 ENGLISH:</strong><br>
-                PLEASE DO NOT USE Cheats/Bots/Tools. If you do not, we will BANN you according to our rules!
-            </div>
-            <div class="warning-credit">
-                - By The9syra -<br>
-                Nếu có sai sót vui lòng báo với chúng tôi / If there are any errors, please let us know.
-            </div>
-            <button class="btn" style="margin-top: 20px; background: white; color: #ff416c;" onclick="closeWarning()">Đã hiểu / Understood</button>
-        </div>
-    </div>
-
-    <!-- Confirm Modal -->
-    <div id="confirmModal" class="modal confirm-modal">
-        <div class="modal-content">
-            <h2 id="confirmTitle">Xác nhận</h2>
-            <p id="confirmMessage">Bạn có chắc chắn?</p>
-            <div class="confirm-buttons">
-                <button class="confirm-yes" onclick="confirmAction(true)">Xác nhận</button>
-                <button class="confirm-no" onclick="confirmAction(false)">Hủy</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Giao diện chính -->
-    <div class="container" id="mainContainer" style="display: none;">
-        <div class="header">
-            <h1>🐔 ChickenP Game</h1>
-            <p>Chào mừng bạn đến với thế giới ChickenP!</p>
-        </div>
-
-        <div class="user-info">
-            <div>
-                <strong id="currentUser" style="font-size: 1.1em;"></strong>
-                <span id="adminBadge" class="status-badge badge-admin" style="display: none;">👑 ADMIN</span>
-                <span id="rootAdminBadge" class="status-badge badge-root" style="display: none;">🔥 ROOT</span>
-                <span id="warnedBadge" class="status-badge badge-warned" style="display: none;">⚠️ WARNED</span>
-                <span id="bannedBadge" class="status-badge badge-banned" style="display: none;">🚫 BANNED</span>
-            </div>
-            <div class="points">
-                💰 <span id="userPoints">0</span> ChickenP
-            </div>
-            <button class="logout-btn" onclick="logout()">Đăng xuất</button>
-        </div>
-
-        <div class="tabs">
-            <button class="tab active" onclick="showTab('info', event)">📖 Giới thiệu</button>
-            <button class="tab" onclick="showTab('shop', event)">🛒 Shop</button>
-            <button class="tab" onclick="showTab('earn', event)">💎 Kiếm điểm</button>
-            <button class="tab" id="adminTab" onclick="showTab('admin', event)" style="display: none;">⚙️ Admin</button>
-        </div>
-
-        <!-- Tab Giới thiệu -->
-        <div id="info" class="tab-content active">
-            <h2>📖 Giới thiệu về ChickenP Game</h2>
-            <p style="margin-top: 20px; line-height: 1.8; color: #495057;">
-                Chào mừng bạn đến với <strong>ChickenP Game</strong> - một trò chơi thú vị nơi bạn có thể kiếm điểm ChickenP và mua sắm các vật phẩm hấp dẫn!
-            </p>
-            <div style="margin-top: 30px;">
-                <h3 style="color: #667eea; margin-bottom: 15px;">🎯 Tính năng chính:</h3>
-                <ul style="list-style: none; padding-left: 0;">
-                    <li style="padding: 10px; background: #f8f9fa; margin-bottom: 10px; border-radius: 5px;">
-                        ✅ <strong>Kiếm điểm:</strong> Hoàn thành quest 4 bước để nhận ChickenP
-                    </li>
-                    <li style="padding: 10px; background: #f8f9fa; margin-bottom: 10px; border-radius: 5px;">
-                        🛍️ <strong>Shop:</strong> Mua sắm vật phẩm với ChickenP (HotDog 1200P)
-                    </li>
-                    <li style="padding: 10px; background: #f8f9fa; margin-bottom: 10px; border-radius: 5px;">
-                        🎁 <strong>Quest System:</strong> Hệ thống nhiệm vụ với token bảo mật, quiz, quảng cáo, đếm ngược
-                    </li>
-                    <li style="padding: 10px; background: #f8f9fa; margin-bottom: 10px; border-radius: 5px;">
-                        🔐 <strong>Bảo mật:</strong> Anti-cheat, IP verification
-                    </li>
-                    <li style="padding: 10px; background: #f8f9fa; margin-bottom: 10px; border-radius: 5px;">
-                        👑 <strong>Admin System:</strong> Root Admin, thêm/xóa admin, BAN/UNBAN, UNWARN, GIFT
-                    </li>
-                    <li style="padding: 10px; background: #f8f9fa; margin-bottom: 10px; border-radius: 5px;">
-                        🔔 <strong>Notify System:</strong> Hệ thống thông báo riêng đẹp mắt
-                    </li>
-                </ul>
-            </div>
-
-            <!-- UPDATE LOG -->
-            <div class="update-log">
-                <h3>📜 UPDATE LOG</h3>
-                <div class="update-log-item"><span class="version">v1.0</span><span class="desc">🎉 Initial Release - Login/Register, Shop, Quest System, Admin Panel</span><span class="date">2026</span></div>
-                <div class="update-log-item"><span class="version">v1.1</span><span class="desc">🔥 Firebase Integration - Realtime Database, multi-user sync</span><span class="date">2026</span></div>
-                <div class="update-log-item"><span class="version">v1.2</span><span class="desc">🎯 4-Step Quest - Link verify, Quiz, Ad view, Countdown with token security</span><span class="date">2026</span></div>
-                <div class="update-log-item"><span class="version">v1.3</span><span class="desc">👑 Admin System - Root Admin, ADD/UNADMIN, UNWARN, UNBAN, GIFT, Multiplier</span><span class="date">2026</span></div>
-                <div class="update-log-item"><span class="version">v1.4</span><span class="desc">⏱️ Smart Countdown - Pause when leaving tab, Restart button, Power button (25-20s), Star hunt (15-10s)</span><span class="date">2026</span></div>
-                <div class="update-log-item"><span class="version">v1.5</span><span class="desc">🛡️ Enhanced stability - Removed aggressive adblock detection</span><span class="date">2026</span></div>
-            </div>
-        </div>
-
-        <!-- Tab Shop -->
-        <div id="shop" class="tab-content">
-            <h2>🛒 Shop - Cửa hàng vật phẩm</h2>
-            <div style="margin-top: 20px;">
-                <div class="shop-item">
-                    <div><h3>🌭 HotDog</h3><p>Món ăn ngon miệng cho gà của bạn</p></div>
-                    <div style="text-align: right;"><div class="price">1,200 ChickenP</div><button class="buy-btn" onclick="buyItem('HotDog', 1200)">Mua ngay</button></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tab Kiếm điểm -->
-        <div id="earn" class="tab-content">
-            <div class="quest-container">
-                <div class="quest-title">🎯 QUEST</div>
-                <img src="https://images.unsplash.com/photo-1579621970795-87facc2f976d?w=400&h=250&fit=crop" alt="Money Quest" class="quest-image" onerror="this.src='https://via.placeholder.com/400x250/667eea/ffffff?text=Money+Quest'">
-                <div id="questStartBox">
-                    <p style="margin: 20px 0; color: #495057; font-size: 1.1em;">Hoàn thành 4 nhiệm vụ để nhận ChickenP!</p>
-                    <div class="quest-info"><strong>📋 Phần thưởng:</strong> 1 ChickenP mỗi lần hoàn thành<br><strong>⏱️ Thời gian cooldown:</strong> 1 phút giữa các lần<br><strong>🔒 Bảo mật:</strong> Token 1 lần duy nhất</div>
-                    <button class="quest-btn" id="startQuestBtn" onclick="startQuest()">✅ Chấp nhận nhiệm vụ</button>
-                    <div id="cooldownBox" class="cooldown-display" style="display: none;">⏰ Chờ <span class="time" id="cooldownTime">60</span> giây để làm nhiệm vụ tiếp theo</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tab Admin -->
-        <div id="admin" class="tab-content">
-            <div class="admin-section">
-                <h3>⚙️ Bảng điều khiển Admin</h3>
-                <div class="admin-grid">
-                    <div class="admin-card"><h4>🔢 Hệ số nhân ChickenP</h4><div class="multiplier-display">Hệ số hiện tại: <strong id="currentMultiplier">1</strong>x</div><input type="range" min="1" max="100" value="1" class="range-slider" id="multiplierRange" oninput="updateMultiplierDisplay(this.value)"><div style="text-align: center; margin: 10px 0;"><span>1x</span><span style="margin: 0 20px;">50x</span><span>100x</span></div><button class="admin-btn" onclick="setMultiplier()" style="width: 100%;">Áp dụng</button></div>
-                    <div class="admin-card"><h4>🚫 BAN User</h4><div class="admin-input-group"><input type="text" id="banUsername" placeholder="Tên người dùng"><button class="admin-btn danger" onclick="banUser()">BAN</button></div></div>
-                    <div class="admin-card"><h4>🔓 UNBAN User</h4><div class="admin-input-group"><input type="text" id="unbanUsername" placeholder="Tên người dùng"><button class="admin-btn" onclick="unbanUser()">UNBAN</button></div></div>
-                    <div class="admin-card"><h4>⚠️ UNWARN User</h4><div class="admin-input-group"><input type="text" id="unwarnUsername" placeholder="Tên người dùng"><button class="admin-btn" onclick="unwarnUser()">UNWARN</button></div></div>
-                    <div class="admin-card"><h4>👑 ADD ADMIN</h4><div class="admin-input-group"><input type="text" id="addAdminUsername" placeholder="Tên người dùng"><button class="admin-btn" onclick="addAdmin()">ADD</button></div></div>
-                    <div class="admin-card" id="unadminCard" style="display: none;"><h4>❌ UNADMIN</h4><div class="admin-input-group"><input type="text" id="unadminUsername" placeholder="Tên admin"><button class="admin-btn danger" onclick="unadminUser()">UNADMIN</button></div></div>
-                    <div class="admin-card"><h4>🎁 GIFT ChickenP</h4><div class="admin-input-group"><input type="text" id="giftUsername" placeholder="Tên người dùng"></div><div class="admin-input-group"><input type="text" id="giftAmount" placeholder="Số ChickenP (0.000...01 - 100000)"></div><button class="admin-btn" onclick="giftPoints()" style="width: 100%;">GIFT</button></div>
-                </div>
-            </div>
-        </div>
-        <div class="footer">©XLY-The9syra</div>
-    </div>
-
-    <!-- Mission Page -->
+    <!-- ============ MISSION PAGE (opens in new tab) ============ -->
     <div id="missionPage" class="mission-page">
         <div class="mission-container">
-            <div class="mission-header"><h1>🎯 NHIỆM VỤ</h1><p id="missionUser">User: ...</p></div>
-            <div class="mission-progress"><strong>Tiến độ nhiệm vụ:</strong><div class="progress-bar"><div class="progress-fill" id="progressFill" style="width: 0%;">0%</div></div></div>
-            <div class="mission-body">
-                <div class="task-card active" id="task1Card"><div class="task-header"><div class="task-title">📋 Nhiệm vụ 1: Xác thực Link</div><span class="task-status status-active" id="task1Status">Đang làm</span></div><div class="task-body"><p>Hệ thống đã quét link của bạn. Vui lòng xác nhận.</p><div class="link-verify-box"><div id="task1Link" style="background:#1e1e1e;color:#00ff00;padding:12px;border-radius:5px;font-family:monospace;word-break:break-all;"></div><input type="text" id="task1Input" placeholder="Dán link vào đây..."><button class="btn" onclick="verifyTask1()" style="margin-top:10px;">✅ Xác nhận Link</button></div></div></div>
-                <div class="task-card locked" id="task2Card"><div class="task-header"><div class="task-title">📚 Nhiệm vụ 2: Trả lời câu hỏi</div><span class="task-status status-locked" id="task2Status">Chưa mở</span></div><div class="task-body"><div class="quiz-stats"><div class="quiz-stat"><div class="quiz-stat-value" id="quizCorrect">0</div><div class="quiz-stat-label">Đúng</div></div><div class="quiz-stat"><div class="quiz-stat-value" id="quizWrong">0</div><div class="quiz-stat-label">Sai</div></div><div class="quiz-stat"><div class="quiz-stat-value" id="quizCurrent">1/5</div><div class="quiz-stat-label">Câu hỏi</div></div></div><div class="quiz-container" id="quizContainer"><div class="quiz-question" id="quizQuestion">Loading...</div><div class="quiz-options" id="quizOptions"></div></div><div id="quizResult" style="display:none;"></div></div></div>
-                <div class="task-card locked" id="task3Card"><div class="task-header"><div class="task-title">📺 Nhiệm vụ 3: Xem quảng cáo</div><span class="task-status status-locked" id="task3Status">Chưa mở</span></div><div class="task-body"><div class="ad-container"><div class="ad-box" onclick="completeTask3()"><h3>🎁 QUẢNG CÁO ĐẶC BIỆT</h3><p>👉 NHẤN VÀO ĐÂY ĐỂ HOÀN THÀNH NHIỆM VỤ 👈</p></div></div></div></div>
-                <div class="task-card locked" id="task4Card"><div class="task-header"><div class="task-title">⏱️ Nhiệm vụ 4: Chờ 30 giây</div><span class="task-status status-locked" id="task4Status">Chưa mở</span></div><div class="task-body"><div class="paused-notice" id="pausedNotice"><h3>⏸️ Đã tạm dừng!</h3><p>Bạn đã rời khỏi tab. Đếm ngược đã dừng lại.</p><div class="time-remaining">Còn lại: <span id="pausedTime">30</span> giây</div><p>Nhấn nút bên dưới để tiếp tục!</p></div><div class="countdown-container" id="countdownContainer"><div class="countdown-display" id="countdownDisplay">30</div><div id="countdownPrompt"></div><div class="countdown-area" id="countdownArea"></div><button class="btn" id="countdownStartBtn" onclick="startCountdown()" style="margin-top:15px;">▶️ Bắt đầu đếm ngược</button><button class="restart-btn" id="restartBtn" onclick="restartCountdown()">🔄 RESTART - Tiếp tục đếm</button></div></div></div>
-                <div id="missionComplete" style="display:none;"><div class="success-box"><h3>🎉 HOÀN THÀNH TẤT CẢ NHIỆM VỤ!</h3><p>Bạn đã nhận được +1 ChickenP</p><p>Đang quay lại...</p></div></div>
+            <div class="mission-header">
+                <h1>🎯 NHIỆM VỤ</h1>
+                <p id="missionUser">User: ...</p>
             </div>
-            <div class="footer">©XLY-The9syra</div>
+
+            <div class="mission-progress">
+                <strong>Tiến độ nhiệm vụ:</strong>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%;">0%</div>
+                </div>
+            </div>
+
+            <div class="mission-body">
+                <!-- Task 1: Verify Link -->
+                <div class="task-card active" id="task1Card">
+                    <div class="task-header">
+                        <div class="task-title">📋 Nhiệm vụ 1: Xác thực Link</div>
+                        <span class="task-status status-active" id="task1Status">Đang làm</span>
+                    </div>
+                    <div class="task-body">
+                        <p style="margin-bottom: 15px;">Hệ thống đã quét link của bạn. Vui lòng xác nhận để tiếp tục.</p>
+                        <div class="link-verify-box">
+                            <label style="font-weight: bold; display: block; margin-bottom: 8px;">Link của bạn:</label>
+                            <div id="task1Link" style="background: #1e1e1e; color: #00ff00; padding: 12px; border-radius: 5px; font-family: monospace; word-break: break-all; font-size: 0.85em; margin-bottom: 10px;"></div>
+                            <label style="font-weight: bold; display: block; margin: 10px 0 8px 0;">Nhập lại link để xác nhận:</label>
+                            <input type="text" id="task1Input" placeholder="Dán link vào đây...">
+                            <button class="btn" onclick="verifyTask1()" style="margin-top: 10px;">✅ Xác nhận Link</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task 2: Quiz -->
+                <div class="task-card locked" id="task2Card">
+                    <div class="task-header">
+                        <div class="task-title">📚 Nhiệm vụ 2: Trả lời câu hỏi</div>
+                        <span class="task-status status-locked" id="task2Status">Chưa mở</span>
+                    </div>
+                    <div class="task-body">
+                        <p style="margin-bottom: 15px;">Trả lời 5 câu hỏi tiểu học. Cần đúng ít nhất 3 câu!</p>
+                        <div class="quiz-stats">
+                            <div class="quiz-stat">
+                                <div class="quiz-stat-value" id="quizCorrect">0</div>
+                                <div class="quiz-stat-label">Đúng</div>
+                            </div>
+                            <div class="quiz-stat">
+                                <div class="quiz-stat-value" id="quizWrong">0</div>
+                                <div class="quiz-stat-label">Sai</div>
+                            </div>
+                            <div class="quiz-stat">
+                                <div class="quiz-stat-value" id="quizCurrent">1/5</div>
+                                <div class="quiz-stat-label">Câu hỏi</div>
+                            </div>
+                        </div>
+                        <div class="quiz-container" id="quizContainer">
+                            <div class="quiz-question" id="quizQuestion">Loading...</div>
+                            <div class="quiz-options" id="quizOptions"></div>
+                        </div>
+                        <div id="quizResult" style="display: none; text-align: center; padding: 20px;"></div>
+                    </div>
+                </div>
+
+                <!-- Task 3: Ad -->
+                <div class="task-card locked" id="task3Card">
+                    <div class="task-header">
+                        <div class="task-title">📺 Nhiệm vụ 3: Xem quảng cáo</div>
+                        <span class="task-status status-locked" id="task3Status">Chưa mở</span>
+                    </div>
+                    <div class="task-body">
+                        <p style="margin-bottom: 15px;">Nhấn vào khung quảng cáo bên dưới để hoàn thành nhiệm vụ!</p>
+                        <div class="ad-container">
+                            <div class="ad-box" id="adBox" onclick="completeTask3()">
+                                <h3>🎁 QUẢNG CÁO ĐẶC BIỆT</h3>
+                                <p>👉 NHẤN VÀO ĐÂY ĐỂ HOÀN THÀNH NHIỆM VỤ 👈</p>
+                                <p style="margin-top: 15px; font-size: 0.9em; color: #636e72;">(Đây là nơi hiển thị quảng cáo)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task 4: Countdown -->
+                <div class="task-card locked" id="task4Card">
+                    <div class="task-header">
+                        <div class="task-title">⏱️ Nhiệm vụ 4: Chờ 30 giây</div>
+                        <span class="task-status status-locked" id="task4Status">Chưa mở</span>
+                    </div>
+                    <div class="task-body">
+                        <p style="margin-bottom: 15px;">Chờ 30 giây để hoàn thành. <strong>Rời khỏi tab sẽ dừng đếm!</strong></p>
+                        
+                        <!-- Paused Notice - Hiện khi rời tab -->
+                        <div class="paused-notice" id="pausedNotice">
+                            <h3>⏸️ Đã tạm dừng!</h3>
+                            <p>Bạn đã rời khỏi tab. Đếm ngược đã dừng lại.</p>
+                            <div class="time-remaining">
+                                Còn lại: <span id="pausedTime">30</span> giây
+                            </div>
+                            <p>Nhấn nút bên dưới để tiếp tục!</p>
+                        </div>
+                        
+                        <div class="countdown-container" id="countdownContainer">
+                            <div class="countdown-display" id="countdownDisplay">30</div>
+                            <div id="countdownPrompt"></div>
+                            <div class="countdown-area" id="countdownArea"></div>
+                            
+                            <!-- Nút Bắt đầu (lần đầu) -->
+                            <button class="btn" id="countdownStartBtn" onclick="startCountdown()" style="margin-top: 15px;">▶️ Bắt đầu đếm ngược</button>
+                            
+                            <!-- Nút Restart (khi quay lại tab) -->
+                            <button class="restart-btn" id="restartBtn" onclick="restartCountdown()">
+                                🔄 RESTART - Tiếp tục đếm
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Final -->
+                <div id="missionComplete" style="display: none; text-align: center; padding: 40px;">
+                    <div class="success-box">
+                        <h3>🎉 HOÀN THÀNH TẤT CẢ NHIỆM VỤ!</h3>
+                        <p style="font-size: 1.3em; margin: 20px 0;">Bạn đã nhận được <strong style="color: #155724; font-size: 1.5em;">+1 ChickenP</strong></p>
+                        <p style="margin-top: 20px;">Đang quay lại trang chính...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                ©XLY-The9syra
+            </div>
         </div>
     </div>
 
     <script>
-        // Firebase Config
+        // Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyAjGTZ_yr4p5OrDKSy80BLo6psSVAKLE0Q",
             authDomain: "jiceo-73677.firebaseapp.com",
@@ -1356,177 +1465,997 @@
             projectId: "jiceo-73677",
             storageBucket: "jiceo-73677.firebasestorage.app",
             messagingSenderId: "542163832813",
-            appId: "1:542163832813:web:00d09dfa22ed9d49bb21e4"
+            appId: "1:542163832813:web:00d09dfa22ed9d49bb21e4",
+            measurementId: "G-V7CW1FS0V5"
         };
+
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
+
         const ROOT_ADMIN_USERNAME = 'Cooking102';
         const ROOT_ADMIN_PASSWORD = '25121989';
-        let currentUser = null, confirmCallback = null, userListener = null, cooldownInterval = null;
-        let missionData = null, currentTask = 1;
-        let quizState = {}, countdownTimer = null, countdownSeconds = 30, countdownPaused = false, countdownStopped = false, countdownStarted = false;
-        let powerShown = false, starShown = false;
 
-        function notify(title, message, type = 'info', duration = 4000) {
-            const container = document.getElementById('notifyContainer');
-            const item = document.createElement('div');
-            item.className = `notify-item ${type}`;
-            const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
-            item.innerHTML = `<div class="notify-icon">${icons[type]}</div><div class="notify-content"><div class="notify-title">${title}</div><div class="notify-message">${message}</div></div><button class="notify-close" onclick="this.closest('.notify-item').remove()">×</button>`;
-            container.appendChild(item);
-            setTimeout(() => { if(item.parentNode) item.remove(); }, duration);
-        }
+        let currentUser = null;
+        let confirmCallback = null;
+        let userListener = null;
+        let cooldownInterval = null;
 
-        // No adblock redirect or blocking - just smooth login flow
+        // ============ URL PARAMS CHECK ============
+        const urlParams = new URLSearchParams(window.location.search);
+        const linkToken = urlParams.get('link-token');
+
         window.onload = async function() {
             await initializeAdminAccount();
-            const savedUser = localStorage.getItem('currentUser');
-            if (savedUser) {
+            
+            if (linkToken) {
+                // Open mission page
+                const savedUser = localStorage.getItem('currentUser');
+                if (!savedUser) {
+                    alert('Vui lòng đăng nhập trước!');
+                    window.close();
+                    return;
+                }
                 currentUser = JSON.parse(savedUser);
-                showMainInterface();
-                listenToUserData();
-                checkCooldown();
+                openMissionPage();
+            } else {
+                // Normal page
+                const savedUser = localStorage.getItem('currentUser');
+                if (savedUser) {
+                    currentUser = JSON.parse(savedUser);
+                    showMainInterface();
+                    listenToUserData();
+                    checkCooldown();
+                }
             }
         };
 
-        async function initializeAdminAccount() {
-            const adminRef = database.ref('users/' + ROOT_ADMIN_USERNAME);
-            const snapshot = await adminRef.once('value');
-            if (!snapshot.exists()) await adminRef.set({ password: ROOT_ADMIN_PASSWORD, points: 999999, isAdmin: true, isRootAdmin: true, warned: false, banned: false, multiplier: 1, totalEarned: 0, earnCount: 0, createdAt: Date.now() });
-            else await adminRef.update({ isAdmin: true, isRootAdmin: true });
-            const configRef = database.ref('config');
-            if (!(await configRef.once('value')).exists()) await configRef.set({ globalMultiplier: 1 });
+        // ============ MISSION PAGE LOGIC ============
+        let missionData = null;
+        let currentTask = 1;
+        let quizState = { correct: 0, wrong: 0, current: 0, questions: [], attempts: 0 };
+        let countdownTimer = null;
+        let countdownSeconds = 30;
+        let countdownPaused = false;
+        let countdownStopped = false; // Trạng thái dừng khi rời tab
+        let promptShown = false;
+        let starShown = false;
+        let countdownStarted = false; // Đã bắt đầu đếm chưa
+
+        function openMissionPage() {
+            document.getElementById('mainPage').style.display = 'none';
+            document.getElementById('missionPage').classList.add('active');
+            document.getElementById('missionUser').innerText = 'User: ' + currentUser.username;
+            
+            // Get quest data from Firebase
+            loadMissionData();
         }
 
-        function showRegister() { document.getElementById('loginForm').style.display = 'none'; document.getElementById('registerForm').style.display = 'block'; document.getElementById('modalTitle').innerText = 'Đăng ký'; hideAlert(); }
-        function showLogin() { document.getElementById('loginForm').style.display = 'block'; document.getElementById('registerForm').style.display = 'none'; document.getElementById('modalTitle').innerText = 'Đăng nhập / đăng kí để bắt đầu !'; hideAlert(); }
-        function showAlert(msg, type) { const alertBox = document.getElementById('alertBox'); alertBox.className = `alert ${type} show`; alertBox.innerText = msg; }
-        function hideAlert() { document.getElementById('alertBox').className = 'alert'; }
+        async function loadMissionData() {
+            try {
+                const snapshot = await database.ref('quests/' + currentUser.username).once('value');
+                if (!snapshot.exists()) {
+                    alert('Không tìm thấy nhiệm vụ! Vui lòng bắt đầu lại từ trang chính.');
+                    window.close();
+                    return;
+                }
+                missionData = snapshot.val();
+                
+                if (missionData.used) {
+                    alert('Nhiệm vụ này đã được hoàn thành!');
+                    window.close();
+                    return;
+                }
+                
+                // Display link for Task 1
+                const fullURL = buildQuestURL(missionData.token, missionData.ip, missionData.accountId);
+                document.getElementById('task1Link').innerText = fullURL;
+                
+            } catch (error) {
+                alert('Lỗi tải nhiệm vụ: ' + error.message);
+            }
+        }
+
+        function buildQuestURL(token, ip, accountId) {
+            const baseUrl = window.location.origin + window.location.pathname;
+            const params = new URLSearchParams({
+                'link-token': '2020:XLY=' + token,
+                'ip': ip,
+                'acc': accountId
+            });
+            return baseUrl + '?' + params.toString();
+        }
+
+        function updateProgress() {
+            const percent = ((currentTask - 1) / 4) * 100;
+            const fill = document.getElementById('progressFill');
+            fill.style.width = percent + '%';
+            fill.innerText = Math.round(percent) + '%';
+        }
+
+        function activateTask(taskNum) {
+            for (let i = 1; i <= 4; i++) {
+                const card = document.getElementById('task' + i + 'Card');
+                const status = document.getElementById('task' + i + 'Status');
+                
+                if (i < taskNum) {
+                    card.className = 'task-card completed';
+                    status.className = 'task-status status-done';
+                    status.innerText = 'Hoàn thành';
+                } else if (i === taskNum) {
+                    card.className = 'task-card active';
+                    status.className = 'task-status status-active';
+                    status.innerText = 'Đang làm';
+                } else {
+                    card.className = 'task-card locked';
+                    status.className = 'task-status status-locked';
+                    status.innerText = 'Chưa mở';
+                }
+            }
+            currentTask = taskNum;
+            updateProgress();
+            
+            // Scroll to task
+            document.getElementById('task' + taskNum + 'Card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // ============ TASK 1: VERIFY LINK ============
+        async function verifyTask1() {
+            const input = document.getElementById('task1Input').value.trim();
+            const expected = buildQuestURL(missionData.token, missionData.ip, missionData.accountId);
+            
+            if (input === expected) {
+                alert('✅ Xác thực link thành công!');
+                activateTask(2);
+                startQuiz();
+            } else {
+                alert('❌ Link không khớp! Vui lòng kiểm tra lại.');
+                document.getElementById('task1Input').classList.add('error-flash');
+                setTimeout(() => {
+                    document.getElementById('task1Input').classList.remove('error-flash');
+                }, 500);
+            }
+        }
+
+        // ============ TASK 2: QUIZ ============
+        function generateQuizQuestions() {
+            const questions = [];
+            const operators = ['+', '-', 'x'];
+            
+            for (let i = 0; i < 5; i++) {
+                const op = operators[Math.floor(Math.random() * operators.length)];
+                let a, b, answer;
+                
+                if (op === '+') {
+                    a = Math.floor(Math.random() * 10) + 1;
+                    b = Math.floor(Math.random() * 10) + 1;
+                    answer = a + b;
+                } else if (op === '-') {
+                    a = Math.floor(Math.random() * 10) + 5;
+                    b = Math.floor(Math.random() * 5) + 1;
+                    answer = a - b;
+                } else {
+                    a = Math.floor(Math.random() * 5) + 1;
+                    b = Math.floor(Math.random() * 5) + 1;
+                    answer = a * b;
+                }
+                
+                // Generate options
+                const options = new Set([answer]);
+                while (options.size < 4) {
+                    const fake = answer + Math.floor(Math.random() * 10) - 5;
+                    if (fake !== answer && fake >= 0) options.add(fake);
+                }
+                
+                const shuffled = Array.from(options).sort(() => Math.random() - 0.5);
+                
+                questions.push({
+                    text: `${a} ${op} ${b} = ?`,
+                    answer: answer,
+                    options: shuffled
+                });
+            }
+            
+            return questions;
+        }
+
+        function startQuiz() {
+            quizState = {
+                correct: 0,
+                wrong: 0,
+                current: 0,
+                questions: generateQuizQuestions(),
+                attempts: 0
+            };
+            showQuizQuestion();
+        }
+
+        function showQuizQuestion() {
+            if (quizState.current >= 5) {
+                finishQuiz();
+                return;
+            }
+            
+            const q = quizState.questions[quizState.current];
+            document.getElementById('quizQuestion').innerText = q.text;
+            document.getElementById('quizCurrent').innerText = `${quizState.current + 1}/5`;
+            document.getElementById('quizCorrect').innerText = quizState.correct;
+            document.getElementById('quizWrong').innerText = quizState.wrong;
+            
+            const optionsDiv = document.getElementById('quizOptions');
+            optionsDiv.innerHTML = '';
+            
+            q.options.forEach(opt => {
+                const btn = document.createElement('div');
+                btn.className = 'quiz-option';
+                btn.innerText = opt;
+                btn.onclick = () => answerQuiz(opt, btn);
+                optionsDiv.appendChild(btn);
+            });
+        }
+
+        function answerQuiz(selected, btn) {
+            const q = quizState.questions[quizState.current];
+            const allOptions = document.querySelectorAll('.quiz-option');
+            allOptions.forEach(o => o.onclick = null);
+            
+            if (selected === q.answer) {
+                btn.classList.add('correct');
+                quizState.correct++;
+            } else {
+                btn.classList.add('wrong');
+                quizState.wrong++;
+                // Highlight correct answer
+                allOptions.forEach(o => {
+                    if (parseInt(o.innerText) === q.answer) {
+                        o.classList.add('correct');
+                    }
+                });
+            }
+            
+            setTimeout(() => {
+                quizState.current++;
+                showQuizQuestion();
+            }, 1200);
+        }
+
+        function finishQuiz() {
+            document.getElementById('quizContainer').style.display = 'none';
+            const resultDiv = document.getElementById('quizResult');
+            resultDiv.style.display = 'block';
+            
+            if (quizState.correct >= 3) {
+                resultDiv.innerHTML = `
+                    <div class="success-box">
+                        <h3>🎉 Xuất sắc!</h3>
+                        <p style="font-size: 1.3em;">Bạn đã trả lời đúng ${quizState.correct}/5 câu!</p>
+                        <button class="btn" onclick="activateTask(3)" style="margin-top: 20px; max-width: 300px; margin-left: auto; margin-right: auto;">Tiếp tục →</button>
+                    </div>
+                `;
+            } else {
+                quizState.attempts++;
+                if (quizState.attempts >= 2) {
+                    // Redirect to YouTube Kids
+                    resultDiv.innerHTML = `
+                        <div style="background: #f8d7da; color: #721c24; padding: 30px; border-radius: 15px;">
+                            <h3>😢 Rất tiếc!</h3>
+                            <p style="font-size: 1.2em; margin: 15px 0;">Bạn đã sai quá nhiều. Đang chuyển hướng...</p>
+                        </div>
+                    `;
+                    setTimeout(() => {
+                        window.location.href = 'https://www.youtube.com/watch?v=Zh3w28Krm60';
+                    }, 2000);
+                } else {
+                    resultDiv.innerHTML = `
+                        <div style="background: #fff3cd; color: #856404; padding: 30px; border-radius: 15px;">
+                            <h3>⚠️ Cần cố gắng thêm!</h3>
+                            <p style="font-size: 1.2em; margin: 15px 0;">Bạn chỉ đúng ${quizState.correct}/5 câu. Thử lại lần nữa!</p>
+                            <button class="btn" onclick="retryQuiz()" style="margin-top: 15px; max-width: 300px; margin-left: auto; margin-right: auto;">🔄 Làm lại</button>
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        function retryQuiz() {
+            document.getElementById('quizContainer').style.display = 'block';
+            document.getElementById('quizResult').style.display = 'none';
+            startQuiz();
+        }
+
+        // ============ TASK 3: AD ============
+        function completeTask3() {
+            if (confirm('Bạn có chắc đã xem quảng cáo?')) {
+                alert('✅ Hoàn thành nhiệm vụ 3!');
+                activateTask(4);
+            }
+        }
+
+        // ============ TASK 4: COUNTDOWN ============
+        function startCountdown() {
+            document.getElementById('countdownStartBtn').style.display = 'none';
+            countdownSeconds = 30;
+            countdownPaused = false;
+            countdownStopped = false;
+            countdownStarted = true;
+            promptShown = false;
+            starShown = false;
+            
+            // Ẩn nút restart và paused notice
+            document.getElementById('restartBtn').classList.remove('show');
+            document.getElementById('pausedNotice').classList.remove('show');
+            
+            updateCountdownDisplay();
+            
+            countdownTimer = setInterval(() => {
+                if (countdownPaused || countdownStopped) return;
+                
+                countdownSeconds--;
+                updateCountdownDisplay();
+                
+                // Random pause between 25-20s
+                if (!promptShown && countdownSeconds >= 20 && countdownSeconds <= 25 && Math.random() < 0.3) {
+                    pauseCountdownWithPrompt('👆 Hãy chạm vào màn hình để tiếp tục!');
+                    promptShown = true;
+                }
+                
+                // Show star between 15-10s
+                if (!starShown && countdownSeconds >= 10 && countdownSeconds <= 15) {
+                    showStar();
+                    starShown = true;
+                }
+                
+                if (countdownSeconds <= 0) {
+                    completeTask4();
+                }
+            }, 1000);
+            
+            // Detect tab visibility
+            document.addEventListener('visibilitychange', handleVisibilityChange);
+        }
+
+        // Hàm Restart - chạy tiếp từ giây hiện tại
+        function restartCountdown() {
+            // Ẩn paused notice và restart button
+            document.getElementById('pausedNotice').classList.remove('show');
+            document.getElementById('restartBtn').classList.remove('show');
+            
+            // Reset trạng thái
+            countdownStopped = false;
+            countdownPaused = false;
+            
+            // Tiếp tục đếm (không reset về 30)
+            console.log('Restart countdown from ' + countdownSeconds + 's');
+        }
+
+        function updateCountdownDisplay() {
+            document.getElementById('countdownDisplay').innerText = countdownSeconds;
+            // Cập nhật thời gian trong paused notice
+            document.getElementById('pausedTime').innerText = countdownSeconds;
+        }
+
+        function pauseCountdownWithPrompt(message) {
+            countdownPaused = true;
+            const promptDiv = document.getElementById('countdownPrompt');
+            promptDiv.className = 'countdown-prompt';
+            promptDiv.innerText = message;
+            promptDiv.style.display = 'block';
+            
+            // Click anywhere to continue
+            const area = document.getElementById('countdownArea');
+            area.onclick = () => {
+                countdownPaused = false;
+                promptDiv.style.display = 'none';
+                area.onclick = null;
+            };
+        }
+
+        function showStar() {
+            const area = document.getElementById('countdownArea');
+            const star = document.createElement('div');
+            star.className = 'star-target';
+            star.innerText = '⭐';
+            
+            // Random position
+            const maxX = area.clientWidth - 60;
+            const maxY = area.clientHeight - 60;
+            star.style.left = Math.max(10, Math.random() * maxX) + 'px';
+            star.style.top = Math.max(10, Math.random() * maxY) + 'px';
+            
+            star.onclick = () => {
+                star.remove();
+                const promptDiv = document.getElementById('countdownPrompt');
+                promptDiv.className = 'countdown-prompt';
+                promptDiv.style.background = '#d4edda';
+                promptDiv.style.borderColor = '#28a745';
+                promptDiv.style.color = '#155724';
+                promptDiv.innerText = '✅ Tìm thấy rồi! Tiếp tục chờ...';
+                promptDiv.style.display = 'block';
+                setTimeout(() => {
+                    promptDiv.style.display = 'none';
+                }, 2000);
+            };
+            
+            area.appendChild(star);
+            
+            // Add prompt
+            const promptDiv = document.getElementById('countdownPrompt');
+            promptDiv.className = 'countdown-prompt';
+            promptDiv.innerText = '⭐ Tìm và nhấn vào ngôi sao!';
+            promptDiv.style.display = 'block';
+        }
+
+        // Xử lý khi rời/vào lại tab
+        function handleVisibilityChange() {
+            if (!countdownStarted || countdownSeconds <= 0) return;
+            
+            if (document.hidden) {
+                // Rời tab → DỪNG đếm
+                countdownStopped = true;
+                
+                // Ẩn countdown area, hiện paused notice và nút restart
+                document.getElementById('countdownArea').style.display = 'none';
+                document.getElementById('countdownPrompt').style.display = 'none';
+                document.getElementById('countdownDisplay').style.opacity = '0.3';
+                
+                // Hiện paused notice với thời gian còn lại
+                document.getElementById('pausedTime').innerText = countdownSeconds;
+                document.getElementById('pausedNotice').classList.add('show');
+                
+                // Hiện nút restart
+                document.getElementById('restartBtn').classList.add('show');
+                
+            } else {
+                // Vào lại tab → KHÔNG tự động chạy, chờ user ấn Restart
+                // Giữ nguyên trạng thái stopped, user phải ấn nút Restart
+                console.log('Tab visible again. Waiting for restart...');
+            }
+        }
+
+        async function completeTask4() {
+            clearInterval(countdownTimer);
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
+            
+            // Mark quest as used
+            await database.ref('quests/' + currentUser.username + '/used').set(true);
+            await database.ref('quests/' + currentUser.username + '/completedAt').set(Date.now());
+            
+            // Add 1 ChickenP
+            const pointsRef = database.ref('users/' + currentUser.username + '/points');
+            await pointsRef.transaction((current) => (current || 0) + 1);
+            
+            // Update stats
+            await database.ref('users/' + currentUser.username).update({
+                totalEarned: firebase.database.ServerValue.increment(1),
+                earnCount: firebase.database.ServerValue.increment(1)
+            });
+            
+            // Set cooldown
+            await database.ref('cooldowns/' + currentUser.username).set(Date.now() + 60000);
+            
+            // Show completion
+            document.querySelectorAll('.task-card').forEach(c => {
+                c.className = 'task-card completed';
+            });
+            document.getElementById('task4Status').className = 'task-status status-done';
+            document.getElementById('task4Status').innerText = 'Hoàn thành';
+            
+            const fill = document.getElementById('progressFill');
+            fill.style.width = '100%';
+            fill.innerText = '100%';
+            
+            document.getElementById('missionComplete').style.display = 'block';
+            
+            // Show reward popup
+            const reward = document.createElement('div');
+            reward.className = 'reward-popup';
+            reward.innerHTML = '🎉 +1 ChickenP!';
+            document.body.appendChild(reward);
+            
+            setTimeout(() => {
+                reward.remove();
+                // Try to close tab or redirect
+                if (window.opener) {
+                    window.close();
+                } else {
+                    window.location.href = window.location.pathname;
+                }
+            }, 3000);
+        }
+
+        // ============ MAIN PAGE LOGIC ============
+        async function initializeAdminAccount() {
+            try {
+                const adminRef = database.ref('users/' + ROOT_ADMIN_USERNAME);
+                const snapshot = await adminRef.once('value');
+                
+                if (!snapshot.exists()) {
+                    await adminRef.set({
+                        password: ROOT_ADMIN_PASSWORD,
+                        points: 999999,
+                        isAdmin: true,
+                        isRootAdmin: true,
+                        warned: false,
+                        banned: false,
+                        multiplier: 1,
+                        totalEarned: 0,
+                        earnCount: 0,
+                        createdAt: Date.now()
+                    });
+                } else {
+                    await adminRef.update({ isAdmin: true, isRootAdmin: true });
+                }
+
+                const configRef = database.ref('config');
+                const configSnapshot = await configRef.once('value');
+                if (!configSnapshot.exists()) {
+                    await configRef.set({ globalMultiplier: 1 });
+                }
+            } catch (error) {
+                console.error('Lỗi khởi tạo admin:', error);
+            }
+        }
+
+        function showRegister() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+            document.getElementById('modalTitle').innerText = 'Đăng ký';
+            hideAlert();
+        }
+
+        function showLogin() {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('modalTitle').innerText = 'Đăng nhập / đăng kí để bắt đầu !';
+            hideAlert();
+        }
+
+        function showAlert(message, type) {
+            const alertBox = document.getElementById('alertBox');
+            alertBox.className = `alert ${type} show`;
+            alertBox.innerText = message;
+        }
+
+        function hideAlert() {
+            document.getElementById('alertBox').className = 'alert';
+        }
+
         async function register() {
-            const username = document.getElementById('regUsername').value.trim(), password = document.getElementById('regPassword').value.trim();
-            if (!username || !password) return showAlert('Vui lòng điền đầy đủ thông tin!', 'error');
-            if (username === ROOT_ADMIN_USERNAME) return showAlert('Tên đăng nhập này không được phép sử dụng!', 'error');
-            const snapshot = await database.ref('users/' + username).once('value');
-            if (snapshot.exists()) return showAlert('Tên đăng nhập đã tồn tại!', 'error');
-            await database.ref('users/' + username).set({ password: password, points: 100, isAdmin: false, isRootAdmin: false, warned: false, banned: false, totalEarned: 0, earnCount: 0, createdAt: Date.now() });
-            showAlert('Đăng ký thành công! Vui lòng đăng nhập.', 'success');
-            setTimeout(() => { showLogin(); document.getElementById('loginUsername').value = username; }, 1500);
+            const username = document.getElementById('regUsername').value.trim();
+            const password = document.getElementById('regPassword').value.trim();
+
+            if (!username || !password) {
+                showAlert('Vui lòng điền đầy đủ thông tin!', 'error');
+                return;
+            }
+
+            if (username === ROOT_ADMIN_USERNAME) {
+                showAlert('Tên đăng nhập này không được phép sử dụng!', 'error');
+                return;
+            }
+
+            try {
+                const snapshot = await database.ref('users/' + username).once('value');
+                if (snapshot.exists()) {
+                    showAlert('Tên đăng nhập đã tồn tại!', 'error');
+                    return;
+                }
+
+                await database.ref('users/' + username).set({
+                    password: password,
+                    points: 100,
+                    isAdmin: false,
+                    isRootAdmin: false,
+                    warned: false,
+                    banned: false,
+                    totalEarned: 0,
+                    earnCount: 0,
+                    createdAt: Date.now()
+                });
+
+                showAlert('Đăng ký thành công! Vui lòng đăng nhập.', 'success');
+                setTimeout(() => {
+                    showLogin();
+                    document.getElementById('loginUsername').value = username;
+                }, 1500);
+            } catch (error) {
+                showAlert('Lỗi đăng ký: ' + error.message, 'error');
+            }
         }
+
         async function login() {
-            const username = document.getElementById('loginUsername').value.trim(), password = document.getElementById('loginPassword').value.trim();
-            if (!username || !password) return showAlert('Vui lòng điền đầy đủ thông tin!', 'error');
-            const snapshot = await database.ref('users/' + username).once('value');
-            if (!snapshot.exists() || snapshot.val().password !== password) return showAlert('Sai tên đăng nhập hoặc mật khẩu!', 'error');
-            if (snapshot.val().banned) return showAlert('Tài khoản này đã bị BAN!', 'error');
-            currentUser = { username: username, ...snapshot.val() };
-            localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            showAlert('Đăng nhập thành công!', 'success');
-            setTimeout(() => { showMainInterface(); listenToUserData(); checkCooldown(); }, 1000);
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+
+            if (!username || !password) {
+                showAlert('Vui lòng điền đầy đủ thông tin!', 'error');
+                return;
+            }
+
+            try {
+                const snapshot = await database.ref('users/' + username).once('value');
+                if (!snapshot.exists()) {
+                    showAlert('Sai tên đăng nhập hoặc mật khẩu!', 'error');
+                    return;
+                }
+
+                const userData = snapshot.val();
+                if (userData.password !== password) {
+                    showAlert('Sai tên đăng nhập hoặc mật khẩu!', 'error');
+                    return;
+                }
+
+                if (userData.banned) {
+                    showAlert('Tài khoản này đã bị BAN!', 'error');
+                    return;
+                }
+
+                currentUser = { username: username, ...userData };
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                showAlert('Đăng nhập thành công!', 'success');
+                
+                setTimeout(() => {
+                    showMainInterface();
+                    listenToUserData();
+                    checkCooldown();
+                }, 1000);
+            } catch (error) {
+                showAlert('Lỗi đăng nhập: ' + error.message, 'error');
+            }
         }
+
         function showMainInterface() {
             document.getElementById('loginModal').classList.remove('active');
             document.getElementById('mainContainer').style.display = 'block';
             document.getElementById('currentUser').innerText = currentUser.username;
+            
             document.getElementById('adminBadge').style.display = currentUser.isAdmin ? 'inline-block' : 'none';
             document.getElementById('rootAdminBadge').style.display = currentUser.isRootAdmin ? 'inline-block' : 'none';
             document.getElementById('warnedBadge').style.display = currentUser.warned ? 'inline-block' : 'none';
             document.getElementById('bannedBadge').style.display = currentUser.banned ? 'inline-block' : 'none';
-            if (currentUser.isAdmin) document.getElementById('adminTab').style.display = 'block';
-            if (currentUser.isRootAdmin) document.getElementById('unadminCard').style.display = 'block';
+            
+            if (currentUser.isAdmin) {
+                document.getElementById('adminTab').style.display = 'block';
+                if (currentUser.isRootAdmin) {
+                    document.getElementById('unadminCard').style.display = 'block';
+                }
+                loadMultiplier();
+            }
+            
             updateUserInfo();
-            if (currentUser.banned) { notify('🚫 BANNED!', 'Tài khoản của bạn đã bị BAN!', 'error', 5000); setTimeout(() => { localStorage.removeItem('currentUser'); location.reload(); }, 3000); }
         }
-        function updateUserInfo() { document.getElementById('userPoints').innerText = (parseFloat(currentUser.points) || 0).toLocaleString(); }
+
+        function updateUserInfo() {
+            const points = parseFloat(currentUser.points) || 0;
+            document.getElementById('userPoints').innerText = points.toLocaleString();
+        }
+
         function listenToUserData() {
-            if (userListener) database.ref('users/' + currentUser.username).off('value', userListener);
+            if (!currentUser) return;
+            if (userListener) {
+                database.ref('users/' + currentUser.username).off('value', userListener);
+            }
+            
             userListener = database.ref('users/' + currentUser.username).on('value', (snapshot) => {
-                if (snapshot.exists()) { currentUser = { username: currentUser.username, ...snapshot.val() }; localStorage.setItem('currentUser', JSON.stringify(currentUser)); updateUserInfo();
-                document.getElementById('adminBadge').style.display = currentUser.isAdmin ? 'inline-block' : 'none';
-                document.getElementById('rootAdminBadge').style.display = currentUser.isRootAdmin ? 'inline-block' : 'none';
-                document.getElementById('warnedBadge').style.display = currentUser.warned ? 'inline-block' : 'none';
-                document.getElementById('bannedBadge').style.display = currentUser.banned ? 'inline-block' : 'none';
-                if (currentUser.banned) { notify('🚫 BANNED!', 'Tài khoản đã bị BAN!', 'error', 5000); setTimeout(() => { localStorage.removeItem('currentUser'); location.reload(); }, 3000); } }
+                if (snapshot.exists()) {
+                    const userData = snapshot.val();
+                    currentUser = { username: currentUser.username, ...userData };
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    updateUserInfo();
+                    
+                    document.getElementById('adminBadge').style.display = currentUser.isAdmin ? 'inline-block' : 'none';
+                    document.getElementById('rootAdminBadge').style.display = currentUser.isRootAdmin ? 'inline-block' : 'none';
+                    document.getElementById('warnedBadge').style.display = currentUser.warned ? 'inline-block' : 'none';
+                    document.getElementById('bannedBadge').style.display = currentUser.banned ? 'inline-block' : 'none';
+                }
             });
         }
+
+        // ============ COOLDOWN SYSTEM ============
         async function checkCooldown() {
-            const snapshot = await database.ref('cooldowns/' + currentUser.username).once('value');
-            if (snapshot.exists() && snapshot.val() > Date.now()) startCooldownDisplay(Math.ceil((snapshot.val() - Date.now()) / 1000));
-            else showQuestButton();
+            try {
+                const snapshot = await database.ref('cooldowns/' + currentUser.username).once('value');
+                if (snapshot.exists()) {
+                    const until = snapshot.val();
+                    const now = Date.now();
+                    if (until > now) {
+                        startCooldownDisplay(Math.ceil((until - now) / 1000));
+                        return;
+                    }
+                }
+                showQuestButton();
+            } catch (error) {
+                showQuestButton();
+            }
         }
-        function startCooldownDisplay(sec) {
+
+        function startCooldownDisplay(seconds) {
             document.getElementById('startQuestBtn').style.display = 'none';
-            const box = document.getElementById('cooldownBox'); box.style.display = 'block';
-            let remaining = sec; document.getElementById('cooldownTime').innerText = remaining;
+            const box = document.getElementById('cooldownBox');
+            box.style.display = 'block';
+            
+            let remaining = seconds;
+            document.getElementById('cooldownTime').innerText = remaining;
+            
             if (cooldownInterval) clearInterval(cooldownInterval);
-            cooldownInterval = setInterval(() => { if (--remaining <= 0) { clearInterval(cooldownInterval); showQuestButton(); } else document.getElementById('cooldownTime').innerText = remaining; }, 1000);
+            
+            cooldownInterval = setInterval(() => {
+                remaining--;
+                document.getElementById('cooldownTime').innerText = remaining;
+                
+                if (remaining <= 0) {
+                    clearInterval(cooldownInterval);
+                    showQuestButton();
+                }
+            }, 1000);
         }
-        function showQuestButton() { document.getElementById('startQuestBtn').style.display = 'inline-block'; document.getElementById('cooldownBox').style.display = 'none'; }
+
+        function showQuestButton() {
+            document.getElementById('startQuestBtn').style.display = 'inline-block';
+            document.getElementById('cooldownBox').style.display = 'none';
+        }
+
+        // ============ START QUEST ============
         async function startQuest() {
-            let deviceIP = 'unknown';
-            try { const res = await fetch('https://api.ipify.org?format=json'); const data = await res.json(); deviceIP = data.ip; } catch(e) { deviceIP = 'unknown_' + Math.random().toString(36).substr(2,9); }
-            const accountId = 'ACC_' + Date.now() + '_' + Math.random().toString(36).substr(2,9);
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            let token = ''; for (let i=0;i<20;i++) token += chars.charAt(Math.floor(Math.random() * chars.length));
-            await database.ref('quests/' + currentUser.username).set({ token, ip: deviceIP, accountId, used: false, timestamp: Date.now() });
-            const missionURL = window.location.origin + window.location.pathname + '?link-token=2020:XLY=' + token;
-            const newTab = window.open(missionURL, '_blank');
-            if (!newTab) notify('❌ Lỗi', 'Trình duyệt chặn tab mới!', 'error');
-            else notify('✅ Nhiệm vụ bắt đầu', 'Tab mới đã mở. Hoàn thành nhiệm vụ.', 'success');
-            await database.ref('cooldowns/' + currentUser.username).set(Date.now() + 60000);
-            startCooldownDisplay(60);
+            try {
+                // Get IP
+                let deviceIP = 'unknown';
+                try {
+                    const response = await fetch('https://api.ipify.org?format=json');
+                    const data = await response.json();
+                    deviceIP = data.ip;
+                } catch (e) {
+                    deviceIP = 'unknown_' + Math.random().toString(36).substr(2, 9);
+                }
+                
+                const accountId = 'ACC_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                let token = '';
+                for (let i = 0; i < 20; i++) {
+                    token += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                
+                const questData = {
+                    token: token,
+                    ip: deviceIP,
+                    accountId: accountId,
+                    used: false,
+                    timestamp: Date.now()
+                };
+                
+                await database.ref('quests/' + currentUser.username).set(questData);
+                
+                // Open mission page in new tab
+                const missionURL = window.location.origin + window.location.pathname + '?link-token=2020:XLY=' + token;
+                const newTab = window.open(missionURL, '_blank');
+                
+                if (!newTab) {
+                    alert('Trình duyệt đã chặn tab mới. Vui lòng cho phép mở tab mới và thử lại.');
+                }
+                
+                // Start cooldown immediately (60s)
+                await database.ref('cooldowns/' + currentUser.username).set(Date.now() + 60000);
+                startCooldownDisplay(60);
+                
+            } catch (error) {
+                alert('Lỗi khi bắt đầu nhiệm vụ: ' + error.message);
+            }
         }
+
         function showTab(tabName, event) {
-            if (tabName === 'admin' && !currentUser.isAdmin) return notify('❌ Lỗi', 'Không có quyền!', 'error');
+            if (tabName === 'admin' && !currentUser.isAdmin) {
+                alert('Bạn không có quyền truy cập!');
+                return;
+            }
+
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            
             document.getElementById(tabName).classList.add('active');
             if (event) event.target.classList.add('active');
+            
+            window.location.hash = tabName;
         }
-        async function addPointsSafely(username, amount) { return database.ref('users/' + username + '/points').transaction(c => (c || 0) + amount); }
-        async function subtractPointsSafely(username, amount) { return database.ref('users/' + username + '/points').transaction(c => { let cur = c || 0; return cur < amount ? cur : cur - amount; }); }
+
+        async function addPointsSafely(username, amount) {
+            const pointsRef = database.ref('users/' + username + '/points');
+            return pointsRef.transaction((currentPoints) => (currentPoints || 0) + amount);
+        }
+
+        async function subtractPointsSafely(username, amount) {
+            const pointsRef = database.ref('users/' + username + '/points');
+            return pointsRef.transaction((currentPoints) => {
+                const current = currentPoints || 0;
+                if (current < amount) return current;
+                return current - amount;
+            });
+        }
+
         async function buyItem(itemName, price) {
-            if (currentUser.points < price) return notify('❌ Không đủ ChickenP', `Cần thêm ${(price - currentUser.points).toLocaleString()} P`, 'error');
-            showConfirm('Xác nhận mua', `Mua ${itemName} giá ${price.toLocaleString()} P?`, async () => { let res = await subtractPointsSafely(currentUser.username, price); if (res.committed) notify('✅ Mua thành công!', `Đã mua ${itemName}!`, 'success'); else notify('❌ Lỗi', 'Không đủ điểm', 'error'); });
+            if (currentUser.points < price) {
+                alert('Không đủ ChickenP để mua!');
+                return;
+            }
+
+            if (confirm(`Bạn có chắc muốn mua ${itemName} với giá ${price.toLocaleString()} ChickenP?`)) {
+                try {
+                    const result = await subtractPointsSafely(currentUser.username, price);
+                    if (result.committed) {
+                        alert(`Mua ${itemName} thành công! 🎉`);
+                    } else {
+                        alert('Không đủ ChickenP!');
+                    }
+                } catch (error) {
+                    alert('Lỗi khi mua: ' + error.message);
+                }
+            }
         }
-        function showWarning() { document.getElementById('warningModal').classList.add('active'); }
-        function closeWarning() { document.getElementById('warningModal').classList.remove('active'); }
-        function showConfirm(title, message, callback) { document.getElementById('confirmTitle').innerText = title; document.getElementById('confirmMessage').innerText = message; confirmCallback = callback; document.getElementById('confirmModal').classList.add('active'); }
-        function confirmAction(yes) { document.getElementById('confirmModal').classList.remove('active'); if (yes && confirmCallback) confirmCallback(); confirmCallback = null; }
-        function logout() { if (confirm('Đăng xuất?')) { if (currentUser && userListener) database.ref('users/' + currentUser.username).off('value', userListener); localStorage.removeItem('currentUser'); location.reload(); } }
-        // Admin functions
-        async function loadMultiplier() { const snap = await database.ref('config/globalMultiplier').once('value'); let val = snap.exists() ? snap.val() : 1; document.getElementById('currentMultiplier').innerText = val; document.getElementById('multiplierRange').value = val; }
-        function updateMultiplierDisplay(val) { document.getElementById('currentMultiplier').innerText = val; }
-        async function setMultiplier() { if (!currentUser.isRootAdmin) return notify('❌ Lỗi', 'Chỉ Root Admin!', 'error'); let val = parseInt(document.getElementById('multiplierRange').value); showConfirm('Đổi hệ số', `Đặt hệ số thành ${val}x?`, async () => { await database.ref('config/globalMultiplier').set(val); notify('✅ Thành công', `Hệ số = ${val}x`, 'success'); loadMultiplier(); }); }
-        async function banUser() { let username = document.getElementById('banUsername').value.trim(); if (!username) return notify('❌', 'Nhập tên', 'error'); showConfirm('BAN User', `BAN ${username}?`, async () => { let snap = await database.ref('users/' + username).once('value'); if (!snap.exists()) return notify('❌', 'Không tìm thấy user', 'error'); let target = snap.val(); if (target.isAdmin && !currentUser.isRootAdmin) return notify('❌', 'Chỉ Root mới BAN admin', 'error'); if (username === currentUser.username) return notify('❌', 'Không thể tự BAN', 'error'); if (target.isRootAdmin) return notify('❌', 'Không thể BAN Root', 'error'); await database.ref('users/' + username + '/banned').set(true); notify('✅', `Đã BAN ${username}`, 'success'); document.getElementById('banUsername').value = ''; }); }
-        async function unbanUser() { let username = document.getElementById('unbanUsername').value.trim(); if (!username) return; showConfirm('UNBAN', `UNBAN ${username}?`, async () => { await database.ref('users/' + username + '/banned').set(false); notify('✅', `UNBAN ${username}`, 'success'); document.getElementById('unbanUsername').value = ''; }); }
-        async function unwarnUser() { let username = document.getElementById('unwarnUsername').value.trim(); if (!username) return; showConfirm('UNWARN', `UNWARN ${username}?`, async () => { await database.ref('users/' + username + '/warned').set(false); notify('✅', `Đã UNWARN ${username}`, 'success'); document.getElementById('unwarnUsername').value = ''; }); }
-        async function addAdmin() { if (!currentUser.isRootAdmin) return notify('❌', 'Chỉ Root Admin', 'error'); let username = document.getElementById('addAdminUsername').value.trim(); if (!username || username === ROOT_ADMIN_USERNAME) return; showConfirm('ADD ADMIN', `Cấp quyền ADMIN cho ${username}?`, async () => { let snap = await database.ref('users/' + username).once('value'); if (!snap.exists()) return notify('❌', 'User không tồn tại', 'error'); await database.ref('users/' + username).update({ isAdmin: true, isRootAdmin: false }); notify('✅', `Đã cấp ADMIN cho ${username}`, 'success'); document.getElementById('addAdminUsername').value = ''; }); }
-        async function unadminUser() { if (!currentUser.isRootAdmin) return; let username = document.getElementById('unadminUsername').value.trim(); if (!username || username === ROOT_ADMIN_USERNAME) return; showConfirm('UNADMIN', `Gỡ quyền ADMIN của ${username}?`, async () => { await database.ref('users/' + username).update({ isAdmin: false, isRootAdmin: false }); notify('✅', `Đã gỡ ADMIN ${username}`, 'success'); document.getElementById('unadminUsername').value = ''; }); }
-        async function giftPoints() { let username = document.getElementById('giftUsername').value.trim(), amountStr = document.getElementById('giftAmount').value.trim(); if (!username || !amountStr) return notify('❌', 'Nhập đủ thông tin', 'error'); let amount = parseFloat(amountStr); if (isNaN(amount) || amount <= 0 || amount > 100000) return notify('❌', 'Số P không hợp lệ', 'error'); showConfirm('GIFT', `Tặng ${amount.toLocaleString()} P cho ${username}?`, async () => { let snap = await database.ref('users/' + username).once('value'); if (!snap.exists()) return notify('❌', 'User không tồn tại', 'error'); await addPointsSafely(username, amount); notify('✅', `Đã tặng ${amount.toLocaleString()} P`, 'success'); document.getElementById('giftUsername').value = ''; document.getElementById('giftAmount').value = ''; }); }
-        // Mission page logic
-        const urlParams = new URLSearchParams(window.location.search);
-        const linkToken = urlParams.get('link-token');
-        if (linkToken) { const saved = localStorage.getItem('currentUser'); if (saved) { currentUser = JSON.parse(saved); openMissionPage(); } else notify('❌', 'Vui lòng đăng nhập trước', 'error'); }
-        function openMissionPage() { document.getElementById('mainPage').style.display = 'none'; document.getElementById('missionPage').classList.add('active'); document.getElementById('missionUser').innerText = 'User: ' + currentUser.username; loadMissionData(); }
-        async function loadMissionData() { let snap = await database.ref('quests/' + currentUser.username).once('value'); if (!snap.exists()) return notify('❌', 'Không tìm thấy nhiệm vụ', 'error'); missionData = snap.val(); if (missionData.used) { notify('⚠️', 'Nhiệm vụ đã hoàn thành', 'warning'); setTimeout(() => window.location.href = window.location.pathname, 2000); } else document.getElementById('task1Link').innerText = buildQuestURL(missionData.token, missionData.ip, missionData.accountId); }
-        function buildQuestURL(token, ip, acc) { return window.location.origin + window.location.pathname + '?link-token=2020:XLY=' + token; }
-        function updateProgress() { let percent = ((currentTask-1)/4)*100; let fill = document.getElementById('progressFill'); fill.style.width = percent+'%'; fill.innerText = Math.round(percent)+'%'; }
-        function activateTask(taskNum) { for(let i=1;i<=4;i++) { let card = document.getElementById('task'+i+'Card'), status = document.getElementById('task'+i+'Status'); if(i<taskNum) { card.className='task-card completed'; status.className='task-status status-done'; status.innerText='Hoàn thành'; } else if(i===taskNum) { card.className='task-card active'; status.className='task-status status-active'; status.innerText='Đang làm'; } else { card.className='task-card locked'; status.className='task-status status-locked'; status.innerText='Chưa mở'; } } currentTask=taskNum; updateProgress(); document.getElementById('task'+taskNum+'Card').scrollIntoView({behavior:'smooth',block:'center'}); }
-        async function verifyTask1() { let input = document.getElementById('task1Input').value.trim(), expected = buildQuestURL(missionData.token, missionData.ip, missionData.accountId); if(input===expected) { notify('✅ Thành công', 'Xác thực link thành công!', 'success'); activateTask(2); startQuiz(); } else { notify('❌ Sai', 'Link không khớp', 'error'); document.getElementById('task1Input').classList.add('error-flash'); setTimeout(()=>document.getElementById('task1Input').classList.remove('error-flash'),500); } }
-        function generateQuizQuestions() { let qs=[]; for(let i=0;i<5;i++) { let a=Math.floor(Math.random()*10)+1, b=Math.floor(Math.random()*10)+1, answer; let op = ['+','-','x'][Math.floor(Math.random()*3)]; if(op==='+') answer=a+b; else if(op==='-') { a=Math.floor(Math.random()*10)+5; b=Math.floor(Math.random()*5)+1; answer=a-b; } else { a=Math.floor(Math.random()*5)+1; b=Math.floor(Math.random()*5)+1; answer=a*b; } let options=new Set([answer]); while(options.size<4) options.add(answer+Math.floor(Math.random()*10)-5); let shuffled=Array.from(options).sort(()=>Math.random()-0.5); qs.push({text:`${a} ${op} ${b} = ?`, answer, options:shuffled}); } return qs; }
-        function startQuiz() { quizState={correct:0,wrong:0,current:0,questions:generateQuizQuestions(),attempts:0}; showQuizQuestion(); }
-        function showQuizQuestion() { if(quizState.current>=5) return finishQuiz(); let q=quizState.questions[quizState.current]; document.getElementById('quizQuestion').innerText=q.text; document.getElementById('quizCurrent').innerText=`${quizState.current+1}/5`; document.getElementById('quizCorrect').innerText=quizState.correct; document.getElementById('quizWrong').innerText=quizState.wrong; let optsDiv=document.getElementById('quizOptions'); optsDiv.innerHTML=''; q.options.forEach(opt=>{ let btn=document.createElement('div'); btn.className='quiz-option'; btn.innerText=opt; btn.onclick=()=>answerQuiz(opt,btn); optsDiv.appendChild(btn); }); }
-        function answerQuiz(selected,btn) { let q=quizState.questions[quizState.current]; document.querySelectorAll('.quiz-option').forEach(o=>o.onclick=null); if(selected===q.answer) { btn.classList.add('correct'); quizState.correct++; } else { btn.classList.add('wrong'); quizState.wrong++; document.querySelectorAll('.quiz-option').forEach(o=>{ if(parseInt(o.innerText)===q.answer) o.classList.add('correct'); }); } setTimeout(()=>{ quizState.current++; showQuizQuestion(); },1200); }
-        function finishQuiz() { document.getElementById('quizContainer').style.display='none'; let resultDiv=document.getElementById('quizResult'); resultDiv.style.display='block'; if(quizState.correct>=3) { resultDiv.innerHTML=`<div class="success-box"><h3>🎉 Xuất sắc!</h3><p>Đúng ${quizState.correct}/5 câu!</p><button class="btn" onclick="activateTask(3)">Tiếp tục →</button></div>`; } else { quizState.attempts++; if(quizState.attempts>=2) { resultDiv.innerHTML=`<div style="background:#f8d7da;color:#721c24;padding:30px;border-radius:15px;"><h3>😢 Rất tiếc!</h3><p>Sai quá nhiều. Chuyển hướng...</p></div>`; setTimeout(()=>window.location.href='https://www.youtube.com/watch?v=Zh3w28Krm60',2000); } else { resultDiv.innerHTML=`<div style="background:#fff3cd;color:#856404;padding:30px;border-radius:15px;"><h3>⚠️ Cần cố gắng!</h3><p>Đúng ${quizState.correct}/5. Thử lại!</p><button class="btn" onclick="retryQuiz()">🔄 Làm lại</button></div>`; } } }
-        function retryQuiz() { document.getElementById('quizContainer').style.display='block'; document.getElementById('quizResult').style.display='none'; startQuiz(); }
-        function completeTask3() { if(confirm('Đã xem quảng cáo?')) { notify('✅ Hoàn thành', 'Nhiệm vụ 3 xong!', 'success'); activateTask(4); } }
-        function startCountdown() { document.getElementById('countdownStartBtn').style.display='none'; countdownSeconds=30; countdownPaused=false; countdownStopped=false; countdownStarted=true; powerShown=false; starShown=false; document.getElementById('restartBtn').classList.remove('show'); document.getElementById('pausedNotice').classList.remove('show'); document.getElementById('countdownArea').style.display='block'; document.getElementById('countdownDisplay').style.opacity='1'; updateCountdownDisplay(); countdownTimer=setInterval(()=>{ if(countdownPaused||countdownStopped) return; countdownSeconds--; updateCountdownDisplay(); if(!powerShown && countdownSeconds>=20 && countdownSeconds<=25) { showPowerButton(); powerShown=true; } if(!starShown && countdownSeconds>=10 && countdownSeconds<=15) { showStar(); starShown=true; } if(countdownSeconds<=0) completeTask4(); },1000); document.addEventListener('visibilitychange',handleVisibilityChange); }
-        function showPowerButton() { let area=document.getElementById('countdownArea'); let power=document.createElement('button'); power.className='power-btn'; power.innerHTML='⚡'; let maxX=area.clientWidth-100, maxY=area.clientHeight-100; power.style.left=Math.max(10,Math.random()*maxX)+'px'; power.style.top=Math.max(10,Math.random()*maxY)+'px'; power.onclick=()=>{ power.remove(); let promptDiv=document.getElementById('countdownPrompt'); promptDiv.className='countdown-prompt'; promptDiv.style.background='#d4edda'; promptDiv.style.borderColor='#28a745'; promptDiv.style.color='#155724'; promptDiv.innerText='⚡ Power Activated! Tiếp tục...'; promptDiv.style.display='block'; setTimeout(()=>promptDiv.style.display='none',2000); }; area.appendChild(power); let promptDiv=document.getElementById('countdownPrompt'); promptDiv.className='countdown-prompt'; promptDiv.innerText='⚡ Nhấn vào nút POWER để tiếp tục!'; promptDiv.style.display='block'; }
-        function showStar() { let area=document.getElementById('countdownArea'); let star=document.createElement('div'); star.className='star-target'; star.innerText='⭐'; let maxX=area.clientWidth-60, maxY=area.clientHeight-60; star.style.left=Math.max(10,Math.random()*maxX)+'px'; star.style.top=Math.max(10,Math.random()*maxY)+'px'; star.onclick=()=>{ star.remove(); let promptDiv=document.getElementById('countdownPrompt'); promptDiv.className='countdown-prompt'; promptDiv.style.background='#d4edda'; promptDiv.style.borderColor='#28a745'; promptDiv.style.color='#155724'; promptDiv.innerText='✅ Tìm thấy rồi! Tiếp tục...'; promptDiv.style.display='block'; setTimeout(()=>promptDiv.style.display='none',2000); }; area.appendChild(star); let promptDiv=document.getElementById('countdownPrompt'); promptDiv.className='countdown-prompt'; promptDiv.innerText='⭐ Tìm và nhấn vào ngôi sao!'; promptDiv.style.display='block'; }
-        function restartCountdown() { document.getElementById('pausedNotice').classList.remove('show'); document.getElementById('restartBtn').classList.remove('show'); document.getElementById('countdownArea').style.display='block'; document.getElementById('countdownDisplay').style.opacity='1'; countdownStopped=false; countdownPaused=false; }
-        function updateCountdownDisplay() { document.getElementById('countdownDisplay').innerText=countdownSeconds; document.getElementById('pausedTime').innerText=countdownSeconds; }
-        function handleVisibilityChange() { if(!countdownStarted || countdownSeconds<=0) return; if(document.hidden) { countdownStopped=true; document.getElementById('countdownArea').style.display='none'; document.getElementById('countdownPrompt').style.display='none'; document.getElementById('countdownDisplay').style.opacity='0.3'; document.getElementById('pausedTime').innerText=countdownSeconds; document.getElementById('pausedNotice').classList.add('show'); document.getElementById('restartBtn').classList.add('show'); } }
-        async function completeTask4() { clearInterval(countdownTimer); document.removeEventListener('visibilitychange',handleVisibilityChange); await database.ref('quests/' + currentUser.username + '/used').set(true); await database.ref('users/' + currentUser.username + '/points').transaction(c=>(c||0)+1); await database.ref('users/' + currentUser.username).update({ totalEarned: firebase.database.ServerValue.increment(1), earnCount: firebase.database.ServerValue.increment(1) }); await database.ref('cooldowns/' + currentUser.username).set(Date.now()+60000); document.querySelectorAll('.task-card').forEach(c=>c.className='task-card completed'); document.getElementById('task4Status').className='task-status status-done'; document.getElementById('task4Status').innerText='Hoàn thành'; document.getElementById('progressFill').style.width='100%'; document.getElementById('progressFill').innerText='100%'; document.getElementById('missionComplete').style.display='block'; let reward=document.createElement('div'); reward.className='reward-popup'; reward.innerHTML='🎉 +1 ChickenP!'; document.body.appendChild(reward); setTimeout(()=>{ reward.remove(); if(window.opener) window.close(); else window.location.href=window.location.pathname; },3000); }
+
+        function showWarning() {
+            document.getElementById('warningModal').classList.add('active');
+        }
+
+        function closeWarning() {
+            document.getElementById('warningModal').classList.remove('active');
+        }
+
+        // ============ ADMIN FUNCTIONS ============
+        async function loadMultiplier() {
+            try {
+                const snapshot = await database.ref('config/globalMultiplier').once('value');
+                const multiplier = snapshot.exists() ? snapshot.val() : 1;
+                document.getElementById('currentMultiplier').innerText = multiplier;
+                document.getElementById('multiplierRange').value = multiplier;
+            } catch (error) {
+                console.error('Lỗi tải multiplier:', error);
+            }
+        }
+
+        function updateMultiplierDisplay(value) {
+            document.getElementById('currentMultiplier').innerText = value;
+        }
+
+        async function setMultiplier() {
+            if (!currentUser.isRootAdmin) {
+                alert('Chỉ Root Admin mới có thể thay đổi hệ số nhân!');
+                return;
+            }
+
+            const value = parseInt(document.getElementById('multiplierRange').value);
+            showConfirm('Xác nhận thay đổi hệ số nhân', `Bạn có chắc muốn đặt hệ số nhân thành ${value}x?`, async () => {
+                try {
+                    await database.ref('config/globalMultiplier').set(value);
+                    alert('✅ Đã cập nhật hệ số nhân thành ' + value + 'x');
+                    loadMultiplier();
+                } catch (error) {
+                    alert('Lỗi: ' + error.message);
+                }
+            });
+        }
+
+        function unwarnUser() {
+            const username = document.getElementById('unwarnUsername').value.trim();
+            if (!username) { alert('Vui lòng nhập tên người dùng!'); return; }
+
+            showConfirm('UNWARN User', `Bạn có chắc muốn bỏ cảnh báo cho ${username}?`, async () => {
+                try {
+                    const snapshot = await database.ref('users/' + username).once('value');
+                    if (!snapshot.exists()) { alert('❌ Không tìm thấy người dùng!'); return; }
+                    await database.ref('users/' + username + '/warned').set(false);
+                    alert('✅ Đã UNWARN thành công!');
+                    document.getElementById('unwarnUsername').value = '';
+                } catch (error) {
+                    alert('Lỗi: ' + error.message);
+                }
+            });
+        }
+
+        function unbanUser() {
+            const username = document.getElementById('unbanUsername').value.trim();
+            if (!username) { alert('Vui lòng nhập tên người dùng!'); return; }
+
+            showConfirm('UNBAN User', `Bạn có chắc muốn bỏ BAN cho ${username}?`, async () => {
+                try {
+                    const snapshot = await database.ref('users/' + username).once('value');
+                    if (!snapshot.exists()) { alert('❌ Không tìm thấy người dùng!'); return; }
+                    await database.ref('users/' + username + '/banned').set(false);
+                    alert('✅ Đã UNBAN thành công!');
+                    document.getElementById('unbanUsername').value = '';
+                } catch (error) {
+                    alert('Lỗi: ' + error.message);
+                }
+            });
+        }
+
+        function addAdmin() {
+            if (!currentUser.isRootAdmin) { alert('Chỉ Root Admin mới có thể thêm Admin!'); return; }
+            const username = document.getElementById('addAdminUsername').value.trim();
+            if (!username) { alert('Vui lòng nhập tên người dùng!'); return; }
+            if (username === ROOT_ADMIN_USERNAME) { alert('Không thể thêm Root Admin!'); return; }
+
+            showConfirm('ADD ADMIN', `Bạn có chắc muốn cấp quyền ADMIN cho ${username}?`, async () => {
+                try {
+                    const snapshot = await database.ref('users/' + username).once('value');
+                    if (!snapshot.exists()) { alert('❌ Không tìm thấy người dùng!'); return; }
+                    await database.ref('users/' + username).update({ isAdmin: true, isRootAdmin: false });
+                    alert('✅ Đã thêm ADMIN thành công!');
+                    document.getElementById('addAdminUsername').value = '';
+                } catch (error) {
+                    alert('Lỗi: ' + error.message);
+                }
+            });
+        }
+
+        function unadminUser() {
+            if (!currentUser.isRootAdmin) { alert('Chỉ Root Admin mới có thể gỡ quyền Admin!'); return; }
+            const username = document.getElementById('unadminUsername').value.trim();
+            if (!username) { alert('Vui lòng nhập tên admin!'); return; }
+            if (username === ROOT_ADMIN_USERNAME) { alert('Không thể gỡ quyền Root Admin!'); return; }
+
+            showConfirm('UNADMIN', `Bạn có chắc muốn gỡ quyền ADMIN của ${username}?`, async () => {
+                try {
+                    const snapshot = await database.ref('users/' + username).once('value');
+                    if (!snapshot.exists()) { alert('❌ Không tìm thấy người dùng!'); return; }
+                    await database.ref('users/' + username).update({ isAdmin: false, isRootAdmin: false });
+                    alert('✅ Đã gỡ quyền ADMIN thành công!');
+                    document.getElementById('unadminUsername').value = '';
+                } catch (error) {
+                    alert('Lỗi: ' + error.message);
+                }
+            });
+        }
+
+        function giftPoints() {
+            const username = document.getElementById('giftUsername').value.trim();
+            const amountStr = document.getElementById('giftAmount').value.trim();
+            if (!username || !amountStr) { alert('Vui lòng nhập đầy đủ thông tin!'); return; }
+
+            const amount = parseFloat(amountStr);
+            if (isNaN(amount) || amount < 0.00000000000000000000001 || amount > 100000) {
+                alert('Số ChickenP phải từ 0.00000000000000000000001 đến 100000!');
+                return;
+            }
+
+            showConfirm('GIFT ChickenP', `Bạn có chắc muốn tặng ${amount.toLocaleString()} ChickenP cho ${username}?`, async () => {
+                try {
+                    const snapshot = await database.ref('users/' + username).once('value');
+                    if (!snapshot.exists()) { alert('❌ Không tìm thấy người dùng!'); return; }
+                    await addPointsSafely(username, amount);
+                    alert(`✅ Đã tặng ${amount.toLocaleString()} ChickenP cho ${username}!`);
+                    document.getElementById('giftUsername').value = '';
+                    document.getElementById('giftAmount').value = '';
+                } catch (error) {
+                    alert('Lỗi: ' + error.message);
+                }
+            });
+        }
+
+        function showConfirm(title, message, callback) {
+            document.getElementById('confirmTitle').innerText = title;
+            document.getElementById('confirmMessage').innerText = message;
+            confirmCallback = callback;
+            document.getElementById('confirmModal').classList.add('active');
+        }
+
+        function confirmAction(yes) {
+            document.getElementById('confirmModal').classList.remove('active');
+            if (yes && confirmCallback) confirmCallback();
+            confirmCallback = null;
+        }
+
+        function logout() {
+            if (confirm('Bạn có chắc muốn đăng xuất?')) {
+                if (currentUser && userListener) {
+                    database.ref('users/' + currentUser.username).off('value', userListener);
+                }
+                localStorage.removeItem('currentUser');
+                currentUser = null;
+                location.reload();
+            }
+        }
     </script>
 </body>
-</html>
+</html> giữ nguyên  Update thêm cái ở tab admin thêm cái tên BAN ở đây nhập tên và xác nhận và rồi ban ng đó ! (và nó sẽ ko ban đc admin nếu mấy admin đc thêm ban admin khác sẽ ko đc ! nhưng nếu root ban admin thì đc ) update thêm cái notify kiểu riếng của web
+
+update cái tính năng chính ✅ Kiếm điểm: Hoàn thành quest để nhận ChickenP
+🛍️ Shop: Mua sắm vật phẩm với ChickenP và add thêm cái phần tên 
+UPDATE LOGở đây bạn sẽ điền những cái đã update mói   nếu web phát hiện adblock nó sẽ hiên nên thông báo  Please disable any ad-blocking extensions/tools! - Vui lòng tắt mọi tiện ích/công cụ chặn quảng cáo! nếu xác minh đc adblock thì đưa ra ! 
