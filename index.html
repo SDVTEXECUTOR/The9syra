@@ -1280,11 +1280,36 @@
             animation: starGlow 1s infinite alternate;
             user-select: none;
             z-index: 100;
+            transition: transform 0.2s;
+        }
+
+        .star-target:hover {
+            transform: scale(1.3);
         }
 
         @keyframes starGlow {
             from { transform: scale(1); filter: drop-shadow(0 0 10px gold); }
             to { transform: scale(1.2); filter: drop-shadow(0 0 20px gold); }
+        }
+
+        /* Click Power fist animation */
+        .fist-target {
+            position: absolute;
+            font-size: 4em;
+            cursor: pointer;
+            animation: fistPunch 0.6s infinite alternate;
+            user-select: none;
+            z-index: 100;
+            filter: drop-shadow(0 0 15px #ff416c);
+        }
+
+        .fist-target:hover {
+            transform: scale(1.3);
+        }
+
+        @keyframes fistPunch {
+            from { transform: scale(1) rotate(-10deg); filter: drop-shadow(0 0 10px #ff416c); }
+            to { transform: scale(1.25) rotate(10deg); filter: drop-shadow(0 0 25px #ff416c); }
         }
 
         .countdown-area {
@@ -1294,6 +1319,46 @@
             border-radius: 10px;
             margin: 20px 0;
             overflow: hidden;
+        }
+
+        /* Star status bar */
+        .star-status-bar {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+            padding: 15px 20px;
+            border-radius: 10px;
+            border: 2px solid #ffc107;
+            margin: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-weight: bold;
+            color: #856404;
+            animation: popIn 0.4s;
+        }
+
+        .star-status-bar .status-text {
+            font-size: 1.1em;
+        }
+
+        .star-status-bar .status-count {
+            background: #667eea;
+            color: white;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 1.2em;
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+        }
+
+        .star-status-bar.complete {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border-color: #28a745;
+            color: #155724;
+        }
+
+        .star-status-bar.complete .status-count {
+            background: #28a745;
         }
 
         /* Restart Button */
@@ -1408,6 +1473,8 @@
             .restart-btn { font-size: 1.2em; padding: 15px 30px; }
             .notification-container { max-width: 90%; right: 5%; }
             .profile-header { flex-direction: column; text-align: center; }
+            .star-target { font-size: 2.5em; }
+            .fist-target { font-size: 3.5em; }
         }
     </style>
 </head>
@@ -1590,6 +1657,12 @@
                 <div class="update-log-section">
                     <h3>📝 UPDATE LOG</h3>
                     <ul class="update-log-list">
+                        <li class="update-log-item">
+                            <span class="update-log-date">10/06/2026</span>
+                            <span class="update-log-text">
+                                <strong>💪 Quest 4 Upgrade:</strong> Countdown có thêm <strong>Click Power 🥊</strong> (25s-20s) và <strong>Tìm 5 ngôi sao ⭐</strong> (15s-10s) với status bar hiển thị tiến trình
+                            </span>
+                        </li>
                         <li class="update-log-item">
                             <span class="update-log-date">10/06/2026</span>
                             <span class="update-log-text">
@@ -1881,6 +1954,13 @@
                         <div class="countdown-container" id="countdownContainer">
                             <div class="countdown-display" id="countdownDisplay">30</div>
                             <div id="countdownPrompt"></div>
+                            
+                            <!-- Star Status Bar - hiển thị tiến trình tìm sao -->
+                            <div class="star-status-bar" id="starStatusBar" style="display: none;">
+                                <span class="status-text" id="starStatusText">⭐ Đang tìm ngôi sao...</span>
+                                <span class="status-count" id="starStatusCount">0/5</span>
+                            </div>
+                            
                             <div class="countdown-area" id="countdownArea"></div>
                             
                             <button class="btn" id="countdownStartBtn" onclick="startCountdown()" style="margin-top: 15px;">▶️ Bắt đầu đếm ngược</button>
@@ -1960,7 +2040,6 @@
 
             container.appendChild(notification);
 
-            // Auto remove
             setTimeout(() => {
                 if (notification.parentNode) {
                     notification.classList.add('removing');
@@ -1988,7 +2067,6 @@
 
         function detectAdblock() {
             return new Promise((resolve) => {
-                // Method 1: Check bait element
                 const bait = document.getElementById('adBait');
                 if (bait) {
                     const baitStyle = window.getComputedStyle(bait);
@@ -1998,15 +2076,11 @@
                     }
                 }
 
-                // Method 2: Check for blocked scripts/resources
                 const testImg = new Image();
                 testImg.onload = () => resolve(false);
                 testImg.onerror = () => resolve(true);
-                
-                // Try loading a known ad-related resource
                 testImg.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
                 
-                // Method 3: Check for common adblock properties
                 setTimeout(() => {
                     if (window.google_jobrunner || window.uabInject) {
                         resolve(true);
@@ -2044,13 +2118,10 @@
         const linkToken = urlParams.get('link-token');
 
         window.onload = async function() {
-            // Check adblock first
             await checkAdblock();
-            
             await initializeAdminAccount();
             
             if (linkToken) {
-                // Open mission page
                 const savedUser = localStorage.getItem('currentUser');
                 if (!savedUser) {
                     alert('Vui lòng đăng nhập trước!');
@@ -2060,7 +2131,6 @@
                 currentUser = JSON.parse(savedUser);
                 openMissionPage();
             } else {
-                // Normal page
                 const savedUser = localStorage.getItem('currentUser');
                 if (savedUser) {
                     currentUser = JSON.parse(savedUser);
@@ -2068,7 +2138,6 @@
                     listenToUserData();
                     checkCooldown();
                     
-                    // Show welcome notification
                     setTimeout(() => {
                         showNotification('Chào mừng!', `Xin chào ${currentUser.username}! Chúc bạn chơi game vui vẻ! 🐔`, 'success', 4000);
                     }, 1000);
@@ -2084,9 +2153,13 @@
         let countdownSeconds = 30;
         let countdownPaused = false;
         let countdownStopped = false;
-        let promptShown = false;
-        let starShown = false;
         let countdownStarted = false;
+
+        // New state for quest 4 upgrades
+        let clickPowerShown = false;   // Đã hiện Click Power chưa
+        let starsShown = false;        // Đã hiện 5 ngôi sao chưa
+        let starsFound = 0;            // Số sao đã tìm được
+        const TOTAL_STARS = 5;
 
         function openMissionPage() {
             document.getElementById('mainPage').style.display = 'none';
@@ -2338,11 +2411,14 @@
             countdownPaused = false;
             countdownStopped = false;
             countdownStarted = true;
-            promptShown = false;
-            starShown = false;
+            clickPowerShown = false;
+            starsShown = false;
+            starsFound = 0;
             
             document.getElementById('restartBtn').classList.remove('show');
             document.getElementById('pausedNotice').classList.remove('show');
+            document.getElementById('starStatusBar').style.display = 'none';
+            document.getElementById('starStatusBar').classList.remove('complete');
             
             updateCountdownDisplay();
             
@@ -2352,14 +2428,18 @@
                 countdownSeconds--;
                 updateCountdownDisplay();
                 
-                if (!promptShown && countdownSeconds >= 20 && countdownSeconds <= 25 && Math.random() < 0.3) {
-                    pauseCountdownWithPrompt('👆 Hãy chạm vào màn hình để tiếp tục!');
-                    promptShown = true;
+                // ===== CLICK POWER (25s-20s) =====
+                // Hiện icon 🥊 ở khoảng 25-20s, chỉ hiện 1 lần
+                if (!clickPowerShown && countdownSeconds >= 20 && countdownSeconds <= 25) {
+                    showClickPower();
+                    clickPowerShown = true;
                 }
                 
-                if (!starShown && countdownSeconds >= 10 && countdownSeconds <= 15) {
-                    showStar();
-                    starShown = true;
+                // ===== FIND 5 STARS (15s-10s) =====
+                // Hiện 5 ngôi sao ở khoảng 15-10s, chỉ hiện 1 lần
+                if (!starsShown && countdownSeconds >= 10 && countdownSeconds <= 15) {
+                    showStars();
+                    starsShown = true;
                 }
                 
                 if (countdownSeconds <= 0) {
@@ -2368,6 +2448,146 @@
             }, 1000);
             
             document.addEventListener('visibilitychange', handleVisibilityChange);
+        }
+
+        // ===== CLICK POWER - Icon 🥊 để tiếp tục =====
+        function showClickPower() {
+            countdownPaused = true;
+            const area = document.getElementById('countdownArea');
+            area.style.display = 'block';
+            
+            // Hiện thông báo
+            showNotification('💪 CLICK POWER!', 'Nhấn vào nắm đấm 🥊 để tiếp tục đếm ngược!', 'warning', 10000);
+            
+            const promptDiv = document.getElementById('countdownPrompt');
+            promptDiv.className = 'countdown-prompt';
+            promptDiv.style.background = 'linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%)';
+            promptDiv.style.color = 'white';
+            promptDiv.style.borderColor = '#ff416c';
+            promptDiv.innerText = '💪 CLICK POWER! Nhấn vào 🥊 để tiếp tục!';
+            promptDiv.style.display = 'block';
+            
+            // Tạo icon 🥊 ở vị trí ngẫu nhiên
+            const fist = document.createElement('div');
+            fist.className = 'fist-target';
+            fist.innerText = '🥊';
+            fist.id = 'clickPowerFist';
+            
+            // Đợi area render xong mới lấy kích thước
+            setTimeout(() => {
+                const maxX = Math.max(50, area.clientWidth - 80);
+                const maxY = Math.max(50, area.clientHeight - 80);
+                fist.style.left = Math.max(10, Math.random() * maxX) + 'px';
+                fist.style.top = Math.max(10, Math.random() * maxY) + 'px';
+            }, 50);
+            
+            fist.onclick = () => {
+                // Hiệu ứng biến mất
+                fist.style.transition = 'all 0.3s';
+                fist.style.transform = 'scale(2) rotate(360deg)';
+                fist.style.opacity = '0';
+                
+                setTimeout(() => {
+                    fist.remove();
+                    countdownPaused = false;
+                    promptDiv.style.display = 'none';
+                    // Reset style prompt
+                    promptDiv.style.background = '';
+                    promptDiv.style.color = '';
+                    promptDiv.style.borderColor = '';
+                    showNotification('✅ Tiếp tục!', 'Đếm ngược tiếp tục...', 'success', 2000);
+                }, 300);
+            };
+            
+            area.appendChild(fist);
+        }
+
+        // ===== FIND 5 STARS - Tìm 5 ngôi sao =====
+        function showStars() {
+            const area = document.getElementById('countdownArea');
+            area.style.display = 'block';
+            
+            starsFound = 0;
+            
+            // Hiện thông báo
+            showNotification('⭐ NHIỆM VỤ: TÌM 5 NGÔI SAO!', 
+                `Hãy tìm và nhấn vào 5 ngôi sao ⭐ ẩn trong khu vực bên dưới!`, 
+                'info', 8000);
+            
+            // Hiện status bar
+            const statusBar = document.getElementById('starStatusBar');
+            statusBar.style.display = 'flex';
+            statusBar.classList.remove('complete');
+            document.getElementById('starStatusText').innerText = '⭐ Đang tìm ngôi sao...';
+            document.getElementById('starStatusCount').innerText = `0/${TOTAL_STARS}`;
+            
+            const promptDiv = document.getElementById('countdownPrompt');
+            promptDiv.className = 'countdown-prompt';
+            promptDiv.innerText = `⭐ Tìm ${TOTAL_STARS} ngôi sao! Hãy nhấn vào từng ngôi sao!`;
+            promptDiv.style.display = 'block';
+            
+            // Đợi area render xong
+            setTimeout(() => {
+                const maxX = Math.max(50, area.clientWidth - 60);
+                const maxY = Math.max(50, area.clientHeight - 60);
+                
+                // Tạo 5 ngôi sao ở vị trí ngẫu nhiên
+                for (let i = 0; i < TOTAL_STARS; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'star-target';
+                    star.innerText = '⭐';
+                    star.dataset.index = i;
+                    star.dataset.found = 'false';
+                    
+                    star.style.left = Math.max(10, Math.random() * maxX) + 'px';
+                    star.style.top = Math.max(10, Math.random() * maxY) + 'px';
+                    
+                    star.onclick = () => {
+                        if (star.dataset.found === 'true') return;
+                        star.dataset.found = 'true';
+                        
+                        // Hiệu ứng khi tìm được
+                        star.style.transition = 'all 0.4s';
+                        star.style.transform = 'scale(1.5)';
+                        star.style.opacity = '0.3';
+                        star.style.filter = 'grayscale(100%)';
+                        star.style.pointerEvents = 'none';
+                        star.innerText = '✅';
+                        
+                        starsFound++;
+                        
+                        // Cập nhật status bar
+                        document.getElementById('starStatusCount').innerText = `${starsFound}/${TOTAL_STARS}`;
+                        
+                        if (starsFound < TOTAL_STARS) {
+                            document.getElementById('starStatusText').innerText = `⭐ Đang tìm... Còn ${TOTAL_STARS - starsFound} ngôi sao!`;
+                            showNotification('⭐ Tìm thấy!', `Đã tìm được ${starsFound}/${TOTAL_STARS} ngôi sao!`, 'success', 1500);
+                        } else {
+                            // Tìm đủ 5 sao
+                            document.getElementById('starStatusText').innerText = `🎉 XUẤT SẮC! Đã tìm đủ ${TOTAL_STARS} ngôi sao!`;
+                            statusBar.classList.add('complete');
+                            
+                            promptDiv.className = 'countdown-prompt';
+                            promptDiv.style.background = '#d4edda';
+                            promptDiv.style.borderColor = '#28a745';
+                            promptDiv.style.color = '#155724';
+                            promptDiv.innerText = `🎉 XUẤT SẮC! Đã tìm đủ ${TOTAL_STARS} ngôi sao! Tiếp tục chờ...`;
+                            
+                            showNotification('🎉 HOÀN THÀNH!', `Bạn đã tìm đủ ${TOTAL_STARS} ngôi sao! Tiếp tục chờ đếm ngược...`, 'success', 4000);
+                            
+                            setTimeout(() => {
+                                promptDiv.style.display = 'none';
+                                // Reset style
+                                promptDiv.style.background = '';
+                                promptDiv.style.borderColor = '';
+                                promptDiv.style.color = '';
+                            }, 3000);
+                        }
+                    };
+                    
+                    area.appendChild(star);
+                }
+            }, 50);
         }
 
         function restartCountdown() {
@@ -2385,52 +2605,8 @@
             document.getElementById('pausedTime').innerText = countdownSeconds;
         }
 
-        function pauseCountdownWithPrompt(message) {
-            countdownPaused = true;
-            const promptDiv = document.getElementById('countdownPrompt');
-            promptDiv.className = 'countdown-prompt';
-            promptDiv.innerText = message;
-            promptDiv.style.display = 'block';
-            
-            const area = document.getElementById('countdownArea');
-            area.onclick = () => {
-                countdownPaused = false;
-                promptDiv.style.display = 'none';
-                area.onclick = null;
-            };
-        }
-
         function showStar() {
-            const area = document.getElementById('countdownArea');
-            const star = document.createElement('div');
-            star.className = 'star-target';
-            star.innerText = '⭐';
-            
-            const maxX = area.clientWidth - 60;
-            const maxY = area.clientHeight - 60;
-            star.style.left = Math.max(10, Math.random() * maxX) + 'px';
-            star.style.top = Math.max(10, Math.random() * maxY) + 'px';
-            
-            star.onclick = () => {
-                star.remove();
-                const promptDiv = document.getElementById('countdownPrompt');
-                promptDiv.className = 'countdown-prompt';
-                promptDiv.style.background = '#d4edda';
-                promptDiv.style.borderColor = '#28a745';
-                promptDiv.style.color = '#155724';
-                promptDiv.innerText = '✅ Tìm thấy rồi! Tiếp tục chờ...';
-                promptDiv.style.display = 'block';
-                setTimeout(() => {
-                    promptDiv.style.display = 'none';
-                }, 2000);
-            };
-            
-            area.appendChild(star);
-            
-            const promptDiv = document.getElementById('countdownPrompt');
-            promptDiv.className = 'countdown-prompt';
-            promptDiv.innerText = '⭐ Tìm và nhấn vào ngôi sao!';
-            promptDiv.style.display = 'block';
+            // Giữ lại để tương thích (không dùng nữa)
         }
 
         function handleVisibilityChange() {
@@ -2441,6 +2617,7 @@
                 
                 document.getElementById('countdownArea').style.display = 'none';
                 document.getElementById('countdownPrompt').style.display = 'none';
+                document.getElementById('starStatusBar').style.display = 'none';
                 document.getElementById('countdownDisplay').style.opacity = '0.3';
                 
                 document.getElementById('pausedTime').innerText = countdownSeconds;
@@ -2668,23 +2845,18 @@
         function updateProfile() {
             if (!currentUser) return;
             
-            // Avatar - first letter of username
             const avatar = document.getElementById('profileAvatar');
             avatar.innerText = currentUser.username.charAt(0).toUpperCase();
             
-            // Name
             document.getElementById('profileName').innerText = currentUser.username;
             
-            // Join date
             const joinDate = currentUser.createdAt ? new Date(currentUser.createdAt).toLocaleDateString('vi-VN') : 'N/A';
             document.getElementById('profileJoinDate').innerText = `📅 Tham gia: ${joinDate}`;
             
-            // Stats
             document.getElementById('statPoints').innerText = (parseFloat(currentUser.points) || 0).toLocaleString();
             document.getElementById('statEarned').innerText = (currentUser.totalEarned || 0).toLocaleString();
             document.getElementById('statQuests').innerText = (currentUser.earnCount || 0).toLocaleString();
             
-            // Role
             let role = '👤 Member';
             if (currentUser.isRootAdmin) role = '🔥 Root Admin';
             else if (currentUser.isAdmin) role = '👑 Admin';
@@ -2903,13 +3075,11 @@
                 return;
             }
 
-            // Can't ban yourself
             if (username === currentUser.username) {
                 showNotification('❌ Lỗi!', 'Bạn không thể BAN chính mình!', 'error', 3000);
                 return;
             }
 
-            // Can't ban root admin
             if (username === ROOT_ADMIN_USERNAME) {
                 showNotification('❌ Lỗi!', 'Không thể BAN Root Admin!', 'error', 3000);
                 return;
@@ -2925,9 +3095,7 @@
 
                     const targetUser = snapshot.val();
 
-                    // Check if target is admin
                     if (targetUser.isAdmin) {
-                        // Only root admin can ban other admins
                         if (!currentUser.isRootAdmin) {
                             showNotification('❌ Không có quyền!', 
                                 `Admin thường không thể BAN admin khác! "${username}" là Admin. Chỉ Root Admin mới có quyền này.`, 
@@ -2936,10 +3104,8 @@
                         }
                     }
 
-                    // Perform BAN
                     await database.ref('users/' + username + '/banned').set(true);
                     
-                    // Log the ban action
                     await database.ref('adminLogs/bans').push({
                         bannedUser: username,
                         bannedBy: currentUser.username,
