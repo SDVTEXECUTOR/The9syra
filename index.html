@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ChickenP Game - The9syra</title>
+<script src="https://pl29689255.effectivecpmnetwork.com/7b/9b/c6/7b9bc6648c71c0364d41577a3d95956a.js"></script>
+<script src="https://pl29689256.effectivecpmnetwork.com/35/fa/61/35fa61c3388906bcafe3265af6c6d9b2.js"></script>
+<script src="/path/to/ads.js"></script>
+<script src="/path/to/anti-adblock.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
 <style>
@@ -696,7 +700,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 .history-item:hover { transform: translateX(3px); box-shadow: 0 3px 10px rgba(0,0,0,0.1); }
 .history-item-clickable { cursor: pointer; }
 .history-item-clickable:hover {
-background: #e7f3ff;
+background: #e7f3ff !important;
 transform: translateX(5px);
 box-shadow: 0 3px 15px rgba(102, 126, 234, 0.3);
 }
@@ -1068,6 +1072,7 @@ text-transform: uppercase;
 position: sticky;
 bottom: 0;
 z-index: 10;
+flex-shrink: 0;
 }
 .valorpay-btn:hover {
 transform: translateY(-3px);
@@ -1527,7 +1532,7 @@ text-align: center;
 <div class="notification-container" id="notificationContainer"></div>
 <div class="adblock-warning" id="adblockWarning">
 <div class="adblock-warning-content">
-<div class="adblock-warning-icon">🚫</div>
+<div class="adblock-warning-icon"></div>
 <h2>AdBlock Detected!</h2>
 <p><strong>Please disable any ad-blocking extensions/tools!</strong></p>
 <p class="lang-en">Vui lòng tắt mọi tiện ích/công cụ chặn quảng cáo!</p>
@@ -1630,7 +1635,7 @@ PLEASE DO NOT USE Cheats/Bots/Tools...
 <!-- Content will be injected -->
 </div>
 </div>
-<!-- Transaction Detail Modal -->
+<!-- Transaction Detail Modal (NEW) -->
 <div id="transactionDetailModal" class="modal">
 <div class="modal-content valorpay-modal" style="max-width: 500px;">
 <!-- Content will be injected -->
@@ -1657,7 +1662,7 @@ PLEASE DO NOT USE Cheats/Bots/Tools...
 <button class="logout-btn" onclick="logout()">Đăng xuất</button>
 </div>
 <div class="tabs">
-<button class="tab active" onclick="showTab('info', event)">📖 Giới thiệu</button>
+<button class="tab active" onclick="showTab('info', event)"> Giới thiệu</button>
 <button class="tab" onclick="showTab('shop', event)">🛒 Shop</button>
 <button class="tab" onclick="showTab('earn', event)">💎 Kiếm điểm</button>
 <button class="tab" onclick="showTab('history', event)">📜 History</button>
@@ -1665,9 +1670,9 @@ PLEASE DO NOT USE Cheats/Bots/Tools...
 </div>
 <!-- Tab Info -->
 <div id="info" class="tab-content active">
-<h2>📖 Giới thiệu về ChickenP Game</h2>
+<h2> Giới thiệu về ChickenP Game</h2>
 <div class="multiplier-info-box" id="multiplierInfoBox">
-<div class="multi-label">🔢 Hệ số nhân hiện tại</div>
+<div class="multi-label"> Hệ số nhân hiện tại</div>
 <div class="multi-value multi-glow" id="infoMultiplierValue" onclick="openMultiplierEditInline()">1x</div>
 <div class="multi-desc">Mỗi quest hoàn thành sẽ nhận được <strong id="infoMultiplierReward">1</strong> ChickenP</div>
 <div class="multiplier-edit-inline" id="multiplierEditInline">
@@ -1683,7 +1688,7 @@ PLEASE DO NOT USE Cheats/Bots/Tools...
 <div class="profile-header">
 <div class="profile-avatar" id="profileAvatar" onclick="openAvatarModal()">
 <span id="profileAvatarContent">?</span>
-<div class="avatar-edit-overlay">📷 Đổi</div>
+<div class="avatar-edit-overlay"> Đổi</div>
 </div>
 <div class="profile-details">
 <h3 id="profileName">...</h3>
@@ -1720,7 +1725,7 @@ Chào mừng bạn đến với <strong>ChickenP Game</strong> - một trò chơ
 ✅ <strong>Kiếm điểm:</strong> Hoàn thành quest để nhận ChickenP (có hệ số nhân)
 </li>
 <li style="padding: 10px; background: #f8f9fa; margin-bottom: 10px; border-radius: 5px;">
-🛍️ <strong>Shop & ValorPay:</strong> Mua sắm vật phẩm với hệ thống thanh toán chuyên nghiệp
+️ <strong>Shop & ValorPay:</strong> Mua sắm vật phẩm với hệ thống thanh toán chuyên nghiệp
 </li>
 <li style="padding: 10px; background: #f8f9fa; margin-bottom: 10px; border-radius: 5px;">
 🎁 <strong>Quest System:</strong> Hệ thống nhiệm vụ 4 bước độc đáo
@@ -1748,7 +1753,7 @@ Chào mừng bạn đến với <strong>ChickenP Game</strong> - một trò chơ
 <li class="update-log-item">
 <span class="update-log-date">13/06/2026</span>
 <span class="update-log-text">
-<strong>📤 Avatar Upload:</strong> Upload ảnh làm avatar (thay cho URL). Tự động nén ảnh, hỗ trợ kéo thả
+<strong> Avatar Upload:</strong> Upload ảnh làm avatar (thay cho URL). Tự động nén ảnh, hỗ trợ kéo thả
 </span>
 </li>
 <li class="update-log-item">
@@ -1796,7 +1801,7 @@ Chào mừng bạn đến với <strong>ChickenP Game</strong> - một trò chơ
 <li class="update-log-item">
 <span class="update-log-date">08/06/2026</span>
 <span class="update-log-text">
-<strong>🚀 Initial Release:</strong> Phiên bản đầu tiên
+<strong> Initial Release:</strong> Phiên bản đầu tiên
 </span>
 </li>
 </ul>
@@ -1843,7 +1848,7 @@ Chào mừng bạn đến với <strong>ChickenP Game</strong> - một trò chơ
 <div id="history" class="tab-content">
 <div class="history-section">
 <div class="history-header">
-<h2>📜 Lịch sử giao dịch</h2>
+<h2> Lịch sử giao dịch</h2>
 <div class="history-filter">
 <button class="filter-btn active" onclick="filterHistory('all', this)">Tất cả</button>
 <button class="filter-btn" onclick="filterHistory('earn', this)">💎 Kiếm</button>
@@ -1855,7 +1860,7 @@ Chào mừng bạn đến với <strong>ChickenP Game</strong> - một trò chơ
 </div>
 <ul class="history-list" id="historyList">
 <li class="history-empty">
-<div class="empty-icon">📜</div>
+<div class="empty-icon"></div>
 <p>Đang tải lịch sử...</p>
 </li>
 </ul>
@@ -1919,7 +1924,7 @@ Khóa tài khoản người dùng. <br>
 </div>
 </div>
 <div class="admin-card">
-<h4>🔓 UNBAN (Bỏ ban)</h4>
+<h4> UNBAN (Bỏ ban)</h4>
 <div class="admin-input-group">
 <input type="text" id="unbanUsername" placeholder="Tên người dùng">
 <button class="admin-btn" onclick="unbanUser()">UNBAN</button>
@@ -2063,7 +2068,7 @@ Còn lại: <span id="pausedTime">30</span> giây
 </div>
 <div id="missionComplete" style="display: none; text-align: center; padding: 40px;">
 <div class="success-box">
-<h3>🎉 HOÀN THÀNH TẤT CẢ NHIỆM VỤ!</h3>
+<h3> HOÀN THÀNH TẤT CẢ NHIỆM VỤ!</h3>
 <p style="font-size: 1.3em; margin: 20px 0;">Bạn đã nhận được <strong style="color: #155724; font-size: 1.5em;" id="missionRewardText">+1 ChickenP</strong></p>
 <p style="margin-top: 20px;">Đang quay lại trang chính...</p>
 </div>
@@ -2091,19 +2096,19 @@ const database = firebase.database();
 const ROOT_ADMIN_USERNAME = 'Cooking102';
 const ROOT_ADMIN_PASSWORD = '25121989';
 const AVATAR_EMOJIS = [
-'😀','😃','😄','😁','😆','😅','😂','🤣','😊','😇',
+'😀','😃','😄','😁','😆','😅','😂','','😊','😇',
 '🙂','🙃','😉','😌','😍','🥰','😘','😗','😙','😚',
-'😋','😛','😝','😜','','🤨','','🤓','','🤩',
-'🥳','😏','😒','😞','😔','😟','😕','🙁','☹️','😣',
-'😖','😫','😩','🥺','','😭','😤','😠','😡','🤬',
-'🐔','','🐣','','🐓','','🦆','','🦉','',
-'','🐗','','🦄','','🐛','','🐌','','🐜',
-'🐢','','🦎','','🦑','🦐','🦞','🦀','🐡','',
-'','🐋','','🐊','','🐆','','🦍','','🦏',
-'🐪','','🦒','','🐃','','🐄','','🐖','',
+'😋','😛','😝','😜','🤪','','🧐','🤓','😎','🤩',
+'🥳','','😒','😞','😔','','😕','🙁','☹️','😣',
+'😖','😫','😩','🥺','😢','😭','😤','😠','😡','',
+'🐔','🐥','🐣','🐤','🐓','🦃','🦆','🦅','🦉','🦇',
+'','🐗','🐴','','🐝','🐛','','🐌','🐞','',
+'🐢','🐍','🦎','🐙','🦑','🦐','🦞','🦀','🐡','🐠',
+'🐳','🐋','🦈','🐊','🐅','🐆','🦓','🦍','🐘','🦏',
+'🐪','','🦒','🦘','','🐂','🐄','','🐖','🐏',
 '👑','🎩','🎓','🧢','⛑️','💎','🎮','🎯','🎲','🎸',
 '🔥','⭐','🌟','✨','💫','🌈','☀️','🌙','❤️','💙',
-'💚','💛','💜','🖤','','🤎','💯','💢','💥','🌭'
+'💚','💛','💜','🖤','🤍','','💯','💢','💥','🌭'
 ];
 let currentUser = null;
 let confirmCallback = null;
@@ -2194,7 +2199,7 @@ historyList.innerHTML = '';
 displayEntries.forEach(entry => {
 const li = document.createElement('li');
 li.className = 'history-item';
-const iconMap = { earn: '💎', spend: '💸', gift: '🎁', admin: '🛡️', system: '⚙️' };
+const iconMap = { earn: '💎', spend: '', gift: '🎁', admin: '🛡️', system: '⚙️' };
 const amountClass = entry.amount > 0 ? 'positive' : (entry.amount < 0 ? 'negative' : 'neutral');
 const amountText = entry.amount > 0 ? `+${formatNumber(entry.amount)}` : (entry.amount < 0 ? formatNumber(entry.amount) : '');
 const isPurchase = entry.type === 'spend' && entry.description && entry.description.includes('ValorPay');
@@ -2271,7 +2276,7 @@ content.innerHTML = `
 <span class="valorpay-value">${escapeHtml(tx.itemName)}</span>
 </div>
 <div class="valorpay-row">
-<span class="valorpay-label">💰 Số tiền:</span>
+<span class="valorpay-label"> Số tiền:</span>
 <span class="valorpay-value highlight">${formatNumber(tx.price)} ChickenP</span>
 </div>
 <div class="valorpay-row">
@@ -2342,9 +2347,9 @@ function showNotification(title, message, type = 'info', duration = 5000) {
 const container = document.getElementById('notificationContainer');
 const notification = document.createElement('div');
 notification.className = `notification ${type}`;
-const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
+const icons = { success: '✅', error: '❌', warning: '⚠️', info: '️' };
 notification.innerHTML = `
-<div class="notification-icon">${icons[type] || 'ℹ️'}</div>
+<div class="notification-icon">${icons[type] || '️'}</div>
 <div class="notification-body">
 <div class="notification-title">${title}</div>
 <div class="notification-message">${message}</div>
@@ -2418,7 +2423,7 @@ showMainInterface();
 listenToUserData();
 listenToCooldown();
 setTimeout(() => {
-showNotification('Chào mừng!', `Xin chào ${currentUser.username}! 🐔`, 'success', 4000);
+showNotification('Chào mừng!', `Xin chào ${currentUser.username}! `, 'success', 4000);
 }, 1000);
 }
 }
@@ -2568,7 +2573,7 @@ processAvatarFile(file);
 }
 function processAvatarFile(file) {
 if (!file.type.startsWith('image/')) {
-showNotification('❌ Lỗi!', 'File không phải là ảnh!', 'error', 3000);
+showNotification(' Lỗi!', 'File không phải là ảnh!', 'error', 3000);
 return;
 }
 if (file.size > 2 * 1024 * 1024) {
@@ -2890,7 +2895,7 @@ resultDiv.style.display = 'block';
 if (quizState.correct >= 3) {
 resultDiv.innerHTML = `
 <div class="success-box">
-<h3>🎉 Xuất sắc!</h3>
+<h3> Xuất sắc!</h3>
 <p style="font-size: 1.3em;">Đúng ${quizState.correct}/5 câu!</p>
 <button class="btn" onclick="activateTask(3)" style="margin-top: 20px; max-width: 300px; margin-left: auto; margin-right: auto;">Tiếp tục →</button>
 </div>
@@ -2908,7 +2913,7 @@ setTimeout(() => { window.location.href = 'https://www.youtube.com/watch?v=Zh3w2
 } else {
 resultDiv.innerHTML = `
 <div style="background: #fff3cd; color: #856404; padding: 30px; border-radius: 15px;">
-<h3>⚠️ Cần cố gắng thêm!</h3>
+<h3>️ Cần cố gắng thêm!</h3>
 <p style="font-size: 1.2em; margin: 15px 0;">Chỉ đúng ${quizState.correct}/5 câu. Thử lại!</p>
 <button class="btn" onclick="retryQuiz()" style="margin-top: 15px; max-width: 300px; margin-left: auto; margin-right: auto;">🔄 Làm lại</button>
 </div>
@@ -2971,7 +2976,7 @@ promptDiv.innerText = '💪 CLICK POWER! Nhấn vào 🥊 để tiếp tục!';
 promptDiv.style.display = 'block';
 const fist = document.createElement('div');
 fist.className = 'fist-target';
-fist.innerText = '🥊';
+fist.innerText = '';
 setTimeout(() => {
 const maxX = Math.max(50, area.clientWidth - 80);
 const maxY = Math.max(50, area.clientHeight - 80);
@@ -3038,7 +3043,7 @@ statusBar.classList.add('complete');
 promptDiv.style.background = '#d4edda';
 promptDiv.style.borderColor = '#28a745';
 promptDiv.style.color = '#155724';
-promptDiv.innerText = `🎉 XUẤT SẮC! Tiếp tục chờ...`;
+promptDiv.innerText = ` XUẤT SẮC! Tiếp tục chờ...`;
 showNotification('🎉 HOÀN THÀNH!', `Đã tìm đủ ${TOTAL_STARS} ngôi sao!`, 'success', 4000);
 setTimeout(() => {
 promptDiv.style.display = 'none';
@@ -3322,7 +3327,7 @@ renderAvatar(avatarEl, currentUser);
 document.getElementById('profileName').innerText = currentUser.username;
 document.getElementById('profileUid').innerText = `🆔 UID: ${currentUser.uid || 'Chưa có'}`;
 const joinDate = currentUser.createdAt ? new Date(currentUser.createdAt).toLocaleDateString('vi-VN') : 'N/A';
-document.getElementById('profileJoinDate').innerText = `📅 Tham gia: ${joinDate}`;
+document.getElementById('profileJoinDate').innerText = ` Tham gia: ${joinDate}`;
 document.getElementById('statPoints').innerText = formatNumber(parseFloat(currentUser.points) || 0);
 document.getElementById('statEarned').innerText = formatNumber(currentUser.totalEarned || 0);
 document.getElementById('statQuests').innerText = (currentUser.earnCount || 0).toLocaleString();
@@ -3424,7 +3429,7 @@ showNotification('❌ Lỗi!', 'Lỗi: ' + error.message, 'error', 5000);
 }
 function showTab(tabName, event) {
 if (tabName === 'admin' && !currentUser.isAdmin) {
-showNotification('❌ Truy cập bị từ chối!', 'Bạn không có quyền!', 'error', 3000);
+showNotification(' Truy cập bị từ chối!', 'Bạn không có quyền!', 'error', 3000);
 return;
 }
 document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
@@ -3540,7 +3545,7 @@ content.innerHTML = `
 <div class="valorpay-subtitle">Payment Confirmation</div>
 </div>
 <div class="valorpay-body">
-<div class="valorpay-confirm-icon">⚠️</div>
+<div class="valorpay-confirm-icon">️</div>
 <div class="valorpay-confirm-title">Xác Nhận Thanh Toán</div>
 <div class="valorpay-confirm-text">
 Bạn có chắc chắn đây là giá trị bạn muốn thanh toán?
@@ -3561,13 +3566,14 @@ async function processValorPayPayment() {
 const data = window._valorPayData;
 if (!data) { closeValorPay(); return; }
 const content = document.getElementById('valorpayContent');
-const btn = content.querySelector('.vp-btn-confirm');
+const btn = content.querySelector('.valorpay-btn, .vp-btn-confirm');
 if (btn) {
 btn.disabled = true;
-btn.innerHTML = '⏳ Đang xử lý...';
+btn.innerHTML = ' Đang xử lý...';
 btn.classList.add('processing');
 }
 try {
+// FIX: Check đủ tiền trước
 const pointsSnap = await database.ref('users/' + currentUser.username + '/points').once('value');
 const currentPoints = pointsSnap.val() || 0;
 if (currentPoints < data.price) {
@@ -3575,15 +3581,18 @@ showNotification('❌ Thất bại!', 'Không đủ ChickenP! Bạn có: ' + for
 closeValorPay();
 return;
 }
+// FIX: Deduct points đúng cách - transaction trả về {committed, snapshot}
 const pointsRef = database.ref('users/' + currentUser.username + '/points');
 await pointsRef.transaction((current) => {
 return (current || 0) - data.price;
 });
+// Log history
 await addHistoryEntry('spend',
 `🛒 Mua ${data.itemName}`,
 `Mua "${data.itemName}" qua ValorPay • Mã: ${data.purchaseCode}`,
 -data.price
 );
+// Save transaction record
 await database.ref('transactions/' + currentUser.username + '/' + data.transactionId).set({
 itemName: data.itemName,
 price: data.price,
@@ -3594,6 +3603,7 @@ username: currentUser.username,
 uid: currentUser.uid,
 status: 'success'
 });
+// Show receipt
 showValorPayReceipt(data);
 showNotification('✅ Thanh toán thành công!', `Đã mua ${data.itemName} thành công!`, 'success', 4000);
 } catch (error) {
@@ -3644,7 +3654,7 @@ If you encountered any inconvenience, we apologize and ask for your understandin
 <span class="valorpay-value highlight">${formatNumber(data.price)} ChickenP</span>
 </div>
 <div class="valorpay-row">
-<span class="valorpay-label">🕒 Thời Gian Thanh Toán:</span>
+<span class="valorpay-label"> Thời Gian Thanh Toán:</span>
 <span class="valorpay-value" style="font-size: 0.85em;">${formatDateTime(data.paymentTime)}</span>
 </div>
 <div class="valorpay-row">
@@ -3680,11 +3690,11 @@ await database.ref('adminLogs/bans').push({
 bannedUser: username, bannedBy: currentUser.username,
 timestamp: Date.now(), reason: 'Admin action'
 });
-await addAdminHistoryEntry(username, 'admin', '🚫 Bị BAN', `Bị BAN bởi "${currentUser.username}"`, 0, currentUser.username);
+await addAdminHistoryEntry(username, 'admin', ' Bị BAN', `Bị BAN bởi "${currentUser.username}"`, 0, currentUser.username);
 showNotification('🚫 BAN thành công!', `Đã BAN "${username}"!`, 'warning', 5000);
 document.getElementById('banUsername').value = '';
 } catch (error) {
-showNotification('❌ Lỗi!', error.message, 'error', 3000);
+showNotification(' Lỗi!', error.message, 'error', 3000);
 }
 });
 }
@@ -3699,7 +3709,7 @@ await database.ref('users/' + username + '/warned').set(false);
 await addAdminHistoryEntry(username, 'admin', '✅ UNWARN', `Bỏ cảnh cáo bởi "${currentUser.username}"`, 0, currentUser.username);
 showNotification('✅ Thành công!', `Đã UNWARN "${username}"!`, 'success', 3000);
 document.getElementById('unwarnUsername').value = '';
-} catch (error) { showNotification('❌ Lỗi!', error.message, 'error', 3000); }
+} catch (error) { showNotification(' Lỗi!', error.message, 'error', 3000); }
 });
 }
 function unbanUser() {
@@ -3713,7 +3723,7 @@ await database.ref('users/' + username + '/banned').set(false);
 await addAdminHistoryEntry(username, 'admin', '🔓 UNBAN', `Bỏ BAN bởi "${currentUser.username}"`, 0, currentUser.username);
 showNotification('✅ Thành công!', `Đã UNBAN "${username}"!`, 'success', 3000);
 document.getElementById('unbanUsername').value = '';
-} catch (error) { showNotification('❌ Lỗi!', error.message, 'error', 3000); }
+} catch (error) { showNotification(' Lỗi!', error.message, 'error', 3000); }
 });
 }
 function addAdmin() {
@@ -3760,10 +3770,10 @@ return;
 showConfirm('GIFT ChickenP', `Tặng ${formatNumber(amount)} ChickenP cho ${username}?`, async () => {
 try {
 const snapshot = await database.ref('users/' + username).once('value');
-if (!snapshot.exists()) { showNotification('❌ Không tìm thấy!', 'Không tìm thấy!', 'error', 3000); return; }
+if (!snapshot.exists()) { showNotification(' Không tìm thấy!', 'Không tìm thấy!', 'error', 3000); return; }
 const pointsRef = database.ref('users/' + username + '/points');
 await pointsRef.transaction((c) => (c || 0) + amount);
-await addAdminHistoryEntry(username, 'gift', '🎁 Nhận Gift', `Nhận ${formatNumber(amount)} từ "${currentUser.username}"`, amount, currentUser.username);
+await addAdminHistoryEntry(username, 'gift', ' Nhận Gift', `Nhận ${formatNumber(amount)} từ "${currentUser.username}"`, amount, currentUser.username);
 await addHistoryEntry('admin', `🎁 Gift cho ${username}`, `Tặng ${formatNumber(amount)} cho "${username}"`, 0);
 showNotification('🎁 Thành công!', `Đã tặng ${formatNumber(amount)} cho "${username}"!`, 'success', 4000);
 document.getElementById('giftUsername').value = '';
