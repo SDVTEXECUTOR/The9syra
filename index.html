@@ -5,28 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChickenP Game - The9syra</title>
     
-    <!-- Quảng cáo Popunder -->
     <script src="https://pl29689255.effectivecpmnetwork.com/7b/9b/c6/7b9bc6648c71c0364d41577a3d95956a.js"></script>
-    
-    <!-- Quảng cáo Social Bar -->
     <script src="https://pl29689256.effectivecpmnetwork.com/35/fa/61/35fa61c3388906bcafe3265af6c6d9b2.js"></script>
-    
-    <!-- Ads Script -->
     <script src="/path/to/ads.js"></script>
-    
-    <!-- Anti-Adblock Script -->
     <script src="/path/to/anti-adblock.js"></script>
     
-    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -51,10 +39,7 @@
             text-align: center;
         }
 
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
+        .header h1 { font-size: 2.5em; margin-bottom: 10px; }
 
         .user-info {
             display: flex;
@@ -87,10 +72,7 @@
             transition: all 0.3s;
         }
 
-        .logout-btn:hover {
-            background: #c82333;
-            transform: translateY(-2px);
-        }
+        .logout-btn:hover { background: #c82333; transform: translateY(-2px); }
 
         .tabs {
             display: flex;
@@ -113,9 +95,7 @@
             color: #6c757d;
         }
 
-        .tab:hover {
-            background: #e9ecef;
-        }
+        .tab:hover { background: #e9ecef; }
 
         .tab.active {
             background: white;
@@ -129,9 +109,7 @@
             animation: fadeIn 0.3s;
         }
 
-        .tab-content.active {
-            display: block;
-        }
+        .tab-content.active { display: block; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -141,10 +119,8 @@
         .modal {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(0,0,0,0.7);
             z-index: 1000;
             justify-content: center;
@@ -152,9 +128,7 @@
             padding: 20px;
         }
 
-        .modal.active {
-            display: flex;
-        }
+        .modal.active { display: flex; }
 
         .modal-content {
             background: white;
@@ -173,13 +147,9 @@
             text-align: center;
         }
 
-        .modal-content.large {
-            max-width: 600px;
-        }
+        .modal-content.large { max-width: 600px; }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+        .form-group { margin-bottom: 20px; }
 
         .form-group label {
             display: block;
@@ -197,10 +167,7 @@
             transition: border 0.3s;
         }
 
-        .form-group input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
+        .form-group input:focus { outline: none; border-color: #667eea; }
 
         .btn {
             width: 100%;
@@ -215,21 +182,9 @@
             transition: all 0.3s;
         }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .btn-secondary {
-            background: #6c757d;
-            margin-top: 10px;
-        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .btn-secondary { background: #6c757d; margin-top: 10px; }
 
         .shop-item {
             background: #f8f9fa;
@@ -244,15 +199,8 @@
             gap: 10px;
         }
 
-        .shop-item:hover {
-            transform: translateX(5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .shop-item h3 {
-            color: #495057;
-            margin-bottom: 5px;
-        }
+        .shop-item:hover { transform: translateX(5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .shop-item h3 { color: #495057; margin-bottom: 5px; }
 
         .shop-item .price {
             color: #667eea;
@@ -270,10 +218,7 @@
             transition: all 0.3s;
         }
 
-        .buy-btn:hover {
-            background: #218838;
-            transform: scale(1.05);
-        }
+        .buy-btn:hover { background: #218838; transform: scale(1.05); }
 
         .alert {
             padding: 15px;
@@ -282,29 +227,15 @@
             display: none;
         }
 
-        .alert.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .alert.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .alert.show {
-            display: block;
-            animation: slideDown 0.3s;
-        }
+        .alert.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .alert.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .alert.show { display: block; animation: slideDown 0.3s; }
 
         @keyframes slideDown {
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Quest Styles */
         .quest-container {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             border-radius: 20px;
@@ -346,15 +277,8 @@
             margin: 20px 0;
         }
 
-        .quest-btn:hover:not(:disabled) {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(245, 87, 108, 0.4);
-        }
-
-        .quest-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
+        .quest-btn:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(245, 87, 108, 0.4); }
+        .quest-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
         .quest-info {
             background: #e7f3ff;
@@ -365,9 +289,7 @@
             text-align: left;
         }
 
-        .quest-info strong {
-            color: #0066cc;
-        }
+        .quest-info strong { color: #0066cc; }
 
         .success-box {
             background: #d4edda;
@@ -378,11 +300,7 @@
             border: 2px solid #c3e6cb;
         }
 
-        .success-box h3 {
-            color: #155724;
-            font-size: 2em;
-            margin-bottom: 15px;
-        }
+        .success-box h3 { color: #155724; font-size: 2em; margin-bottom: 15px; }
 
         .footer {
             text-align: center;
@@ -393,11 +311,10 @@
             border-top: 1px solid #e9ecef;
         }
 
-        /* ============ NOTIFICATION SYSTEM ============ */
+        /* ============ NOTIFICATION ============ */
         .notification-container {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 20px; right: 20px;
             z-index: 10000;
             display: flex;
             flex-direction: column;
@@ -419,10 +336,7 @@
             overflow: hidden;
         }
 
-        .notification.removing {
-            animation: slideOutRight 0.3s ease forwards;
-        }
-
+        .notification.removing { animation: slideOutRight 0.3s ease forwards; }
         .notification.success { border-left-color: #28a745; }
         .notification.error { border-left-color: #dc3545; }
         .notification.warning { border-left-color: #ffc107; }
@@ -440,15 +354,13 @@
             cursor: pointer;
             color: #999;
             padding: 0 5px;
-            transition: color 0.2s;
         }
 
         .notification-close:hover { color: #333; }
 
         .notification-progress {
             position: absolute;
-            bottom: 0;
-            left: 0;
+            bottom: 0; left: 0;
             height: 3px;
             background: #667eea;
             animation: shrink 5s linear forwards;
@@ -474,13 +386,11 @@
             to { width: 0%; }
         }
 
-        /* ============ ADBLOCK WARNING ============ */
+        /* ============ ADBLOCK ============ */
         .adblock-warning {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(0,0,0,0.85);
             z-index: 99999;
             display: none;
@@ -501,31 +411,10 @@
             animation: popIn 0.5s;
         }
 
-        .adblock-warning-icon {
-            font-size: 4em;
-            margin-bottom: 20px;
-            animation: pulse 1.5s infinite;
-        }
-
-        .adblock-warning h2 {
-            color: #dc3545;
-            margin-bottom: 15px;
-            font-size: 1.5em;
-        }
-
-        .adblock-warning p {
-            color: #495057;
-            line-height: 1.6;
-            margin-bottom: 10px;
-            font-size: 1em;
-        }
-
-        .adblock-warning .lang-en {
-            color: #6c757d;
-            font-style: italic;
-            font-size: 0.9em;
-            margin-bottom: 20px;
-        }
+        .adblock-warning-icon { font-size: 4em; margin-bottom: 20px; animation: pulse 1.5s infinite; }
+        .adblock-warning h2 { color: #dc3545; margin-bottom: 15px; font-size: 1.5em; }
+        .adblock-warning p { color: #495057; line-height: 1.6; margin-bottom: 10px; }
+        .adblock-warning .lang-en { color: #6c757d; font-style: italic; font-size: 0.9em; margin-bottom: 20px; }
 
         .adblock-warning .retry-btn {
             background: linear-gradient(135deg, #28a745, #20c997);
@@ -536,13 +425,7 @@
             font-size: 1em;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s;
             margin-top: 15px;
-        }
-
-        .adblock-warning .retry-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
         }
 
         /* ============ UPDATE LOG ============ */
@@ -554,15 +437,7 @@
             border: 2px solid #667eea;
         }
 
-        .update-log-section h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 1.4em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
+        .update-log-section h3 { color: #667eea; margin-bottom: 15px; font-size: 1.4em; }
         .update-log-list { list-style: none; padding: 0; }
 
         .update-log-item {
@@ -577,10 +452,7 @@
             transition: all 0.3s;
         }
 
-        .update-log-item:hover {
-            transform: translateX(5px);
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
+        .update-log-item:hover { transform: translateX(5px); box-shadow: 0 3px 10px rgba(0,0,0,0.1); }
 
         .update-log-date {
             background: #667eea;
@@ -593,15 +465,10 @@
             flex-shrink: 0;
         }
 
-        .update-log-text {
-            color: #495057;
-            font-size: 0.95em;
-            line-height: 1.5;
-        }
-
+        .update-log-text { color: #495057; font-size: 0.95em; line-height: 1.5; }
         .update-log-text strong { color: #667eea; }
 
-        /* ============ PROFILE SECTION ============ */
+        /* ============ PROFILE ============ */
         .profile-section {
             background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
             border-radius: 15px;
@@ -636,27 +503,14 @@
             transition: all 0.3s;
         }
 
-        .profile-avatar:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5);
-        }
-
-        .profile-avatar:hover .avatar-edit-overlay {
-            opacity: 1;
-        }
-
-        .profile-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .profile-avatar:hover { transform: scale(1.05); box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5); }
+        .profile-avatar:hover .avatar-edit-overlay { opacity: 1; }
+        .profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
         .avatar-edit-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(0,0,0,0.6);
             display: flex;
             align-items: center;
@@ -668,16 +522,8 @@
             font-weight: normal;
         }
 
-        .profile-details h3 {
-            color: #333;
-            font-size: 1.5em;
-            margin-bottom: 5px;
-        }
-
-        .profile-details p {
-            color: #6c757d;
-            font-size: 0.95em;
-        }
+        .profile-details h3 { color: #333; font-size: 1.5em; margin-bottom: 5px; }
+        .profile-details p { color: #6c757d; font-size: 0.95em; }
 
         .profile-stats {
             display: grid;
@@ -693,22 +539,11 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
-        .profile-stat-value {
-            font-size: 1.8em;
-            font-weight: bold;
-            color: #667eea;
-        }
-
-        .profile-stat-label {
-            font-size: 0.85em;
-            color: #6c757d;
-            margin-top: 5px;
-        }
+        .profile-stat-value { font-size: 1.8em; font-weight: bold; color: #667eea; }
+        .profile-stat-label { font-size: 0.85em; color: #6c757d; margin-top: 5px; }
 
         /* ============ AVATAR MODAL ============ */
-        .avatar-modal-content {
-            max-width: 500px;
-        }
+        .avatar-modal-content { max-width: 500px; }
 
         .avatar-preview {
             width: 120px;
@@ -725,11 +560,7 @@
             box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
         }
 
-        .avatar-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .avatar-preview img { width: 100%; height: 100%; object-fit: cover; }
 
         .avatar-tabs {
             display: flex;
@@ -747,22 +578,12 @@
             border: none;
             font-weight: 600;
             color: #6c757d;
-            transition: all 0.3s;
             border-bottom: 3px solid transparent;
         }
 
-        .avatar-tab.active {
-            color: #667eea;
-            border-bottom-color: #667eea;
-        }
-
-        .avatar-panel {
-            display: none;
-        }
-
-        .avatar-panel.active {
-            display: block;
-        }
+        .avatar-tab.active { color: #667eea; border-bottom-color: #667eea; }
+        .avatar-panel { display: none; }
+        .avatar-panel.active { display: block; }
 
         .emoji-grid {
             display: grid;
@@ -788,54 +609,46 @@
             transition: all 0.2s;
         }
 
-        .emoji-item:hover {
-            transform: scale(1.1);
-            border-color: #667eea;
-        }
+        .emoji-item:hover { transform: scale(1.1); border-color: #667eea; }
+        .emoji-item.selected { border-color: #667eea; background: #e7f3ff; }
 
-        .emoji-item.selected {
-            border-color: #667eea;
-            background: #e7f3ff;
-            transform: scale(1.05);
-        }
-
-        .avatar-url-input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            font-size: 0.95em;
-            margin-bottom: 10px;
-        }
-
-        .avatar-url-input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .avatar-url-preview {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin: 15px auto;
+        .upload-area {
+            border: 3px dashed #667eea;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
             background: #f8f9fa;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upload-area:hover {
+            background: #e7f3ff;
+            border-color: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        .upload-area.dragover {
+            background: #e7f3ff;
+            border-color: #28a745;
+        }
+
+        .upload-icon { font-size: 3em; margin-bottom: 10px; }
+        .upload-text { color: #495057; font-weight: 600; margin-bottom: 5px; }
+        .upload-hint { color: #6c757d; font-size: 0.85em; }
+
+        .upload-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 20px auto;
             overflow: hidden;
-            border: 3px dashed #e9ecef;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            display: none;
         }
 
-        .avatar-url-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .avatar-url-preview.error {
-            border-color: #dc3545;
-            background: #f8d7da;
-        }
+        .upload-preview.show { display: block; }
+        .upload-preview img { width: 100%; height: 100%; object-fit: cover; }
 
         /* ============ MULTIPLIER INFO BOX ============ */
         .multiplier-info-box {
@@ -847,23 +660,6 @@
             color: white;
             box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
             position: relative;
-            overflow: hidden;
-        }
-
-        .multiplier-info-box::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: rotateBg 10s linear infinite;
-        }
-
-        @keyframes rotateBg {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
         }
 
         .multiplier-info-box .multi-label {
@@ -871,6 +667,7 @@
             opacity: 0.9;
             margin-bottom: 5px;
             position: relative;
+            z-index: 2;
         }
 
         .multiplier-info-box .multi-value {
@@ -878,6 +675,7 @@
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
             position: relative;
+            z-index: 2;
             cursor: pointer;
             display: inline-block;
             padding: 5px 20px;
@@ -898,15 +696,14 @@
             transition: opacity 0.3s;
         }
 
-        .multiplier-info-box .multi-value:hover::after {
-            opacity: 1;
-        }
+        .multiplier-info-box .multi-value:hover::after { opacity: 1; }
 
         .multiplier-info-box .multi-desc {
             font-size: 0.9em;
             opacity: 0.85;
             margin-top: 8px;
             position: relative;
+            z-index: 2;
         }
 
         .multiplier-info-box .multi-glow {
@@ -918,11 +715,15 @@
             to { text-shadow: 0 0 20px rgba(255,255,255,0.9), 0 0 40px rgba(255,255,255,0.5), 2px 2px 4px rgba(0,0,0,0.3); }
         }
 
-        /* ============ MULTIPLIER EDIT INLINE ============ */
         .multiplier-edit-inline {
             display: none;
             position: relative;
-            margin: 15px 0;
+            z-index: 3;
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
         }
 
         .multiplier-edit-inline.active {
@@ -947,7 +748,7 @@
             color: white;
             font-size: 0.85em;
             margin-top: 8px;
-            opacity: 0.9;
+            opacity: 0.95;
         }
 
         .multiplier-edit-inline .edit-buttons {
@@ -963,33 +764,15 @@
             border-radius: 8px;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s;
         }
 
-        .multiplier-edit-inline .edit-save {
-            background: #28a745;
-            color: white;
-        }
+        .multiplier-edit-inline .edit-save { background: #28a745; color: white; }
+        .multiplier-edit-inline .edit-cancel { background: rgba(255,255,255,0.3); color: white; }
+        .multiplier-edit-inline .edit-save:hover { background: #218838; }
+        .multiplier-edit-inline .edit-cancel:hover { background: rgba(255,255,255,0.5); }
 
-        .multiplier-edit-inline .edit-cancel {
-            background: rgba(255,255,255,0.3);
-            color: white;
-        }
-
-        .multiplier-edit-inline .edit-save:hover {
-            background: #218838;
-            transform: translateY(-2px);
-        }
-
-        .multiplier-edit-inline .edit-cancel:hover {
-            background: rgba(255,255,255,0.5);
-        }
-
-        /* ============ HISTORY TAB STYLES ============ */
-        .history-section {
-            max-width: 900px;
-            margin: 0 auto;
-        }
+        /* ============ HISTORY ============ */
+        .history-section { max-width: 900px; margin: 0 auto; }
 
         .history-header {
             display: flex;
@@ -1000,13 +783,7 @@
             gap: 10px;
         }
 
-        .history-header h2 { color: #333; }
-
-        .history-filter {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
+        .history-filter { display: flex; gap: 8px; flex-wrap: wrap; }
 
         .filter-btn {
             padding: 6px 15px;
@@ -1017,19 +794,10 @@
             font-size: 0.85em;
             font-weight: 600;
             color: #6c757d;
-            transition: all 0.3s;
         }
 
-        .filter-btn:hover {
-            border-color: #667eea;
-            color: #667eea;
-        }
-
-        .filter-btn.active {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
-        }
+        .filter-btn:hover { border-color: #667eea; color: #667eea; }
+        .filter-btn.active { background: #667eea; color: white; border-color: #667eea; }
 
         .history-list { list-style: none; padding: 0; }
 
@@ -1046,10 +814,7 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
-        .history-item:hover {
-            transform: translateX(3px);
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
+        .history-item:hover { transform: translateX(3px); box-shadow: 0 3px 10px rgba(0,0,0,0.1); }
 
         .history-icon {
             width: 45px;
@@ -1069,51 +834,20 @@
         .history-icon.system { background: #f0e6ff; }
 
         .history-details { flex: 1; }
+        .history-title { font-weight: bold; color: #333; font-size: 0.95em; margin-bottom: 3px; }
+        .history-desc { font-size: 0.85em; color: #6c757d; }
 
-        .history-title {
-            font-weight: bold;
-            color: #333;
-            font-size: 0.95em;
-            margin-bottom: 3px;
-        }
-
-        .history-desc {
-            font-size: 0.85em;
-            color: #6c757d;
-        }
-
-        .history-amount {
-            font-weight: bold;
-            font-size: 1.1em;
-            white-space: nowrap;
-        }
-
+        .history-amount { font-weight: bold; font-size: 1.1em; white-space: nowrap; }
         .history-amount.positive { color: #28a745; }
         .history-amount.negative { color: #dc3545; }
         .history-amount.neutral { color: #6c757d; }
 
-        .history-time {
-            font-size: 0.75em;
-            color: #adb5bd;
-            white-space: nowrap;
-        }
+        .history-time { font-size: 0.75em; color: #adb5bd; white-space: nowrap; }
 
-        .history-empty {
-            text-align: center;
-            padding: 60px 20px;
-            color: #6c757d;
-        }
+        .history-empty { text-align: center; padding: 60px 20px; color: #6c757d; }
+        .history-empty .empty-icon { font-size: 4em; margin-bottom: 15px; opacity: 0.5; }
 
-        .history-empty .empty-icon {
-            font-size: 4em;
-            margin-bottom: 15px;
-            opacity: 0.5;
-        }
-
-        .history-load-more {
-            text-align: center;
-            margin-top: 15px;
-        }
+        .history-load-more { text-align: center; margin-top: 15px; }
 
         .history-load-more button {
             background: #f8f9fa;
@@ -1123,15 +857,11 @@
             cursor: pointer;
             font-weight: 600;
             color: #6c757d;
-            transition: all 0.3s;
         }
 
-        .history-load-more button:hover {
-            border-color: #667eea;
-            color: #667eea;
-        }
+        .history-load-more button:hover { border-color: #667eea; color: #667eea; }
 
-        /* Warning Modal */
+        /* ============ WARNING MODAL ============ */
         .warning-modal {
             background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
             color: white;
@@ -1141,12 +871,7 @@
             max-width: 600px;
         }
 
-        .warning-title {
-            font-size: 2.2em;
-            margin-bottom: 20px;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
+        .warning-title { font-size: 2.2em; margin-bottom: 20px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
 
         .warning-text {
             font-size: 1.1em;
@@ -1158,14 +883,9 @@
             border-radius: 10px;
         }
 
-        .warning-credit {
-            margin-top: 30px;
-            font-size: 0.9em;
-            opacity: 0.9;
-            font-style: italic;
-        }
+        .warning-credit { margin-top: 30px; font-size: 0.9em; opacity: 0.9; font-style: italic; }
 
-        /* Admin Panel */
+        /* ============ ADMIN ============ */
         .admin-section {
             background: #fff3cd;
             padding: 30px;
@@ -1174,11 +894,7 @@
             margin-bottom: 20px;
         }
 
-        .admin-section h3 {
-            color: #856404;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-        }
+        .admin-section h3 { color: #856404; margin-bottom: 20px; font-size: 1.5em; }
 
         .admin-grid {
             display: grid;
@@ -1194,18 +910,9 @@
             box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
 
-        .admin-card h4 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 1.2em;
-        }
+        .admin-card h4 { color: #667eea; margin-bottom: 15px; font-size: 1.2em; }
 
-        .admin-input-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-        }
+        .admin-input-group { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
 
         .admin-input-group input {
             flex: 1;
@@ -1223,25 +930,13 @@
             border-radius: 5px;
             cursor: pointer;
             font-weight: 600;
-            transition: all 0.3s;
             white-space: nowrap;
         }
 
-        .admin-btn:hover {
-            background: #e0a800;
-            transform: translateY(-2px);
-        }
+        .admin-btn:hover { background: #e0a800; transform: translateY(-2px); }
+        .admin-btn-danger { background: #dc3545; color: white; }
+        .admin-btn-danger:hover { background: #c82333; }
 
-        .admin-btn-danger {
-            background: #dc3545;
-            color: white;
-        }
-
-        .admin-btn-danger:hover {
-            background: #c82333;
-        }
-
-        /* Multiplier Admin Card - NEW */
         .multiplier-admin-display {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -1251,31 +946,12 @@
             margin-bottom: 15px;
             cursor: pointer;
             transition: all 0.3s;
-            position: relative;
         }
 
-        .multiplier-admin-display:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .multiplier-admin-display .current-label {
-            font-size: 0.9em;
-            opacity: 0.9;
-            margin-bottom: 5px;
-        }
-
-        .multiplier-admin-display .current-value {
-            font-size: 2.5em;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .multiplier-admin-display .edit-hint {
-            font-size: 0.8em;
-            opacity: 0.8;
-            margin-top: 5px;
-        }
+        .multiplier-admin-display:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4); }
+        .multiplier-admin-display .current-label { font-size: 0.9em; opacity: 0.9; margin-bottom: 5px; }
+        .multiplier-admin-display .current-value { font-size: 2.5em; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .multiplier-admin-display .edit-hint { font-size: 0.8em; opacity: 0.8; margin-top: 5px; }
 
         .multiplier-admin-edit {
             display: none;
@@ -1286,17 +962,13 @@
             border: 2px dashed #667eea;
         }
 
-        .multiplier-admin-edit.active {
-            display: block;
-            animation: popIn 0.3s;
-        }
+        .multiplier-admin-edit.active { display: block; animation: popIn 0.3s; }
 
         .multiplier-admin-edit label {
             display: block;
             font-weight: 600;
             color: #495057;
             margin-bottom: 8px;
-            font-size: 0.95em;
         }
 
         .multiplier-admin-edit input {
@@ -1311,23 +983,10 @@
             color: #667eea;
         }
 
-        .multiplier-admin-edit input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
+        .multiplier-admin-edit input:focus { outline: none; border-color: #667eea; }
+        .multiplier-admin-edit .range-hint { display: flex; justify-content: space-between; font-size: 0.8em; color: #6c757d; margin-bottom: 10px; }
 
-        .multiplier-admin-edit .range-hint {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8em;
-            color: #6c757d;
-            margin-bottom: 10px;
-        }
-
-        .multiplier-admin-edit .edit-actions {
-            display: flex;
-            gap: 10px;
-        }
+        .multiplier-admin-edit .edit-actions { display: flex; gap: 10px; }
 
         .multiplier-admin-edit .edit-actions button {
             flex: 1;
@@ -1336,33 +995,14 @@
             border-radius: 6px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
         }
 
-        .multiplier-admin-edit .btn-save {
-            background: #28a745;
-            color: white;
-        }
+        .multiplier-admin-edit .btn-save { background: #28a745; color: white; }
+        .multiplier-admin-edit .btn-save:hover { background: #218838; }
+        .multiplier-admin-edit .btn-cancel { background: #6c757d; color: white; }
+        .multiplier-admin-edit .btn-cancel:hover { background: #5a6268; }
 
-        .multiplier-admin-edit .btn-save:hover {
-            background: #218838;
-        }
-
-        .multiplier-admin-edit .btn-cancel {
-            background: #6c757d;
-            color: white;
-        }
-
-        .multiplier-admin-edit .btn-cancel:hover {
-            background: #5a6268;
-        }
-
-        .multiplier-presets {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 10px;
-        }
+        .multiplier-presets { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
 
         .multiplier-preset {
             padding: 5px 12px;
@@ -1373,25 +1013,12 @@
             font-size: 0.85em;
             font-weight: 600;
             color: #6c757d;
-            transition: all 0.2s;
         }
 
-        .multiplier-preset:hover {
-            border-color: #667eea;
-            color: #667eea;
-            transform: translateY(-1px);
-        }
+        .multiplier-preset:hover { border-color: #667eea; color: #667eea; transform: translateY(-1px); }
 
-        .confirm-modal .modal-content {
-            background: white;
-            text-align: center;
-        }
-
-        .confirm-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
+        .confirm-modal .modal-content { background: white; text-align: center; }
+        .confirm-buttons { display: flex; gap: 10px; margin-top: 20px; }
 
         .confirm-buttons button {
             flex: 1;
@@ -1400,7 +1027,6 @@
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
-            transition: all 0.3s;
         }
 
         .confirm-yes { background: #28a745; color: white; }
@@ -1418,9 +1044,7 @@
             50% { transform: scale(1.05); }
         }
 
-        .error-flash {
-            animation: errorFlash 0.5s;
-        }
+        .error-flash { animation: errorFlash 0.5s; }
 
         @keyframes errorFlash {
             0%, 100% { background: white; }
@@ -1458,7 +1082,6 @@
             font-family: 'Courier New', monospace;
         }
 
-        /* UID Badge */
         .uid-badge {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -1471,13 +1094,346 @@
             margin-left: 8px;
         }
 
-        /* ============ MISSION PAGE STYLES ============ */
-        .mission-page {
-            display: none;
-            min-height: 100vh;
-            padding: 20px;
+        /* ============ VALOR PAY MODAL ============ */
+        .valorpay-modal {
+            max-width: 500px;
+            padding: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: white;
         }
 
+        .valorpay-header {
+            background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .valorpay-header::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotateBg 15s linear infinite;
+        }
+
+        @keyframes rotateBg {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .valorpay-logo {
+            font-size: 2em;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(90deg, #fff, #ffd700, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s infinite;
+            background-size: 200% 100%;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .valorpay-subtitle {
+            font-size: 0.85em;
+            opacity: 0.9;
+            margin-top: 5px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .valorpay-body {
+            padding: 25px;
+        }
+
+        .valorpay-section {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .valorpay-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px dashed rgba(255,255,255,0.1);
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .valorpay-row:last-child { border-bottom: none; }
+
+        .valorpay-label {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9em;
+        }
+
+        .valorpay-value {
+            color: white;
+            font-weight: 600;
+            font-size: 0.95em;
+            text-align: right;
+            word-break: break-all;
+        }
+
+        .valorpay-value.highlight {
+            color: #ffd700;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255,215,0,0.5);
+        }
+
+        .valorpay-value.mono {
+            font-family: 'Courier New', monospace;
+            color: #00ff88;
+            font-size: 0.85em;
+        }
+
+        .valorpay-divider {
+            text-align: center;
+            color: rgba(255,255,255,0.3);
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+        }
+
+        .valorpay-message {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 0.85em;
+            line-height: 1.6;
+            border-left: 3px solid #ffd700;
+        }
+
+        .valorpay-message .lang-vn { margin-bottom: 8px; }
+        .valorpay-message .lang-en { color: rgba(255,255,255,0.7); font-style: italic; }
+
+        .valorpay-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.3em;
+            font-weight: 900;
+            letter-spacing: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(255,65,108,0.4);
+            text-transform: uppercase;
+        }
+
+        .valorpay-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255,65,108,0.6);
+        }
+
+        .valorpay-btn:active { transform: translateY(-1px); }
+
+        .valorpay-btn.processing {
+            background: linear-gradient(135deg, #6c757d, #495057);
+            cursor: wait;
+        }
+
+        /* Confirm step */
+        .valorpay-confirm-icon {
+            font-size: 4em;
+            text-align: center;
+            margin: 15px 0;
+            animation: pulse 1.5s infinite;
+        }
+
+        .valorpay-confirm-title {
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #ffc107;
+            margin-bottom: 15px;
+        }
+
+        .valorpay-confirm-text {
+            text-align: center;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .valorpay-confirm-amount {
+            background: rgba(255,215,0,0.15);
+            border: 2px solid #ffd700;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .valorpay-confirm-amount .label { font-size: 0.9em; opacity: 0.8; margin-bottom: 5px; }
+
+        .valorpay-confirm-amount .value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ffd700;
+            text-shadow: 0 0 15px rgba(255,215,0,0.5);
+        }
+
+        .valorpay-thanks {
+            text-align: center;
+            font-style: italic;
+            opacity: 0.8;
+            margin: 15px 0;
+            color: #ffd700;
+        }
+
+        .valorpay-confirm-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .valorpay-confirm-buttons button {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .vp-btn-cancel {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3) !important;
+        }
+
+        .vp-btn-cancel:hover { background: rgba(255,255,255,0.25); }
+
+        .vp-btn-confirm {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            box-shadow: 0 5px 15px rgba(40,167,69,0.4);
+        }
+
+        .vp-btn-confirm:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(40,167,69,0.6);
+        }
+
+        /* Receipt step */
+        .valorpay-receipt-header {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 2px dashed rgba(255,255,255,0.2);
+            margin-bottom: 20px;
+        }
+
+        .valorpay-receipt-logo {
+            font-size: 1.5em;
+            font-weight: 900;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #fff, #ffd700, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite;
+        }
+
+        .valorpay-receipt-title {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-top: 5px;
+            letter-spacing: 2px;
+        }
+
+        .valorpay-success-icon {
+            font-size: 5em;
+            text-align: center;
+            margin: 15px 0;
+            animation: successPop 0.6s;
+        }
+
+        @keyframes successPop {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .valorpay-success-text {
+            background: rgba(40,167,69,0.2);
+            border: 1px solid #28a745;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .valorpay-success-text .check {
+            color: #28a745;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .valorpay-apology {
+            background: rgba(255,255,255,0.05);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            line-height: 1.6;
+            margin: 15px 0;
+            border-left: 3px solid #ffc107;
+        }
+
+        .valorpay-receipt-details {
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .valorpay-receipt-details .valorpay-row {
+            border-bottom: 1px dashed rgba(255,255,255,0.1);
+        }
+
+        .valorpay-close-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+
+        .valorpay-close-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102,126,234,0.5);
+        }
+
+        /* ============ MISSION PAGE ============ */
+        .mission-page { display: none; min-height: 100vh; padding: 20px; }
         .mission-page.active { display: block; }
 
         .mission-container {
@@ -1496,10 +1452,7 @@
             text-align: center;
         }
 
-        .mission-header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
+        .mission-header h1 { font-size: 2.5em; margin-bottom: 10px; }
 
         .mission-progress {
             background: #f8f9fa;
@@ -1551,11 +1504,7 @@
             gap: 10px;
         }
 
-        .task-title {
-            font-size: 1.4em;
-            font-weight: bold;
-            color: #495057;
-        }
+        .task-title { font-size: 1.4em; font-weight: bold; color: #495057; }
 
         .task-status {
             padding: 5px 15px;
@@ -1594,11 +1543,7 @@
             margin-bottom: 10px;
         }
 
-        .quiz-container {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-        }
+        .quiz-container { background: white; padding: 25px; border-radius: 10px; }
 
         .quiz-question {
             font-size: 1.8em;
@@ -1623,7 +1568,6 @@
             cursor: pointer;
             font-size: 1.2em;
             font-weight: bold;
-            transition: all 0.3s;
             text-align: center;
         }
 
@@ -1641,24 +1585,10 @@
         }
 
         .quiz-stat { text-align: center; }
+        .quiz-stat-value { font-size: 2em; font-weight: bold; color: #667eea; }
+        .quiz-stat-label { font-size: 0.9em; color: #6c757d; }
 
-        .quiz-stat-value {
-            font-size: 2em;
-            font-weight: bold;
-            color: #667eea;
-        }
-
-        .quiz-stat-label {
-            font-size: 0.9em;
-            color: #6c757d;
-        }
-
-        .ad-container {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            text-align: center;
-        }
+        .ad-container { background: white; padding: 25px; border-radius: 10px; text-align: center; }
 
         .ad-box {
             background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
@@ -1667,31 +1597,13 @@
             margin: 20px 0;
             border: 3px dashed #e17055;
             cursor: pointer;
-            transition: all 0.3s;
         }
 
-        .ad-box:hover {
-            transform: scale(1.02);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
+        .ad-box:hover { transform: scale(1.02); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .ad-box h3 { font-size: 2em; color: #d63031; margin-bottom: 10px; }
+        .ad-box p { color: #2d3436; font-size: 1.1em; }
 
-        .ad-box h3 {
-            font-size: 2em;
-            color: #d63031;
-            margin-bottom: 10px;
-        }
-
-        .ad-box p {
-            color: #2d3436;
-            font-size: 1.1em;
-        }
-
-        .countdown-container {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            text-align: center;
-        }
+        .countdown-container { background: white; padding: 40px; border-radius: 15px; text-align: center; }
 
         .countdown-display {
             font-size: 5em;
@@ -1699,7 +1611,6 @@
             color: #667eea;
             margin: 30px 0;
             font-family: 'Courier New', monospace;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
         .countdown-prompt {
@@ -1721,7 +1632,6 @@
             animation: starGlow 1s infinite alternate;
             user-select: none;
             z-index: 100;
-            transition: transform 0.2s;
         }
 
         .star-target:hover { transform: scale(1.3); }
@@ -1770,10 +1680,7 @@
             gap: 10px;
             font-weight: bold;
             color: #856404;
-            animation: popIn 0.4s;
         }
-
-        .star-status-bar .status-text { font-size: 1.1em; }
 
         .star-status-bar .status-count {
             background: #667eea;
@@ -1781,7 +1688,6 @@
             padding: 8px 18px;
             border-radius: 20px;
             font-size: 1.2em;
-            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
         }
 
         .star-status-bar.complete {
@@ -1801,21 +1707,11 @@
             font-size: 1.5em;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s;
             margin: 20px 0;
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
             display: none;
         }
 
-        .restart-btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.6);
-        }
-
-        .restart-btn.show {
-            display: inline-block;
-            animation: popIn 0.5s;
-        }
+        .restart-btn.show { display: inline-block; animation: popIn 0.5s; }
 
         .paused-notice {
             background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
@@ -1824,34 +1720,16 @@
             border: 3px solid #ffc107;
             margin: 20px 0;
             display: none;
-            animation: popIn 0.5s;
         }
 
-        .paused-notice.show { display: block; }
-
-        .paused-notice h3 {
-            color: #856404;
-            font-size: 1.5em;
-            margin-bottom: 10px;
-        }
-
-        .paused-notice p {
-            color: #856404;
-            font-size: 1.1em;
-            margin: 10px 0;
-        }
-
-        .paused-notice .time-remaining {
-            font-size: 2em;
-            font-weight: bold;
-            color: #667eea;
-            margin: 15px 0;
-        }
+        .paused-notice.show { display: block; animation: popIn 0.5s; }
+        .paused-notice h3 { color: #856404; font-size: 1.5em; margin-bottom: 10px; }
+        .paused-notice p { color: #856404; font-size: 1.1em; margin: 10px 0; }
+        .paused-notice .time-remaining { font-size: 2em; font-weight: bold; color: #667eea; margin: 15px 0; }
 
         .reward-popup {
             position: fixed;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             background: linear-gradient(135deg, #28a745, #20c997);
             color: white;
@@ -1888,30 +1766,27 @@
             .multiplier-info-box .multi-value { font-size: 2.5em; }
             .history-item { flex-wrap: wrap; }
             .emoji-grid { grid-template-columns: repeat(5, 1fr); }
+            .valorpay-modal { max-width: 95%; }
+            .valorpay-logo { font-size: 1.5em; }
+            .valorpay-confirm-amount .value { font-size: 1.5em; }
         }
     </style>
 </head>
 <body>
-    <!-- ============ NOTIFICATION CONTAINER ============ -->
     <div class="notification-container" id="notificationContainer"></div>
 
-    <!-- ============ ADBLOCK WARNING ============ -->
     <div class="adblock-warning" id="adblockWarning">
         <div class="adblock-warning-content">
             <div class="adblock-warning-icon">🚫</div>
             <h2>AdBlock Detected!</h2>
             <p><strong>Please disable any ad-blocking extensions/tools!</strong></p>
             <p class="lang-en">Vui lòng tắt mọi tiện ích/công cụ chặn quảng cáo!</p>
-            <p style="font-size: 0.85em; color: #6c757d; margin-top: 15px;">
-                We rely on ads to keep this service free. Thank you for your understanding!
-            </p>
             <button class="retry-btn" onclick="retryAdblockCheck()">✅ I've disabled it - Retry</button>
         </div>
     </div>
 
-    <!-- ============ MAIN PAGE ============ -->
     <div id="mainPage">
-        <!-- Modal Đăng nhập/Đăng ký -->
+        <!-- Login Modal -->
         <div id="loginModal" class="modal active">
             <div class="modal-content">
                 <h2 id="modalTitle">Đăng nhập / đăng kí để bắt đầu !</h2>
@@ -1954,7 +1829,7 @@
                 
                 <div class="avatar-tabs">
                     <button class="avatar-tab active" onclick="switchAvatarTab('emoji', this)">😊 Emoji</button>
-                    <button class="avatar-tab" onclick="switchAvatarTab('url', this)">🔗 URL ảnh</button>
+                    <button class="avatar-tab" onclick="switchAvatarTab('upload', this)">📤 Tải ảnh lên</button>
                 </div>
                 
                 <!-- Emoji Panel -->
@@ -1963,14 +1838,19 @@
                     <div class="emoji-grid" id="emojiGrid"></div>
                 </div>
                 
-                <!-- URL Panel -->
-                <div class="avatar-panel" id="urlPanel">
-                    <label style="font-weight: 600; color: #495057; display: block; margin-bottom: 8px;">Nhập URL ảnh:</label>
-                    <input type="text" class="avatar-url-input" id="avatarUrlInput" placeholder="https://example.com/avatar.jpg" oninput="previewAvatarUrl()">
-                    <div class="avatar-url-preview" id="avatarUrlPreview">
-                        <span style="color: #adb5bd; font-size: 0.8em;">Xem trước</span>
+                <!-- Upload Panel -->
+                <div class="avatar-panel" id="uploadPanel">
+                    <div class="upload-area" id="uploadArea" onclick="document.getElementById('avatarFileInput').click()">
+                        <div class="upload-icon">📤</div>
+                        <div class="upload-text">Nhấn để chọn ảnh hoặc kéo thả vào đây</div>
+                        <div class="upload-hint">Định dạng: JPG, PNG, GIF • Tối đa: 1MB</div>
+                        <div class="upload-hint">Ảnh sẽ được tự động nén để tối ưu</div>
                     </div>
-                    <p style="font-size: 0.8em; color: #6c757d; text-align: center;">💡 Ảnh sẽ được hiển thị trong hình tròn</p>
+                    <input type="file" id="avatarFileInput" accept="image/*" style="display:none" onchange="handleAvatarFileSelect(event)">
+                    <div class="upload-preview" id="uploadPreview">
+                        <img id="uploadPreviewImg" src="" alt="Preview">
+                    </div>
+                    <p id="uploadStatus" style="text-align: center; margin-top: 10px; font-size: 0.9em; color: #6c757d;"></p>
                 </div>
                 
                 <div style="display: flex; gap: 10px; margin-top: 20px;">
@@ -1986,13 +1866,9 @@
                 <div class="warning-title">⚠️ CẢNH CÁO ! 1/2 !NẾU 2/2 Ban</div>
                 <div class="warning-text">
                     <strong>🇻🇳 TIẾNG VIỆT:</strong><br>
-                    VUI LÒNG KHÔNG SỬ DỤNG Cheats/Bot/Tools vui lòng thực hiện nếu không chúng tôi sẽ BAN bạn theo luật của chúng tôi !<br><br>
+                    VUI LÒNG KHÔNG SỬ DỤNG Cheats/Bot/Tools...<br><br>
                     <strong>🇬🇧 ENGLISH:</strong><br>
-                    PLEASE DO NOT USE Cheats/Bots/Tools. If you do not, we will BANN you according to our rules!
-                </div>
-                <div class="warning-credit">
-                    - By The9syra -<br>
-                    Nếu có sai sót vui lòng báo với chúng tôi / If there are any errors, please let us know.
+                    PLEASE DO NOT USE Cheats/Bots/Tools...
                 </div>
                 <button class="btn" style="margin-top: 20px; background: white; color: #ff416c;" onclick="closeWarning()">Đã hiểu / Understood</button>
             </div>
@@ -2010,7 +1886,14 @@
             </div>
         </div>
 
-        <!-- Giao diện chính -->
+        <!-- ValorPay Modal -->
+        <div id="valorpayModal" class="modal">
+            <div class="modal-content valorpay-modal" id="valorpayContent">
+                <!-- Content will be injected -->
+            </div>
+        </div>
+
+        <!-- Main Container -->
         <div class="container" id="mainContainer" style="display: none;">
             <div class="header">
                 <h1>🐔 ChickenP Game</h1>
@@ -2040,17 +1923,15 @@
                 <button class="tab" id="adminTab" onclick="showTab('admin', event)" style="display: none;">⚙️ Admin</button>
             </div>
 
-            <!-- Tab Giới thiệu -->
+            <!-- Tab Info -->
             <div id="info" class="tab-content active">
                 <h2>📖 Giới thiệu về ChickenP Game</h2>
                 
-                <!-- Multiplier Info Box -->
                 <div class="multiplier-info-box" id="multiplierInfoBox">
                     <div class="multi-label">🔢 Hệ số nhân hiện tại</div>
                     <div class="multi-value multi-glow" id="infoMultiplierValue" onclick="openMultiplierEditInline()">1x</div>
                     <div class="multi-desc">Mỗi quest hoàn thành sẽ nhận được <strong id="infoMultiplierReward">1</strong> ChickenP</div>
                     
-                    <!-- Inline Edit -->
                     <div class="multiplier-edit-inline" id="multiplierEditInline">
                         <input type="number" id="multiplierInlineInput" step="0.1" min="1" max="100" placeholder="1.0 - 100">
                         <div class="edit-hint">Nhập từ 1 đến 100 (hỗ trợ số thập phân: 1.5, 2.5, 10.2...)</div>
@@ -2061,7 +1942,6 @@
                     </div>
                 </div>
                 
-                <!-- Profile Section -->
                 <div class="profile-section" id="profileSection">
                     <div class="profile-header">
                         <div class="profile-avatar" id="profileAvatar" onclick="openAvatarModal()">
@@ -2104,22 +1984,16 @@
                             ✅ <strong>Kiếm điểm:</strong> Hoàn thành quest để nhận ChickenP (có hệ số nhân)
                         </li>
                         <li style="padding: 10px; background: #f8f9fa; margin-bottom: 10px; border-radius: 5px;">
-                            🛍️ <strong>Shop:</strong> Mua sắm vật phẩm với ChickenP
+                            🛍️ <strong>Shop & ValorPay:</strong> Mua sắm vật phẩm với hệ thống thanh toán chuyên nghiệp
                         </li>
                         <li style="padding: 10px; background: #f8f9fa; margin-bottom: 10px; border-radius: 5px;">
                             🎁 <strong>Quest System:</strong> Hệ thống nhiệm vụ 4 bước độc đáo
                         </li>
                         <li style="padding: 10px; background: #f8f9fa; margin-bottom: 10px; border-radius: 5px;">
-                            🔐 <strong>Bảo mật:</strong> Chống cheat/bot/tools với IP verification
-                        </li>
-                        <li style="padding: 10px; background: #f8f9fa; margin-bottom: 10px; border-radius: 5px;">
-                            👤 <strong>Profile & UID & Avatar:</strong> Xem thông tin cá nhân, UID riêng và thay đổi avatar
+                            👤 <strong>Profile & UID & Avatar:</strong> Xem thông tin cá nhân, UID riêng và upload avatar
                         </li>
                         <li style="padding: 10px; background: #f8f9fa; margin-bottom: 10px; border-radius: 5px;">
                             📜 <strong>History:</strong> Lịch sử giao dịch chi tiết
-                        </li>
-                        <li style="padding: 10px; background: #f8f9fa; margin-bottom: 10px; border-radius: 5px;">
-                            🔔 <strong>Thông báo:</strong> Hệ thống notification riêng của web
                         </li>
                         <li style="padding: 10px; background: #f8f9fa; margin-bottom: 10px; border-radius: 5px;">
                             🛡️ <strong>Admin System:</strong> BAN/UNBAN, UNWARN, GIFT, quản lý quyền
@@ -2127,50 +2001,49 @@
                     </ul>
                 </div>
 
-                <!-- UPDATE LOG Section -->
                 <div class="update-log-section">
                     <h3>📝 UPDATE LOG</h3>
                     <ul class="update-log-list">
                         <li class="update-log-item">
                             <span class="update-log-date">13/06/2026</span>
                             <span class="update-log-text">
-                                <strong>🆔 UID System:</strong> Đổi prefix thành <strong>VP-</strong> + random chữ & số. Đảm bảo mỗi user có UID duy nhất
+                                <strong>💳 ValorPay System:</strong> Hệ thống thanh toán chuyên nghiệp khi mua hàng với 3 bước: Thông tin → Xác nhận → Biên lai
                             </span>
                         </li>
                         <li class="update-log-item">
                             <span class="update-log-date">13/06/2026</span>
                             <span class="update-log-text">
-                                <strong>🖼️ Avatar System:</strong> Thêm tính năng thay đổi avatar - chọn emoji hoặc nhập URL ảnh
+                                <strong>📤 Avatar Upload:</strong> Upload ảnh làm avatar (thay cho URL). Tự động nén ảnh, hỗ trợ kéo thả
                             </span>
                         </li>
                         <li class="update-log-item">
                             <span class="update-log-date">13/06/2026</span>
                             <span class="update-log-text">
-                                <strong>🔢 Multiplier Pro:</strong> Click vào giá trị hệ số nhân để nhập trực tiếp số thập phân (1.2x, 2.5x...). Range 1x-100x với các preset nhanh
+                                <strong>🔢 Multiplier Fix:</strong> Sửa lỗi không mở được inline editor ở tab Info. Giờ click trực tiếp vào giá trị để đổi
                             </span>
                         </li>
                         <li class="update-log-item">
                             <span class="update-log-date">13/06/2026</span>
                             <span class="update-log-text">
-                                <strong>🔒 Username Unique:</strong> Đảm bảo tên tài khoản không trùng (case-insensitive)
+                                <strong>⏱️ Cooldown Fix:</strong> Cooldown chỉ bắt đầu SAU khi hoàn thành nhiệm vụ, tự động quay về tab Kiếm điểm
+                            </span>
+                        </li>
+                        <li class="update-log-item">
+                            <span class="update-log-date">13/06/2026</span>
+                            <span class="update-log-text">
+                                <strong>💰 New User:</strong> Tài khoản mới bắt đầu với 0 ChickenP (thay vì 100)
+                            </span>
+                        </li>
+                        <li class="update-log-item">
+                            <span class="update-log-date">13/06/2026</span>
+                            <span class="update-log-text">
+                                <strong>🆔 UID System:</strong> Prefix VP- + random chữ & số. Đảm bảo UID duy nhất
                             </span>
                         </li>
                         <li class="update-log-item">
                             <span class="update-log-date">12/06/2026</span>
                             <span class="update-log-text">
-                                <strong>🔢 Multiplier Fix:</strong> Sửa lỗi hệ số nhân - giờ đây multiplier thực sự nhân điểm khi hoàn thành quest
-                            </span>
-                        </li>
-                        <li class="update-log-item">
-                            <span class="update-log-date">12/06/2026</span>
-                            <span class="update-log-text">
-                                <strong>📜 History Tab:</strong> Thêm tab History - Lịch sử giao dịch chi tiết
-                            </span>
-                        </li>
-                        <li class="update-log-item">
-                            <span class="update-log-date">12/06/2026</span>
-                            <span class="update-log-text">
-                                <strong>📢 Ads & Anti-Adblock Scripts:</strong> Thêm script hỗ trợ quảng cáo và phát hiện chặn quảng cáo
+                                <strong>📜 History Tab:</strong> Lịch sử giao dịch chi tiết
                             </span>
                         </li>
                         <li class="update-log-item">
@@ -2180,27 +2053,15 @@
                             </span>
                         </li>
                         <li class="update-log-item">
-                            <span class="update-log-date">10/06/2026</span>
-                            <span class="update-log-text">
-                                <strong>🔔 Notification System:</strong> Hệ thống thông báo riêng của web
-                            </span>
-                        </li>
-                        <li class="update-log-item">
-                            <span class="update-log-date">10/06/2026</span>
-                            <span class="update-log-text">
-                                <strong>🚫 BAN System:</strong> Tính năng BAN user trong Admin Panel
-                            </span>
-                        </li>
-                        <li class="update-log-item">
                             <span class="update-log-date">09/06/2026</span>
                             <span class="update-log-text">
-                                <strong>🎯 Quest System & Shop:</strong> Hệ thống nhiệm vụ 4 bước và cửa hàng vật phẩm
+                                <strong>🎯 Quest System & Shop:</strong> Hệ thống nhiệm vụ 4 bước và cửa hàng
                             </span>
                         </li>
                         <li class="update-log-item">
                             <span class="update-log-date">08/06/2026</span>
                             <span class="update-log-text">
-                                <strong>🚀 Initial Release:</strong> Phiên bản đầu tiên của ChickenP Game
+                                <strong>🚀 Initial Release:</strong> Phiên bản đầu tiên
                             </span>
                         </li>
                     </ul>
@@ -2219,13 +2080,13 @@
                         </div>
                         <div style="text-align: right;">
                             <div class="price">1,200 ChickenP</div>
-                            <button class="buy-btn" onclick="buyItem('HotDog', 1200)">Mua ngay</button>
+                            <button class="buy-btn" onclick="buyItem('HotDog', 1200, '🌭')">Mua ngay</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Tab Kiếm điểm -->
+            <!-- Tab Earn -->
             <div id="earn" class="tab-content">
                 <div class="quest-container">
                     <div class="quest-title">🎯 QUEST</div>
@@ -2236,7 +2097,7 @@
                         <div class="quest-info">
                             <strong>📋 Phần thưởng:</strong> <span id="questRewardDisplay">1</span> ChickenP mỗi lần hoàn thành 
                             <span id="questMultiplierNote" style="background: #667eea; color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.85em; font-weight: bold;">(đang nhân 1x)</span><br>
-                            <strong>⏱️ Thời gian cooldown:</strong> 1 phút giữa các lần<br>
+                            <strong>⏱️ Thời gian cooldown:</strong> 1 phút sau khi hoàn thành<br>
                             <strong>🔒 Bảo mật:</strong> Token 1 lần duy nhất
                         </div>
                         <button class="quest-btn" id="startQuestBtn" onclick="startQuest()">✅ Chấp nhận nhiệm vụ</button>
@@ -2279,12 +2140,11 @@
                     <h3>⚙️ Bảng điều khiển Admin</h3>
                     
                     <div class="admin-grid">
-                        <!-- BAN User -->
                         <div class="admin-card">
                             <h4>🚫 BAN User</h4>
                             <p style="font-size: 0.9em; color: #6c757d; margin-bottom: 10px;">
                                 Khóa tài khoản người dùng. <br>
-                                <small style="color: #dc3545;">⚠️ Admin thường không thể BAN admin khác. Chỉ Root Admin mới có quyền BAN tất cả.</small>
+                                <small style="color: #dc3545;">⚠️ Admin thường không thể BAN admin khác.</small>
                             </p>
                             <div class="admin-input-group">
                                 <input type="text" id="banUsername" placeholder="Tên người dùng cần BAN">
@@ -2292,7 +2152,6 @@
                             </div>
                         </div>
 
-                        <!-- Multiplier Control - NEW UI -->
                         <div class="admin-card">
                             <h4>🔢 Hệ số nhân ChickenP</h4>
                             
@@ -2329,7 +2188,6 @@
 
                         <div class="admin-card">
                             <h4>⚠️ UNWARN (Bỏ cảnh báo)</h4>
-                            <p style="font-size: 0.9em; color: #6c757d; margin-bottom: 10px;">Mở khóa cảnh báo cho người dùng</p>
                             <div class="admin-input-group">
                                 <input type="text" id="unwarnUsername" placeholder="Tên người dùng">
                                 <button class="admin-btn" onclick="unwarnUser()">UNWARN</button>
@@ -2338,7 +2196,6 @@
 
                         <div class="admin-card">
                             <h4>🔓 UNBAN (Bỏ ban)</h4>
-                            <p style="font-size: 0.9em; color: #6c757d; margin-bottom: 10px;">Mở khóa tài khoản bị ban</p>
                             <div class="admin-input-group">
                                 <input type="text" id="unbanUsername" placeholder="Tên người dùng">
                                 <button class="admin-btn" onclick="unbanUser()">UNBAN</button>
@@ -2356,7 +2213,6 @@
 
                         <div class="admin-card" id="unadminCard" style="display: none;">
                             <h4>❌ UNADMIN (Gỡ admin)</h4>
-                            <p style="font-size: 0.9em; color: #6c757d; margin-bottom: 10px;">Chỉ Root Admin mới có quyền này</p>
                             <div class="admin-input-group">
                                 <input type="text" id="unadminUsername" placeholder="Tên admin">
                                 <button class="admin-btn" onclick="unadminUser()">UNADMIN</button>
@@ -2365,12 +2221,11 @@
 
                         <div class="admin-card">
                             <h4>🎁 GIFT ChickenP</h4>
-                            <p style="font-size: 0.9em; color: #6c757d; margin-bottom: 10px;">Tặng ChickenP cho người dùng</p>
                             <div class="admin-input-group">
                                 <input type="text" id="giftUsername" placeholder="Tên người dùng">
                             </div>
                             <div class="admin-input-group">
-                                <input type="text" id="giftAmount" placeholder="Số ChickenP (min: 0.00000000000000000000001 - max: 100000)">
+                                <input type="text" id="giftAmount" placeholder="Số ChickenP">
                             </div>
                             <button class="admin-btn" onclick="giftPoints()" style="width: 100%;">GIFT</button>
                         </div>
@@ -2384,7 +2239,7 @@
         </div>
     </div>
 
-    <!-- ============ MISSION PAGE ============ -->
+    <!-- Mission Page -->
     <div id="missionPage" class="mission-page">
         <div class="mission-container">
             <div class="mission-header">
@@ -2400,7 +2255,6 @@
             </div>
 
             <div class="mission-body">
-                <!-- Task 1 -->
                 <div class="task-card active" id="task1Card">
                     <div class="task-header">
                         <div class="task-title">📋 Nhiệm vụ 1: Xác thực Link</div>
@@ -2418,7 +2272,6 @@
                     </div>
                 </div>
 
-                <!-- Task 2 -->
                 <div class="task-card locked" id="task2Card">
                     <div class="task-header">
                         <div class="task-title">📚 Nhiệm vụ 2: Trả lời câu hỏi</div>
@@ -2448,7 +2301,6 @@
                     </div>
                 </div>
 
-                <!-- Task 3 -->
                 <div class="task-card locked" id="task3Card">
                     <div class="task-header">
                         <div class="task-title">📺 Nhiệm vụ 3: Xem quảng cáo</div>
@@ -2460,13 +2312,11 @@
                             <div class="ad-box" id="adBox" onclick="completeTask3()">
                                 <h3>🎁 QUẢNG CÁO ĐẶC BIỆT</h3>
                                 <p>👉 NHẤN VÀO ĐÂY ĐỂ HOÀN THÀNH NHIỆM VỤ 👈</p>
-                                <p style="margin-top: 15px; font-size: 0.9em; color: #636e72;">(Đây là nơi hiển thị quảng cáo)</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Task 4 -->
                 <div class="task-card locked" id="task4Card">
                     <div class="task-header">
                         <div class="task-title">⏱️ Nhiệm vụ 4: Chờ 30 giây</div>
@@ -2504,7 +2354,6 @@
                     </div>
                 </div>
 
-                <!-- Final -->
                 <div id="missionComplete" style="display: none; text-align: center; padding: 40px;">
                     <div class="success-box">
                         <h3>🎉 HOÀN THÀNH TẤT CẢ NHIỆM VỤ!</h3>
@@ -2520,11 +2369,9 @@
         </div>
     </div>
 
-    <!-- Adblock bait elements -->
     <div class="adsbox ad-banner pub_300x250 pub_300x250_text pub_728x90_text" style="width:1px;height:1px;position:absolute;left:-9999px;top:-9999px;" id="adBait"></div>
 
     <script>
-        // Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyAjGTZ_yr4p5OrDKSy80BLo6psSVAKLE0Q",
             authDomain: "jiceo-73677.firebaseapp.com",
@@ -2542,7 +2389,6 @@
         const ROOT_ADMIN_USERNAME = 'Cooking102';
         const ROOT_ADMIN_PASSWORD = '25121989';
 
-        // Avatar emoji preset list
         const AVATAR_EMOJIS = [
             '😀','😃','😄','😁','😆','😅','😂','🤣','😊','😇',
             '🙂','🙃','😉','😌','😍','🥰','😘','😗','😙','😚',
@@ -2556,65 +2402,48 @@
             '🐪','🐫','🦒','🦘','🐃','🐂','🐄','🐎','🐖','🐏',
             '👑','🎩','🎓','🧢','⛑️','💎','🎮','🎯','🎲','🎸',
             '🔥','⭐','🌟','✨','💫','🌈','☀️','🌙','❤️','💙',
-            '💚','💛','💜','🖤','🤍','🤎','💯','💢','💥','💫'
+            '💚','💛','💜','🖤','🤍','🤎','💯','💢','💥','🌭'
         ];
 
         let currentUser = null;
         let confirmCallback = null;
         let userListener = null;
         let cooldownInterval = null;
+        let cooldownListener = null;
         let currentGlobalMultiplier = 1;
         let multiplierListener = null;
 
-        // Avatar modal state
-        let selectedAvatarType = 'emoji'; // 'emoji' or 'url'
-        let selectedAvatarValue = null; // emoji string or URL
-        let pendingAvatarUrl = null;
+        let selectedAvatarType = 'emoji';
+        let selectedAvatarValue = null;
+        let pendingAvatarUpload = null;
 
-        // ============ UID SYSTEM (VP- prefix) ============
+        // ============ UID SYSTEM ============
         function generateUID() {
             const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            let part1 = '';
-            let part2 = '';
-            for (let i = 0; i < 6; i++) {
-                part1 += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            for (let i = 0; i < 4; i++) {
-                part2 += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
+            let part1 = '', part2 = '';
+            for (let i = 0; i < 6; i++) part1 += chars.charAt(Math.floor(Math.random() * chars.length));
+            for (let i = 0; i < 4; i++) part2 += chars.charAt(Math.floor(Math.random() * chars.length));
             return 'VP-' + part1 + '-' + part2;
         }
 
         async function ensureUniqueUID() {
-            // Generate UID and check uniqueness
             let uid = generateUID();
             let attempts = 0;
-            const maxAttempts = 10;
-            
-            while (attempts < maxAttempts) {
+            while (attempts < 10) {
                 const snapshot = await database.ref('uidIndex/' + uid).once('value');
-                if (!snapshot.exists()) {
-                    return uid;
-                }
+                if (!snapshot.exists()) return uid;
                 uid = generateUID();
                 attempts++;
             }
-            
-            // Fallback with timestamp
             return 'VP-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substr(2, 4).toUpperCase();
         }
 
         async function registerUID(uid, username) {
-            // Register UID in index to ensure uniqueness
-            await database.ref('uidIndex/' + uid).set({
-                username: username,
-                createdAt: Date.now()
-            });
-            // Also store in user data
+            await database.ref('uidIndex/' + uid).set({ username: username, createdAt: Date.now() });
             await database.ref('users/' + username + '/uid').set(uid);
         }
 
-        // ============ HISTORY SYSTEM ============
+        // ============ HISTORY ============
         let historyFilter = 'all';
         let historyLoadedCount = 0;
         const HISTORY_PER_PAGE = 20;
@@ -2622,35 +2451,23 @@
         async function addHistoryEntry(type, title, description, amount = 0) {
             if (!currentUser) return;
             try {
-                const entry = {
-                    type: type,
-                    title: title,
-                    description: description,
-                    amount: amount,
+                await database.ref('history/' + currentUser.username).push({
+                    type, title, description, amount,
                     timestamp: Date.now(),
                     username: currentUser.username
-                };
-                await database.ref('history/' + currentUser.username).push(entry);
-            } catch (error) {
-                console.error('Lỗi ghi history:', error);
-            }
+                });
+            } catch (error) { console.error('Lỗi ghi history:', error); }
         }
 
         async function addAdminHistoryEntry(targetUsername, type, title, description, amount = 0, adminUsername = '') {
             try {
-                const entry = {
-                    type: type,
-                    title: title,
-                    description: description,
-                    amount: amount,
+                await database.ref('history/' + targetUsername).push({
+                    type, title, description, amount,
                     timestamp: Date.now(),
                     username: targetUsername,
                     admin: adminUsername
-                };
-                await database.ref('history/' + targetUsername).push(entry);
-            } catch (error) {
-                console.error('Lỗi ghi admin history:', error);
-            }
+                });
+            } catch (error) { console.error('Lỗi ghi admin history:', error); }
         }
 
         function filterHistory(filter, btn) {
@@ -2663,41 +2480,24 @@
 
         async function loadHistory() {
             if (!currentUser) return;
-            
             try {
                 const snapshot = await database.ref('history/' + currentUser.username).orderByChild('timestamp').once('value');
                 const historyList = document.getElementById('historyList');
                 
                 if (!snapshot.exists()) {
-                    historyList.innerHTML = `
-                        <li class="history-empty">
-                            <div class="empty-icon">📜</div>
-                            <p>Chưa có giao dịch nào</p>
-                            <p style="font-size: 0.9em; margin-top: 5px;">Các hoạt động của bạn sẽ được ghi lại ở đây</p>
-                        </li>
-                    `;
+                    historyList.innerHTML = `<li class="history-empty"><div class="empty-icon">📜</div><p>Chưa có giao dịch nào</p></li>`;
                     document.getElementById('historyLoadMore').style.display = 'none';
                     return;
                 }
                 
                 let entries = [];
-                snapshot.forEach(child => {
-                    entries.push({ id: child.key, ...child.val() });
-                });
-                
+                snapshot.forEach(child => entries.push({ id: child.key, ...child.val() }));
                 entries.sort((a, b) => b.timestamp - a.timestamp);
                 
-                if (historyFilter !== 'all') {
-                    entries = entries.filter(e => e.type === historyFilter);
-                }
+                if (historyFilter !== 'all') entries = entries.filter(e => e.type === historyFilter);
                 
                 if (entries.length === 0) {
-                    historyList.innerHTML = `
-                        <li class="history-empty">
-                            <div class="empty-icon">🔍</div>
-                            <p>Không có giao dịch nào trong bộ lọc này</p>
-                        </li>
-                    `;
+                    historyList.innerHTML = `<li class="history-empty"><div class="empty-icon">🔍</div><p>Không có giao dịch nào trong bộ lọc này</p></li>`;
                     document.getElementById('historyLoadMore').style.display = 'none';
                     return;
                 }
@@ -2710,18 +2510,9 @@
                     const li = document.createElement('li');
                     li.className = 'history-item';
                     
-                    const iconMap = {
-                        earn: '💎',
-                        spend: '💸',
-                        gift: '🎁',
-                        admin: '🛡️',
-                        system: '⚙️'
-                    };
-                    
+                    const iconMap = { earn: '💎', spend: '💸', gift: '🎁', admin: '🛡️', system: '⚙️' };
                     const amountClass = entry.amount > 0 ? 'positive' : (entry.amount < 0 ? 'negative' : 'neutral');
                     const amountText = entry.amount > 0 ? `+${formatNumber(entry.amount)}` : (entry.amount < 0 ? formatNumber(entry.amount) : '');
-                    
-                    const timeStr = formatTimeAgo(entry.timestamp);
                     
                     li.innerHTML = `
                         <div class="history-icon ${entry.type || 'system'}">${iconMap[entry.type] || '⚙️'}</div>
@@ -2730,20 +2521,13 @@
                             <div class="history-desc">${escapeHtml(entry.description)}</div>
                         </div>
                         ${amountText ? `<div class="history-amount ${amountClass}">${amountText}</div>` : ''}
-                        <div class="history-time">${timeStr}</div>
+                        <div class="history-time">${formatTimeAgo(entry.timestamp)}</div>
                     `;
                     historyList.appendChild(li);
                 });
                 
-                if (displayCount < entries.length) {
-                    document.getElementById('historyLoadMore').style.display = 'block';
-                } else {
-                    document.getElementById('historyLoadMore').style.display = 'none';
-                }
-                
-            } catch (error) {
-                console.error('Lỗi tải history:', error);
-            }
+                document.getElementById('historyLoadMore').style.display = displayCount < entries.length ? 'block' : 'none';
+            } catch (error) { console.error('Lỗi tải history:', error); }
         }
 
         function loadMoreHistory() {
@@ -2757,8 +2541,7 @@
         }
 
         function formatTimeAgo(timestamp) {
-            const now = Date.now();
-            const diff = now - timestamp;
+            const diff = Date.now() - timestamp;
             const seconds = Math.floor(diff / 1000);
             const minutes = Math.floor(seconds / 60);
             const hours = Math.floor(minutes / 60);
@@ -2768,8 +2551,13 @@
             if (minutes < 60) return `${minutes} phút trước`;
             if (hours < 24) return `${hours} giờ trước`;
             if (days < 30) return `${days} ngày trước`;
-            
             return new Date(timestamp).toLocaleDateString('vi-VN');
+        }
+
+        function formatDateTime(timestamp) {
+            const d = new Date(timestamp);
+            const pad = n => n.toString().padStart(2, '0');
+            return `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()} - ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
         }
 
         function escapeHtml(text) {
@@ -2779,12 +2567,11 @@
             return div.innerHTML;
         }
 
-        // ============ NOTIFICATION SYSTEM ============
+        // ============ NOTIFICATION ============
         function showNotification(title, message, type = 'info', duration = 5000) {
             const container = document.getElementById('notificationContainer');
             const notification = document.createElement('div');
             notification.className = `notification ${type}`;
-            
             const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
 
             notification.innerHTML = `
@@ -2796,15 +2583,12 @@
                 <button class="notification-close" onclick="closeNotification(this)">×</button>
                 <div class="notification-progress" style="animation-duration: ${duration}ms;"></div>
             `;
-
             container.appendChild(notification);
 
             setTimeout(() => {
                 if (notification.parentNode) {
                     notification.classList.add('removing');
-                    setTimeout(() => {
-                        if (notification.parentNode) notification.remove();
-                    }, 300);
+                    setTimeout(() => { if (notification.parentNode) notification.remove(); }, 300);
                 }
             }, duration);
         }
@@ -2812,12 +2596,10 @@
         function closeNotification(btn) {
             const notification = btn.closest('.notification');
             notification.classList.add('removing');
-            setTimeout(() => {
-                if (notification.parentNode) notification.remove();
-            }, 300);
+            setTimeout(() => { if (notification.parentNode) notification.remove(); }, 300);
         }
 
-        // ============ ADBLOCK DETECTION ============
+        // ============ ADBLOCK ============
         function detectAdblock() {
             return new Promise((resolve) => {
                 const bait = document.getElementById('adBait');
@@ -2828,12 +2610,6 @@
                         return;
                     }
                 }
-
-                const testImg = new Image();
-                testImg.onload = () => resolve(false);
-                testImg.onerror = () => resolve(true);
-                testImg.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-                
                 setTimeout(() => {
                     if (window.google_jobrunner || window.uabInject) resolve(true);
                     else resolve(false);
@@ -2854,15 +2630,12 @@
             document.getElementById('adblockWarning').classList.remove('active');
             setTimeout(async () => {
                 const stillBlocked = await checkAdblock();
-                if (!stillBlocked) {
-                    showNotification('Thành công!', 'Adblock đã được tắt. Cảm ơn bạn!', 'success');
-                } else {
-                    document.getElementById('adblockWarning').classList.add('active');
-                }
+                if (!stillBlocked) showNotification('Thành công!', 'Adblock đã được tắt.', 'success');
+                else document.getElementById('adblockWarning').classList.add('active');
             }, 500);
         }
 
-        // ============ URL PARAMS CHECK ============
+        // ============ URL PARAMS ============
         const urlParams = new URLSearchParams(window.location.search);
         const linkToken = urlParams.get('link-token');
 
@@ -2873,11 +2646,7 @@
             
             if (linkToken) {
                 const savedUser = localStorage.getItem('currentUser');
-                if (!savedUser) {
-                    alert('Vui lòng đăng nhập trước!');
-                    window.close();
-                    return;
-                }
+                if (!savedUser) { alert('Vui lòng đăng nhập trước!'); window.close(); return; }
                 currentUser = JSON.parse(savedUser);
                 openMissionPage();
             } else {
@@ -2886,21 +2655,18 @@
                     currentUser = JSON.parse(savedUser);
                     showMainInterface();
                     listenToUserData();
-                    checkCooldown();
+                    listenToCooldown();
                     
                     setTimeout(() => {
-                        showNotification('Chào mừng!', `Xin chào ${currentUser.username}! Chúc bạn chơi game vui vẻ! 🐔`, 'success', 4000);
+                        showNotification('Chào mừng!', `Xin chào ${currentUser.username}! 🐔`, 'success', 4000);
                     }, 1000);
                 }
             }
         };
 
-        // ============ GLOBAL MULTIPLIER LISTENER ============
+        // ============ MULTIPLIER ============
         function listenToGlobalMultiplier() {
-            if (multiplierListener) {
-                database.ref('config/globalMultiplier').off('value', multiplierListener);
-            }
-            
+            if (multiplierListener) database.ref('config/globalMultiplier').off('value', multiplierListener);
             multiplierListener = database.ref('config/globalMultiplier').on('value', (snapshot) => {
                 const multi = snapshot.exists() ? (parseFloat(snapshot.val()) || 1) : 1;
                 currentGlobalMultiplier = multi;
@@ -2909,38 +2675,29 @@
         }
 
         function updateMultiplierUI() {
-            // Info tab multiplier box
             const infoValue = document.getElementById('infoMultiplierValue');
             const infoReward = document.getElementById('infoMultiplierReward');
             if (infoValue) infoValue.innerText = formatMultiplier(currentGlobalMultiplier);
             if (infoReward) infoReward.innerText = formatNumber(1 * currentGlobalMultiplier);
             
-            // Quest reward display
             const questReward = document.getElementById('questRewardDisplay');
             const questNote = document.getElementById('questMultiplierNote');
             if (questReward) questReward.innerText = formatNumber(1 * currentGlobalMultiplier);
             if (questNote) questNote.innerText = `(đang nhân ${formatMultiplier(currentGlobalMultiplier)})`;
             
-            // Admin panel
             const adminMulti = document.getElementById('currentMultiplier');
             if (adminMulti) adminMulti.innerText = formatMultiplier(currentGlobalMultiplier);
         }
 
         function formatMultiplier(value) {
-            // Format: remove trailing zeros
             const num = parseFloat(value);
             if (Number.isInteger(num)) return num + 'x';
-            // Round to 2 decimal places
             const rounded = Math.round(num * 100) / 100;
             return rounded + 'x';
         }
 
-        // ============ MULTIPLIER INLINE EDIT (Info Tab) ============
         function openMultiplierEditInline() {
-            if (!currentUser || !currentUser.isAdmin) {
-                showNotification('❌ Không có quyền!', 'Chỉ Admin mới có thể thay đổi hệ số nhân!', 'error', 3000);
-                return;
-            }
+            if (!currentUser) return;
             if (!currentUser.isRootAdmin) {
                 showNotification('❌ Không có quyền!', 'Chỉ Root Admin mới có thể thay đổi hệ số nhân!', 'error', 3000);
                 return;
@@ -2950,8 +2707,7 @@
             const input = document.getElementById('multiplierInlineInput');
             input.value = currentGlobalMultiplier;
             editBox.classList.add('active');
-            input.focus();
-            input.select();
+            setTimeout(() => { input.focus(); input.select(); }, 100);
         }
 
         function closeMultiplierEditInline() {
@@ -2980,14 +2736,12 @@
                 });
         }
 
-        // ============ MULTIPLIER ADMIN EDIT (Admin Tab) ============
         function openMultiplierAdminEdit() {
             const editBox = document.getElementById('multiplierAdminEdit');
             const input = document.getElementById('multiplierAdminInput');
             input.value = currentGlobalMultiplier;
             editBox.classList.add('active');
-            input.focus();
-            input.select();
+            setTimeout(() => { input.focus(); input.select(); }, 100);
         }
 
         function closeMultiplierAdminEdit() {
@@ -3001,15 +2755,8 @@
 
         function validateMultiplierInput(input) {
             const value = parseFloat(input.value);
-            if (isNaN(value)) {
-                input.style.borderColor = '#e9ecef';
-                return;
-            }
-            if (value < 1 || value > 100) {
-                input.style.borderColor = '#dc3545';
-            } else {
-                input.style.borderColor = '#28a745';
-            }
+            if (isNaN(value)) { input.style.borderColor = '#e9ecef'; return; }
+            input.style.borderColor = (value < 1 || value > 100) ? '#dc3545' : '#28a745';
         }
 
         async function saveMultiplierAdmin() {
@@ -3022,7 +2769,7 @@
             const value = parseFloat(input.value);
             
             if (isNaN(value) || value < 1 || value > 100) {
-                showNotification('❌ Giá trị không hợp lệ!', 'Hệ số nhân phải từ 1 đến 100 (hỗ trợ số thập phân)', 'error', 3000);
+                showNotification('❌ Giá trị không hợp lệ!', 'Hệ số nhân phải từ 1 đến 100', 'error', 3000);
                 return;
             }
             
@@ -3039,7 +2786,7 @@
                 });
         }
 
-        // ============ AVATAR SYSTEM ============
+        // ============ AVATAR SYSTEM (UPLOAD) ============
         function initAvatarEmojiGrid() {
             const grid = document.getElementById('emojiGrid');
             grid.innerHTML = '';
@@ -3053,17 +2800,17 @@
         }
 
         function selectEmojiAvatar(emoji, element) {
-            // Deselect all
             document.querySelectorAll('.emoji-item').forEach(e => e.classList.remove('selected'));
             element.classList.add('selected');
-            
             selectedAvatarType = 'emoji';
             selectedAvatarValue = emoji;
+            pendingAvatarUpload = null;
             
-            // Update preview
             const preview = document.getElementById('avatarPreview');
             preview.innerHTML = emoji;
-            preview.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            
+            document.getElementById('uploadPreview').classList.remove('show');
+            document.getElementById('uploadStatus').innerText = '';
         }
 
         function switchAvatarTab(tab, btn) {
@@ -3075,47 +2822,134 @@
                 document.getElementById('emojiPanel').classList.add('active');
                 selectedAvatarType = 'emoji';
             } else {
-                document.getElementById('urlPanel').classList.add('active');
-                selectedAvatarType = 'url';
+                document.getElementById('uploadPanel').classList.add('active');
+                selectedAvatarType = 'upload';
             }
         }
 
-        function previewAvatarUrl() {
-            const url = document.getElementById('avatarUrlInput').value.trim();
-            const preview = document.getElementById('avatarUrlPreview');
-            
-            if (!url) {
-                preview.innerHTML = '<span style="color: #adb5bd; font-size: 0.8em;">Xem trước</span>';
-                preview.classList.remove('error');
-                pendingAvatarUrl = null;
+        function handleAvatarFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            processAvatarFile(file);
+        }
+
+        function processAvatarFile(file) {
+            if (!file.type.startsWith('image/')) {
+                showNotification('❌ Lỗi!', 'File không phải là ảnh!', 'error', 3000);
                 return;
             }
             
-            preview.innerHTML = `<img src="${escapeHtml(url)}" onerror="this.parentElement.classList.add('error'); this.parentElement.innerHTML='<span style=\\'color:#dc3545;font-size:0.8em;\\'>❌ URL không hợp lệ</span>';" onload="this.parentElement.classList.remove('error');">`;
-            pendingAvatarUrl = url;
-            selectedAvatarValue = url;
+            if (file.size > 2 * 1024 * 1024) {
+                showNotification('❌ Lỗi!', 'Ảnh quá lớn! Tối đa 2MB', 'error', 3000);
+                return;
+            }
+            
+            document.getElementById('uploadStatus').innerText = '⏳ Đang xử lý ảnh...';
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = new Image();
+                img.onload = () => {
+                    // Resize to max 200x200 for Firebase storage efficiency
+                    const canvas = document.createElement('canvas');
+                    const MAX_SIZE = 200;
+                    let width = img.width;
+                    let height = img.height;
+                    
+                    if (width > height) {
+                        if (width > MAX_SIZE) {
+                            height = height * MAX_SIZE / width;
+                            width = MAX_SIZE;
+                        }
+                    } else {
+                        if (height > MAX_SIZE) {
+                            width = width * MAX_SIZE / height;
+                            height = MAX_SIZE;
+                        }
+                    }
+                    
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    const base64 = canvas.toDataURL('image/jpeg', 0.8);
+                    
+                    // Check size
+                    if (base64.length > 500000) { // ~375KB
+                        showNotification('⚠️ Cảnh báo', 'Ảnh vẫn khá lớn, đang nén thêm...', 'warning', 2000);
+                        const smallerBase64 = canvas.toDataURL('image/jpeg', 0.5);
+                        pendingAvatarUpload = smallerBase64;
+                        showUploadPreview(smallerBase64);
+                    } else {
+                        pendingAvatarUpload = base64;
+                        showUploadPreview(base64);
+                    }
+                    
+                    selectedAvatarType = 'upload';
+                    selectedAvatarValue = pendingAvatarUpload;
+                    
+                    // Update main preview
+                    const mainPreview = document.getElementById('avatarPreview');
+                    mainPreview.innerHTML = `<img src="${pendingAvatarUpload}">`;
+                    
+                    document.getElementById('uploadStatus').innerHTML = '✅ <span style="color:#28a745">Ảnh đã sẵn sàng! Nhấn "Lưu Avatar" để áp dụng.</span>';
+                };
+                img.onerror = () => {
+                    showNotification('❌ Lỗi!', 'Không thể đọc ảnh!', 'error', 3000);
+                    document.getElementById('uploadStatus').innerText = '❌ Không thể đọc ảnh';
+                };
+                img.src = e.target.result;
+            };
+            reader.onerror = () => {
+                showNotification('❌ Lỗi!', 'Không thể đọc file!', 'error', 3000);
+                document.getElementById('uploadStatus').innerText = '❌ Lỗi đọc file';
+            };
+            reader.readAsDataURL(file);
         }
+
+        function showUploadPreview(base64) {
+            const preview = document.getElementById('uploadPreview');
+            const img = document.getElementById('uploadPreviewImg');
+            img.src = base64;
+            preview.classList.add('show');
+        }
+
+        // Drag & drop
+        document.addEventListener('DOMContentLoaded', () => {
+            const uploadArea = document.getElementById('uploadArea');
+            if (uploadArea) {
+                uploadArea.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    uploadArea.classList.add('dragover');
+                });
+                uploadArea.addEventListener('dragleave', () => {
+                    uploadArea.classList.remove('dragover');
+                });
+                uploadArea.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    uploadArea.classList.remove('dragover');
+                    const file = e.dataTransfer.files[0];
+                    if (file) processAvatarFile(file);
+                });
+            }
+        });
 
         function openAvatarModal() {
             initAvatarEmojiGrid();
             
-            // Reset state
             selectedAvatarType = 'emoji';
             selectedAvatarValue = null;
-            pendingAvatarUrl = null;
-            document.getElementById('avatarUrlInput').value = '';
-            document.getElementById('avatarUrlPreview').innerHTML = '<span style="color: #adb5bd; font-size: 0.8em;">Xem trước</span>';
-            document.getElementById('avatarUrlPreview').classList.remove('error');
+            pendingAvatarUpload = null;
+            document.getElementById('uploadPreview').classList.remove('show');
+            document.getElementById('uploadStatus').innerText = '';
+            document.getElementById('avatarFileInput').value = '';
             
-            // Set current avatar as preview
             const preview = document.getElementById('avatarPreview');
-            if (currentUser.avatarType === 'url' && currentUser.avatar) {
-                preview.innerHTML = `<img src="${escapeHtml(currentUser.avatar)}">`;
-                preview.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            if (currentUser.avatarType === 'upload' && currentUser.avatar) {
+                preview.innerHTML = `<img src="${currentUser.avatar}">`;
             } else if (currentUser.avatarType === 'emoji' && currentUser.avatar) {
                 preview.innerHTML = currentUser.avatar;
-                preview.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-                // Highlight current emoji
                 setTimeout(() => {
                     document.querySelectorAll('.emoji-item').forEach(item => {
                         if (item.innerText === currentUser.avatar) {
@@ -3128,7 +2962,6 @@
                 preview.innerHTML = currentUser.username.charAt(0).toUpperCase();
             }
             
-            // Switch to emoji tab
             document.querySelectorAll('.avatar-tab').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.avatar-panel').forEach(p => p.classList.remove('active'));
             document.querySelector('.avatar-tab').classList.add('active');
@@ -3142,13 +2975,12 @@
         }
 
         async function saveAvatar() {
-            if (selectedAvatarType === 'url') {
-                const url = document.getElementById('avatarUrlInput').value.trim();
-                if (!url) {
-                    showNotification('❌ Lỗi!', 'Vui lòng nhập URL ảnh!', 'error', 3000);
+            if (selectedAvatarType === 'upload') {
+                if (!pendingAvatarUpload) {
+                    showNotification('❌ Lỗi!', 'Vui lòng chọn ảnh để upload!', 'error', 3000);
                     return;
                 }
-                selectedAvatarValue = url;
+                selectedAvatarValue = pendingAvatarUpload;
             } else if (selectedAvatarType === 'emoji') {
                 if (!selectedAvatarValue) {
                     showNotification('❌ Lỗi!', 'Vui lòng chọn một emoji!', 'error', 3000);
@@ -3171,10 +3003,9 @@
                 
                 showNotification('✅ Thành công!', 'Đã cập nhật avatar mới!', 'success', 3000);
                 
-                // Log to history
                 await addHistoryEntry('system', 
                     '🖼️ Thay đổi Avatar', 
-                    `Đã thay đổi avatar mới (${selectedAvatarType === 'emoji' ? 'emoji' : 'URL'})`, 
+                    `Đã thay đổi avatar mới (${selectedAvatarType === 'emoji' ? 'emoji' : 'ảnh upload'})`, 
                     0
                 );
             } catch (error) {
@@ -3185,8 +3016,8 @@
         function renderAvatar(avatarEl, user) {
             const contentEl = avatarEl.querySelector('#profileAvatarContent') || avatarEl;
             
-            if (user.avatarType === 'url' && user.avatar) {
-                contentEl.innerHTML = `<img src="${escapeHtml(user.avatar)}" onerror="this.parentElement.innerHTML='${user.username.charAt(0).toUpperCase()}';">`;
+            if (user.avatarType === 'upload' && user.avatar) {
+                contentEl.innerHTML = `<img src="${user.avatar}" onerror="this.parentElement.innerHTML='${user.username.charAt(0).toUpperCase()}';">`;
             } else if (user.avatarType === 'emoji' && user.avatar) {
                 contentEl.innerText = user.avatar;
             } else {
@@ -3194,7 +3025,7 @@
             }
         }
 
-        // ============ MISSION PAGE LOGIC ============
+        // ============ MISSION PAGE ============
         let missionData = null;
         let currentTask = 1;
         let quizState = { correct: 0, wrong: 0, current: 0, questions: [], attempts: 0 };
@@ -3220,7 +3051,7 @@
             try {
                 const snapshot = await database.ref('quests/' + currentUser.username).once('value');
                 if (!snapshot.exists()) {
-                    alert('Không tìm thấy nhiệm vụ! Vui lòng bắt đầu lại từ trang chính.');
+                    alert('Không tìm thấy nhiệm vụ!');
                     window.close();
                     return;
                 }
@@ -3232,9 +3063,7 @@
                     return;
                 }
                 
-                const fullURL = buildQuestURL(missionData.token, missionData.ip, missionData.accountId);
-                document.getElementById('task1Link').innerText = fullURL;
-                
+                document.getElementById('task1Link').innerText = buildQuestURL(missionData.token, missionData.ip, missionData.accountId);
             } catch (error) {
                 alert('Lỗi tải nhiệm vụ: ' + error.message);
             }
@@ -3286,15 +3115,13 @@
             const expected = buildQuestURL(missionData.token, missionData.ip, missionData.accountId);
             
             if (input === expected) {
-                showNotification('✅ Thành công!', 'Xác thực link thành công! Chuyển sang nhiệm vụ 2...', 'success', 3000);
+                showNotification('✅ Thành công!', 'Chuyển sang nhiệm vụ 2...', 'success', 3000);
                 activateTask(2);
                 startQuiz();
             } else {
-                showNotification('❌ Thất bại!', 'Link không khớp! Vui lòng kiểm tra lại.', 'error', 3000);
+                showNotification('❌ Thất bại!', 'Link không khớp!', 'error', 3000);
                 document.getElementById('task1Input').classList.add('error-flash');
-                setTimeout(() => {
-                    document.getElementById('task1Input').classList.remove('error-flash');
-                }, 500);
+                setTimeout(() => document.getElementById('task1Input').classList.remove('error-flash'), 500);
             }
         }
 
@@ -3326,34 +3153,22 @@
                     if (fake !== answer && fake >= 0) options.add(fake);
                 }
                 
-                const shuffled = Array.from(options).sort(() => Math.random() - 0.5);
-                
                 questions.push({
                     text: `${a} ${op} ${b} = ?`,
                     answer: answer,
-                    options: shuffled
+                    options: Array.from(options).sort(() => Math.random() - 0.5)
                 });
             }
-            
             return questions;
         }
 
         function startQuiz() {
-            quizState = {
-                correct: 0,
-                wrong: 0,
-                current: 0,
-                questions: generateQuizQuestions(),
-                attempts: 0
-            };
+            quizState = { correct: 0, wrong: 0, current: 0, questions: generateQuizQuestions(), attempts: 0 };
             showQuizQuestion();
         }
 
         function showQuizQuestion() {
-            if (quizState.current >= 5) {
-                finishQuiz();
-                return;
-            }
+            if (quizState.current >= 5) { finishQuiz(); return; }
             
             const q = quizState.questions[quizState.current];
             document.getElementById('quizQuestion').innerText = q.text;
@@ -3375,8 +3190,7 @@
 
         function answerQuiz(selected, btn) {
             const q = quizState.questions[quizState.current];
-            const allOptions = document.querySelectorAll('.quiz-option');
-            allOptions.forEach(o => o.onclick = null);
+            document.querySelectorAll('.quiz-option').forEach(o => o.onclick = null);
             
             if (selected === q.answer) {
                 btn.classList.add('correct');
@@ -3384,15 +3198,12 @@
             } else {
                 btn.classList.add('wrong');
                 quizState.wrong++;
-                allOptions.forEach(o => {
+                document.querySelectorAll('.quiz-option').forEach(o => {
                     if (parseInt(o.innerText) === q.answer) o.classList.add('correct');
                 });
             }
             
-            setTimeout(() => {
-                quizState.current++;
-                showQuizQuestion();
-            }, 1200);
+            setTimeout(() => { quizState.current++; showQuizQuestion(); }, 1200);
         }
 
         function finishQuiz() {
@@ -3404,7 +3215,7 @@
                 resultDiv.innerHTML = `
                     <div class="success-box">
                         <h3>🎉 Xuất sắc!</h3>
-                        <p style="font-size: 1.3em;">Bạn đã trả lời đúng ${quizState.correct}/5 câu!</p>
+                        <p style="font-size: 1.3em;">Đúng ${quizState.correct}/5 câu!</p>
                         <button class="btn" onclick="activateTask(3)" style="margin-top: 20px; max-width: 300px; margin-left: auto; margin-right: auto;">Tiếp tục →</button>
                     </div>
                 `;
@@ -3417,14 +3228,12 @@
                             <p style="font-size: 1.2em; margin: 15px 0;">Bạn đã sai quá nhiều. Đang chuyển hướng...</p>
                         </div>
                     `;
-                    setTimeout(() => {
-                        window.location.href = 'https://www.youtube.com/watch?v=Zh3w28Krm60';
-                    }, 2000);
+                    setTimeout(() => { window.location.href = 'https://www.youtube.com/watch?v=Zh3w28Krm60'; }, 2000);
                 } else {
                     resultDiv.innerHTML = `
                         <div style="background: #fff3cd; color: #856404; padding: 30px; border-radius: 15px;">
                             <h3>⚠️ Cần cố gắng thêm!</h3>
-                            <p style="font-size: 1.2em; margin: 15px 0;">Bạn chỉ đúng ${quizState.correct}/5 câu. Thử lại lần nữa!</p>
+                            <p style="font-size: 1.2em; margin: 15px 0;">Chỉ đúng ${quizState.correct}/5 câu. Thử lại!</p>
                             <button class="btn" onclick="retryQuiz()" style="margin-top: 15px; max-width: 300px; margin-left: auto; margin-right: auto;">🔄 Làm lại</button>
                         </div>
                     `;
@@ -3440,7 +3249,7 @@
 
         function completeTask3() {
             if (confirm('Bạn có chắc đã xem quảng cáo?')) {
-                showNotification('✅ Hoàn thành!', 'Nhiệm vụ 3 đã hoàn thành! Chuyển sang nhiệm vụ 4...', 'success', 3000);
+                showNotification('✅ Hoàn thành!', 'Chuyển sang nhiệm vụ 4...', 'success', 3000);
                 activateTask(4);
             }
         }
@@ -3478,9 +3287,7 @@
                     starsShown = true;
                 }
                 
-                if (countdownSeconds <= 0) {
-                    completeTask4();
-                }
+                if (countdownSeconds <= 0) completeTask4();
             }, 1000);
             
             document.addEventListener('visibilitychange', handleVisibilityChange);
@@ -3491,7 +3298,7 @@
             const area = document.getElementById('countdownArea');
             area.style.display = 'block';
             
-            showNotification('💪 CLICK POWER!', 'Nhấn vào nắm đấm 🥊 để tiếp tục đếm ngược!', 'warning', 10000);
+            showNotification('💪 CLICK POWER!', 'Nhấn vào 🥊 để tiếp tục!', 'warning', 10000);
             
             const promptDiv = document.getElementById('countdownPrompt');
             promptDiv.className = 'countdown-prompt';
@@ -3516,7 +3323,6 @@
                 fist.style.transition = 'all 0.3s';
                 fist.style.transform = 'scale(2) rotate(360deg)';
                 fist.style.opacity = '0';
-                
                 setTimeout(() => {
                     fist.remove();
                     countdownPaused = false;
@@ -3527,19 +3333,15 @@
                     showNotification('✅ Tiếp tục!', 'Đếm ngược tiếp tục...', 'success', 2000);
                 }, 300);
             };
-            
             area.appendChild(fist);
         }
 
         function showStars() {
             const area = document.getElementById('countdownArea');
             area.style.display = 'block';
-            
             starsFound = 0;
             
-            showNotification('⭐ NHIỆM VỤ: TÌM 5 NGÔI SAO!', 
-                `Hãy tìm và nhấn vào 5 ngôi sao ⭐ ẩn trong khu vực bên dưới!`, 
-                'info', 8000);
+            showNotification('⭐ TÌM 5 NGÔI SAO!', 'Nhấn vào 5 ngôi sao ⭐ ẩn!', 'info', 8000);
             
             const statusBar = document.getElementById('starStatusBar');
             statusBar.style.display = 'flex';
@@ -3549,7 +3351,7 @@
             
             const promptDiv = document.getElementById('countdownPrompt');
             promptDiv.className = 'countdown-prompt';
-            promptDiv.innerText = `⭐ Tìm ${TOTAL_STARS} ngôi sao! Hãy nhấn vào từng ngôi sao!`;
+            promptDiv.innerText = `⭐ Tìm ${TOTAL_STARS} ngôi sao!`;
             promptDiv.style.display = 'block';
             
             setTimeout(() => {
@@ -3560,42 +3362,34 @@
                     const star = document.createElement('div');
                     star.className = 'star-target';
                     star.innerText = '⭐';
-                    star.dataset.index = i;
                     star.dataset.found = 'false';
-                    
                     star.style.left = Math.max(10, Math.random() * maxX) + 'px';
                     star.style.top = Math.max(10, Math.random() * maxY) + 'px';
                     
                     star.onclick = () => {
                         if (star.dataset.found === 'true') return;
                         star.dataset.found = 'true';
-                        
                         star.style.transition = 'all 0.4s';
                         star.style.transform = 'scale(1.5)';
                         star.style.opacity = '0.3';
                         star.style.filter = 'grayscale(100%)';
                         star.style.pointerEvents = 'none';
                         star.innerText = '✅';
-                        
                         starsFound++;
                         
                         document.getElementById('starStatusCount').innerText = `${starsFound}/${TOTAL_STARS}`;
                         
                         if (starsFound < TOTAL_STARS) {
-                            document.getElementById('starStatusText').innerText = `⭐ Đang tìm... Còn ${TOTAL_STARS - starsFound} ngôi sao!`;
-                            showNotification('⭐ Tìm thấy!', `Đã tìm được ${starsFound}/${TOTAL_STARS} ngôi sao!`, 'success', 1500);
+                            document.getElementById('starStatusText').innerText = `⭐ Còn ${TOTAL_STARS - starsFound} ngôi sao!`;
+                            showNotification('⭐ Tìm thấy!', `${starsFound}/${TOTAL_STARS} ngôi sao!`, 'success', 1500);
                         } else {
-                            document.getElementById('starStatusText').innerText = `🎉 XUẤT SẮC! Đã tìm đủ ${TOTAL_STARS} ngôi sao!`;
+                            document.getElementById('starStatusText').innerText = `🎉 Đã tìm đủ ${TOTAL_STARS} ngôi sao!`;
                             statusBar.classList.add('complete');
-                            
-                            promptDiv.className = 'countdown-prompt';
                             promptDiv.style.background = '#d4edda';
                             promptDiv.style.borderColor = '#28a745';
                             promptDiv.style.color = '#155724';
-                            promptDiv.innerText = `🎉 XUẤT SẮC! Đã tìm đủ ${TOTAL_STARS} ngôi sao! Tiếp tục chờ...`;
-                            
-                            showNotification('🎉 HOÀN THÀNH!', `Bạn đã tìm đủ ${TOTAL_STARS} ngôi sao! Tiếp tục chờ đếm ngược...`, 'success', 4000);
-                            
+                            promptDiv.innerText = `🎉 XUẤT SẮC! Tiếp tục chờ...`;
+                            showNotification('🎉 HOÀN THÀNH!', `Đã tìm đủ ${TOTAL_STARS} ngôi sao!`, 'success', 4000);
                             setTimeout(() => {
                                 promptDiv.style.display = 'none';
                                 promptDiv.style.background = '';
@@ -3604,7 +3398,6 @@
                             }, 3000);
                         }
                     };
-                    
                     area.appendChild(star);
                 }
             }, 50);
@@ -3624,15 +3417,12 @@
 
         function handleVisibilityChange() {
             if (!countdownStarted || countdownSeconds <= 0) return;
-            
             if (document.hidden) {
                 countdownStopped = true;
-                
                 document.getElementById('countdownArea').style.display = 'none';
                 document.getElementById('countdownPrompt').style.display = 'none';
                 document.getElementById('starStatusBar').style.display = 'none';
                 document.getElementById('countdownDisplay').style.opacity = '0.3';
-                
                 document.getElementById('pausedTime').innerText = countdownSeconds;
                 document.getElementById('pausedNotice').classList.add('show');
                 document.getElementById('restartBtn').classList.add('show');
@@ -3647,9 +3437,7 @@
             try {
                 const multiSnap = await database.ref('config/globalMultiplier').once('value');
                 multiplier = multiSnap.exists() ? (parseFloat(multiSnap.val()) || 1) : 1;
-            } catch (e) {
-                multiplier = 1;
-            }
+            } catch (e) { multiplier = 1; }
             
             const rewardAmount = 1 * multiplier;
             
@@ -3664,17 +3452,17 @@
                 earnCount: firebase.database.ServerValue.increment(1)
             });
             
-            await database.ref('cooldowns/' + currentUser.username).set(Date.now() + 60000);
+            // Cooldown starts AFTER mission completion
+            const cooldownUntil = Date.now() + 60000;
+            await database.ref('cooldowns/' + currentUser.username).set(cooldownUntil);
             
             await addHistoryEntry('earn', 
                 '🎯 Hoàn thành Quest', 
-                `Hoàn thành 4 nhiệm vụ quest (Hệ số nhân ${formatMultiplier(multiplier)})`, 
+                `Hoàn thành 4 nhiệm vụ (Hệ số ${formatMultiplier(multiplier)})`, 
                 rewardAmount
             );
             
-            document.querySelectorAll('.task-card').forEach(c => {
-                c.className = 'task-card completed';
-            });
+            document.querySelectorAll('.task-card').forEach(c => c.className = 'task-card completed');
             document.getElementById('task4Status').className = 'task-status status-done';
             document.getElementById('task4Status').innerText = 'Hoàn thành';
             
@@ -3692,12 +3480,26 @@
             
             setTimeout(() => {
                 reward.remove();
-                if (window.opener) window.close();
-                else window.location.href = window.location.pathname;
+                // Close mission tab and switch main tab to earn
+                if (window.opener) {
+                    // Tell opener to switch to earn tab and refresh cooldown
+                    try {
+                        window.opener.switchToEarnTab();
+                    } catch(e) {}
+                    window.close();
+                } else {
+                    window.location.href = window.location.pathname + '#earn';
+                }
             }, 3000);
         }
 
-        // ============ MAIN PAGE LOGIC ============
+        // Function callable from mission tab
+        window.switchToEarnTab = function() {
+            showTab('earn');
+            listenToCooldown();
+        };
+
+        // ============ MAIN PAGE ============
         async function initializeAdminAccount() {
             try {
                 const adminRef = database.ref('users/' + ROOT_ADMIN_USERNAME);
@@ -3707,7 +3509,7 @@
                     const uid = await ensureUniqueUID();
                     await adminRef.set({
                         password: ROOT_ADMIN_PASSWORD,
-                        points: 999999,
+                        points: 0,
                         isAdmin: true,
                         isRootAdmin: true,
                         warned: false,
@@ -3766,25 +3568,19 @@
             document.getElementById('alertBox').className = 'alert';
         }
 
-        // Check username exists (case-insensitive)
         async function checkUsernameExists(username) {
-            // Check exact match
             const snapshot = await database.ref('users/' + username).once('value');
             if (snapshot.exists()) return true;
             
-            // Check case-insensitive by scanning all users
             const allUsersSnap = await database.ref('users').once('value');
             if (allUsersSnap.exists()) {
                 const lowerUsername = username.toLowerCase();
                 let found = false;
                 allUsersSnap.forEach(child => {
-                    if (child.key.toLowerCase() === lowerUsername) {
-                        found = true;
-                    }
+                    if (child.key.toLowerCase() === lowerUsername) found = true;
                 });
                 if (found) return true;
             }
-            
             return false;
         }
 
@@ -3792,35 +3588,25 @@
             const username = document.getElementById('regUsername').value.trim();
             const password = document.getElementById('regPassword').value.trim();
 
-            if (!username || !password) {
-                showAlert('Vui lòng điền đầy đủ thông tin!', 'error');
-                return;
-            }
-
-            if (username.length < 3) {
-                showAlert('Tên đăng nhập phải có ít nhất 3 ký tự!', 'error');
-                return;
-            }
-
+            if (!username || !password) { showAlert('Vui lòng điền đầy đủ thông tin!', 'error'); return; }
+            if (username.length < 3) { showAlert('Tên đăng nhập phải có ít nhất 3 ký tự!', 'error'); return; }
             if (username.toLowerCase() === ROOT_ADMIN_USERNAME.toLowerCase()) {
-                showAlert('Tên đăng nhập này không được phép sử dụng!', 'error');
-                return;
+                showAlert('Tên đăng nhập này không được phép sử dụng!', 'error'); return;
             }
 
             try {
-                // Check username uniqueness (case-insensitive)
                 const exists = await checkUsernameExists(username);
                 if (exists) {
                     showAlert('Tên đăng nhập đã tồn tại! (không phân biệt hoa/thường)', 'error');
                     return;
                 }
 
-                // Generate unique UID
                 const uid = await ensureUniqueUID();
 
+                // NEW: Start with 0 ChickenP
                 await database.ref('users/' + username).set({
                     password: password,
-                    points: 100,
+                    points: 0,
                     isAdmin: false,
                     isRootAdmin: false,
                     warned: false,
@@ -3833,7 +3619,6 @@
                     createdAt: Date.now()
                 });
 
-                // Register UID in index
                 await registerUID(uid, username);
 
                 showAlert('Đăng ký thành công! Vui lòng đăng nhập.', 'success');
@@ -3850,17 +3635,12 @@
             const username = document.getElementById('loginUsername').value.trim();
             const password = document.getElementById('loginPassword').value.trim();
 
-            if (!username || !password) {
-                showAlert('Vui lòng điền đầy đủ thông tin!', 'error');
-                return;
-            }
+            if (!username || !password) { showAlert('Vui lòng điền đầy đủ thông tin!', 'error'); return; }
 
             try {
-                // Try exact match first
                 let snapshot = await database.ref('users/' + username).once('value');
                 let actualUsername = username;
                 
-                // If not found, try case-insensitive search
                 if (!snapshot.exists()) {
                     const allUsersSnap = await database.ref('users').once('value');
                     if (allUsersSnap.exists()) {
@@ -3868,33 +3648,20 @@
                         allUsersSnap.forEach(child => {
                             if (child.key.toLowerCase() === lowerUsername) {
                                 actualUsername = child.key;
-                                snapshot = database.ref('users/' + actualUsername).once('value');
                             }
                         });
-                        // Need to await the new snapshot
                         if (actualUsername !== username) {
                             snapshot = await database.ref('users/' + actualUsername).once('value');
                         }
                     }
                 }
                 
-                if (!snapshot.exists()) {
-                    showAlert('Sai tên đăng nhập hoặc mật khẩu!', 'error');
-                    return;
-                }
+                if (!snapshot.exists()) { showAlert('Sai tên đăng nhập hoặc mật khẩu!', 'error'); return; }
 
                 const userData = snapshot.val();
-                if (userData.password !== password) {
-                    showAlert('Sai tên đăng nhập hoặc mật khẩu!', 'error');
-                    return;
-                }
+                if (userData.password !== password) { showAlert('Sai tên đăng nhập hoặc mật khẩu!', 'error'); return; }
+                if (userData.banned) { showAlert('Tài khoản này đã bị BAN!', 'error'); return; }
 
-                if (userData.banned) {
-                    showAlert('Tài khoản này đã bị BAN!', 'error');
-                    return;
-                }
-
-                // Ensure UID exists
                 if (!userData.uid) {
                     const newUid = await ensureUniqueUID();
                     await database.ref('users/' + actualUsername + '/uid').set(newUid);
@@ -3902,11 +3669,8 @@
                     userData.uid = newUid;
                 }
 
-                // Register UID in index if not there
                 const uidIndexSnap = await database.ref('uidIndex/' + userData.uid).once('value');
-                if (!uidIndexSnap.exists()) {
-                    await registerUID(userData.uid, actualUsername);
-                }
+                if (!uidIndexSnap.exists()) await registerUID(userData.uid, actualUsername);
 
                 currentUser = { username: actualUsername, ...userData };
                 localStorage.setItem('currentUser', JSON.stringify(currentUser));
@@ -3917,7 +3681,7 @@
                 setTimeout(() => {
                     showMainInterface();
                     listenToUserData();
-                    checkCooldown();
+                    listenToCooldown();
                 }, 1000);
             } catch (error) {
                 showAlert('Lỗi đăng nhập: ' + error.message, 'error');
@@ -3944,9 +3708,7 @@
             
             if (currentUser.isAdmin) {
                 document.getElementById('adminTab').style.display = 'block';
-                if (currentUser.isRootAdmin) {
-                    document.getElementById('unadminCard').style.display = 'block';
-                }
+                if (currentUser.isRootAdmin) document.getElementById('unadminCard').style.display = 'block';
             }
             
             updateUserInfo();
@@ -3956,7 +3718,7 @@
 
         function updateUserInfo() {
             const points = parseFloat(currentUser.points) || 0;
-            document.getElementById('userPoints').innerText = points.toLocaleString();
+            document.getElementById('userPoints').innerText = formatNumber(points);
         }
 
         function updateProfile() {
@@ -3966,15 +3728,13 @@
             renderAvatar(avatarEl, currentUser);
             
             document.getElementById('profileName').innerText = currentUser.username;
-            
-            const uidDisplay = currentUser.uid || 'Chưa có';
-            document.getElementById('profileUid').innerText = `🆔 UID: ${uidDisplay}`;
+            document.getElementById('profileUid').innerText = `🆔 UID: ${currentUser.uid || 'Chưa có'}`;
             
             const joinDate = currentUser.createdAt ? new Date(currentUser.createdAt).toLocaleDateString('vi-VN') : 'N/A';
             document.getElementById('profileJoinDate').innerText = `📅 Tham gia: ${joinDate}`;
             
-            document.getElementById('statPoints').innerText = (parseFloat(currentUser.points) || 0).toLocaleString();
-            document.getElementById('statEarned').innerText = (currentUser.totalEarned || 0).toLocaleString();
+            document.getElementById('statPoints').innerText = formatNumber(parseFloat(currentUser.points) || 0);
+            document.getElementById('statEarned').innerText = formatNumber(currentUser.totalEarned || 0);
             document.getElementById('statQuests').innerText = (currentUser.earnCount || 0).toLocaleString();
             
             let role = '👤 Member';
@@ -3985,9 +3745,7 @@
 
         function listenToUserData() {
             if (!currentUser) return;
-            if (userListener) {
-                database.ref('users/' + currentUser.username).off('value', userListener);
-            }
+            if (userListener) database.ref('users/' + currentUser.username).off('value', userListener);
             
             userListener = database.ref('users/' + currentUser.username).on('value', (snapshot) => {
                 if (snapshot.exists()) {
@@ -4011,10 +3769,12 @@
             });
         }
 
-        // ============ COOLDOWN SYSTEM ============
-        async function checkCooldown() {
-            try {
-                const snapshot = await database.ref('cooldowns/' + currentUser.username).once('value');
+        // ============ COOLDOWN LISTENER ============
+        function listenToCooldown() {
+            if (!currentUser) return;
+            if (cooldownListener) database.ref('cooldowns/' + currentUser.username).off('value', cooldownListener);
+            
+            cooldownListener = database.ref('cooldowns/' + currentUser.username).on('value', (snapshot) => {
                 if (snapshot.exists()) {
                     const until = snapshot.val();
                     const now = Date.now();
@@ -4024,9 +3784,7 @@
                     }
                 }
                 showQuestButton();
-            } catch (error) {
-                showQuestButton();
-            }
+            });
         }
 
         function startCooldownDisplay(seconds) {
@@ -4046,7 +3804,7 @@
                 if (remaining <= 0) {
                     clearInterval(cooldownInterval);
                     showQuestButton();
-                    showNotification('⏰ Sẵn sàng!', 'Cooldown đã kết thúc. Bạn có thể làm quest mới!', 'info', 3000);
+                    showNotification('⏰ Sẵn sàng!', 'Cooldown đã kết thúc!', 'info', 3000);
                 }
             }, 1000);
         }
@@ -4070,14 +3828,10 @@
                 const accountId = 'ACC_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
                 const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
                 let token = '';
-                for (let i = 0; i < 20; i++) {
-                    token += chars.charAt(Math.floor(Math.random() * chars.length));
-                }
+                for (let i = 0; i < 20; i++) token += chars.charAt(Math.floor(Math.random() * chars.length));
                 
                 const questData = {
-                    token: token,
-                    ip: deviceIP,
-                    accountId: accountId,
+                    token, ip: deviceIP, accountId,
                     used: false,
                     timestamp: Date.now(),
                     multiplier: currentGlobalMultiplier
@@ -4089,22 +3843,21 @@
                 const newTab = window.open(missionURL, '_blank');
                 
                 if (!newTab) {
-                    showNotification('❌ Lỗi!', 'Trình duyệt đã chặn tab mới. Vui lòng cho phép mở tab mới và thử lại.', 'error', 5000);
+                    showNotification('❌ Lỗi!', 'Trình duyệt đã chặn tab mới.', 'error', 5000);
                 } else {
-                    showNotification('🎯 Quest bắt đầu!', `Nhiệm vụ mới đã được mở. Phần thưởng: ${formatNumber(1 * currentGlobalMultiplier)} ChickenP (${formatMultiplier(currentGlobalMultiplier)})`, 'success', 5000);
+                    showNotification('🎯 Quest bắt đầu!', `Phần thưởng: ${formatNumber(1 * currentGlobalMultiplier)} ChickenP (${formatMultiplier(currentGlobalMultiplier)})`, 'success', 5000);
                 }
                 
-                await database.ref('cooldowns/' + currentUser.username).set(Date.now() + 60000);
-                startCooldownDisplay(60);
+                // NO cooldown here - starts after completion
                 
             } catch (error) {
-                showNotification('❌ Lỗi!', 'Lỗi khi bắt đầu nhiệm vụ: ' + error.message, 'error', 5000);
+                showNotification('❌ Lỗi!', 'Lỗi: ' + error.message, 'error', 5000);
             }
         }
 
         function showTab(tabName, event) {
             if (tabName === 'admin' && !currentUser.isAdmin) {
-                showNotification('❌ Truy cập bị từ chối!', 'Bạn không có quyền truy cập trang Admin!', 'error', 3000);
+                showNotification('❌ Truy cập bị từ chối!', 'Bạn không có quyền!', 'error', 3000);
                 return;
             }
 
@@ -4112,303 +3865,411 @@
             document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
             
             document.getElementById(tabName).classList.add('active');
-            if (event) event.target.classList.add('active');
+            if (event && event.target) event.target.classList.add('active');
+            else {
+                // Find tab button
+                document.querySelectorAll('.tab').forEach(tab => {
+                    if (tab.getAttribute('onclick') && tab.getAttribute('onclick').includes(`'${tabName}'`)) {
+                        tab.classList.add('active');
+                    }
+                });
+            }
             
             window.location.hash = tabName;
             
             if (tabName === 'history') loadHistory();
+            if (tabName === 'earn') listenToCooldown();
         }
 
-        async function addPointsSafely(username, amount) {
-            const pointsRef = database.ref('users/' + username + '/points');
-            return pointsRef.transaction((currentPoints) => (currentPoints || 0) + amount);
+        // ============ VALOR PAY SYSTEM ============
+        function generatePurchaseCode() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let code = 'VP-CP=';
+            for (let i = 0; i < 8; i++) code += chars.charAt(Math.floor(Math.random() * chars.length));
+            return code;
         }
 
-        async function subtractPointsSafely(username, amount) {
-            const pointsRef = database.ref('users/' + username + '/points');
-            return pointsRef.transaction((currentPoints) => {
-                const current = currentPoints || 0;
-                if (current < amount) return current;
-                return current - amount;
-            });
+        function generateTransactionId() {
+            const rand4 = () => {
+                let s = '';
+                for (let i = 0; i < 4; i++) s += Math.floor(Math.random() * 10);
+                return s;
+            };
+            return `VP-TRANSACTION-${rand4()}-${rand4()}-${rand4()}`;
         }
 
-        async function buyItem(itemName, price) {
-            if (currentUser.points < price) {
-                showNotification('❌ Không đủ!', 'Không đủ ChickenP để mua vật phẩm này!', 'error', 3000);
+        async function buyItem(itemName, price, itemIcon = '📦') {
+            if (!currentUser) {
+                showNotification('❌ Lỗi!', 'Vui lòng đăng nhập!', 'error', 3000);
+                return;
+            }
+            
+            const currentPoints = parseFloat(currentUser.points) || 0;
+            if (currentPoints < price) {
+                showNotification('❌ Không đủ!', `Không đủ ChickenP! Cần ${formatNumber(price)}, có ${formatNumber(currentPoints)}`, 'error', 4000);
                 return;
             }
 
-            if (confirm(`Bạn có chắc muốn mua ${itemName} với giá ${price.toLocaleString()} ChickenP?`)) {
-                try {
-                    const result = await subtractPointsSafely(currentUser.username, price);
-                    if (result.committed) {
-                        await addHistoryEntry('spend', 
-                            `🛒 Mua ${itemName}`, 
-                            `Mua vật phẩm "${itemName}" từ Shop`, 
-                            -price
-                        );
-                        showNotification('🎉 Mua thành công!', `Bạn đã mua ${itemName} thành công!`, 'success', 4000);
-                    } else {
+            // Generate unique codes
+            const purchaseCode = generatePurchaseCode();
+            const transactionId = generateTransactionId();
+            const paymentTime = Date.now();
+
+            // Show ValorPay Step 1: Payment Details
+            showValorPayStep1({
+                itemName, price, itemIcon,
+                purchaseCode, transactionId, paymentTime,
+                username: currentUser.username,
+                uid: currentUser.uid || 'N/A'
+            });
+        }
+
+        function showValorPayStep1(data) {
+            const content = document.getElementById('valorpayContent');
+            content.innerHTML = `
+                <div class="valorpay-header">
+                    <div class="valorpay-logo">VALOR PAY</div>
+                    <div class="valorpay-subtitle">Secure Payment Gateway</div>
+                </div>
+                <div class="valorpay-body">
+                    <div class="valorpay-section">
+                        <div class="valorpay-row">
+                            <span class="valorpay-label">Tên Sản Phẩm:</span>
+                            <span class="valorpay-value">${data.itemIcon} ${escapeHtml(data.itemName)}</span>
+                        </div>
+                        <div class="valorpay-row">
+                            <span class="valorpay-label">Mã Mua hàng:</span>
+                            <span class="valorpay-value mono">${data.purchaseCode}</span>
+                        </div>
+                        <div class="valorpay-row">
+                            <span class="valorpay-label">Giá Sản Phẩm:</span>
+                            <span class="valorpay-value highlight">${formatNumber(data.price)} ChickenP</span>
+                        </div>
+                    </div>
+
+                    <div class="valorpay-divider">-------------------------------------------------</div>
+
+                    <div class="valorpay-section">
+                        <div class="valorpay-row">
+                            <span class="valorpay-label">Username:</span>
+                            <span class="valorpay-value">${escapeHtml(data.username)}</span>
+                        </div>
+                        <div class="valorpay-row">
+                            <span class="valorpay-label">UID:</span>
+                            <span class="valorpay-value mono">${escapeHtml(data.uid)}</span>
+                        </div>
+                        <div class="valorpay-row">
+                            <span class="valorpay-label">🆔 Transaction ID:</span>
+                            <span class="valorpay-value mono" style="font-size: 0.75em;">${data.transactionId}</span>
+                        </div>
+                    </div>
+
+                    <div class="valorpay-divider">-------------------------------------------------</div>
+
+                    <div class="valorpay-message">
+                        <div class="lang-vn">
+                            <strong>vn▪</strong> Cảm ơn bạn đã sử dụng ứng dụng của tôi. Nếu không có gì sai sót vui lòng ấn <strong>[PAY]</strong>.
+                        </div>
+                        <div class="lang-en">
+                            <strong>en▪</strong> Thank you for using my app. If there are no issues, please press <strong>[PAY]</strong>.
+                        </div>
+                    </div>
+
+                    <div class="valorpay-divider">-------------------------------------------------</div>
+
+                    <button class="valorpay-btn" onclick="showValorPayStep2(window._valorPayData)">
+                        PAY
+                    </button>
+                </div>
+            `;
+            
+            window._valorPayData = data;
+            document.getElementById('valorpayModal').classList.add('active');
+        }
+
+        function showValorPayStep2(data) {
+            const content = document.getElementById('valorpayContent');
+            content.innerHTML = `
+                <div class="valorpay-header">
+                    <div class="valorpay-logo">VALOR PAY</div>
+                    <div class="valorpay-subtitle">Payment Confirmation</div>
+                </div>
+                <div class="valorpay-body">
+                    <div class="valorpay-confirm-icon">⚠️</div>
+                    <div class="valorpay-confirm-title">Xác Nhận Thanh Toán</div>
+                    <div class="valorpay-confirm-text">
+                        Bạn có chắc chắn đây là giá trị bạn muốn thanh toán?
+                    </div>
+
+                    <div class="valorpay-confirm-amount">
+                        <div class="label">Số tiền mua</div>
+                        <div class="value">${data.itemIcon} ${formatNumber(data.price)} ChickenP</div>
+                    </div>
+
+                    <div class="valorpay-thanks">Thanks You</div>
+
+                    <div class="valorpay-confirm-buttons">
+                        <button class="vp-btn-cancel" onclick="closeValorPay()">Huỷ</button>
+                        <button class="vp-btn-confirm" onclick="processValorPayPayment()">Xác nhận</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        async function processValorPayPayment() {
+            const data = window._valorPayData;
+            if (!data) { closeValorPay(); return; }
+
+            // Show processing state
+            const content = document.getElementById('valorpayContent');
+            const btn = content.querySelector('.valorpay-btn, .vp-btn-confirm');
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = '⏳ Đang xử lý...';
+                btn.classList.add('processing');
+            }
+
+            try {
+                // Deduct points
+                const pointsRef = database.ref('users/' + currentUser.username + '/points');
+                const result = await pointsRef.transaction((current) => {
+                    const c = current || 0;
+                    if (c < data.price) return c;
+                    return c - data.price;
+                });
+
+                if (!result.committed || (result.val() !== undefined && (parseFloat(currentUser.points) < data.price))) {
+                    // Check again
+                    const snap = await database.ref('users/' + currentUser.username + '/points').once('value');
+                    if ((snap.val() || 0) < data.price) {
                         showNotification('❌ Thất bại!', 'Không đủ ChickenP!', 'error', 3000);
+                        closeValorPay();
+                        return;
                     }
-                } catch (error) {
-                    showNotification('❌ Lỗi!', 'Lỗi khi mua: ' + error.message, 'error', 3000);
                 }
+
+                // Log history
+                await addHistoryEntry('spend', 
+                    `🛒 Mua ${data.itemName}`, 
+                    `Mua "${data.itemName}" qua ValorPay • Mã: ${data.purchaseCode}`, 
+                    -data.price
+                );
+
+                // Save transaction record
+                await database.ref('transactions/' + currentUser.username + '/' + data.transactionId).set({
+                    itemName: data.itemName,
+                    price: data.price,
+                    purchaseCode: data.purchaseCode,
+                    transactionId: data.transactionId,
+                    timestamp: data.paymentTime,
+                    username: currentUser.username,
+                    uid: currentUser.uid,
+                    status: 'success'
+                });
+
+                // Show receipt
+                showValorPayReceipt(data);
+                
+                showNotification('✅ Thanh toán thành công!', `Đã mua ${data.itemName} thành công!`, 'success', 4000);
+
+            } catch (error) {
+                showNotification('❌ Lỗi!', 'Lỗi thanh toán: ' + error.message, 'error', 4000);
+                closeValorPay();
             }
         }
 
-        function closeWarning() {
-            document.getElementById('warningModal').classList.remove('active');
+        function showValorPayReceipt(data) {
+            const content = document.getElementById('valorpayContent');
+            content.innerHTML = `
+                <div class="valorpay-receipt-header">
+                    <div class="valorpay-receipt-logo">ValorPay</div>
+                    <div class="valorpay-receipt-title">Payment Receipt</div>
+                </div>
+                <div class="valorpay-body">
+                    <div class="valorpay-success-icon">✅</div>
+                    
+                    <div class="valorpay-success-text">
+                        <div style="margin-bottom: 10px;">
+                            <span class="check">✅</span>
+                            <strong>vn▪</strong> Thanh Toán Tiền Thành Công. Cảm Ơn Bạn Đã Sử Dụng.
+                        </div>
+                        <div style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px; margin-top: 10px; font-size: 0.9em;">
+                            Nếu Bạn Có Gặp Gì Thấy Phiền, Thì Chúng Tôi Xin Lỗi Ạ Mong Quý Khách Bỏ Qua.
+                        </div>
+                    </div>
+
+                    <div class="valorpay-apology">
+                        <div style="margin-bottom: 8px;">
+                            <strong>en▪</strong>
+                            <span class="check">✅</span> Payment successful. Thank you for using our service.
+                        </div>
+                        <div style="font-size: 0.9em; opacity: 0.9;">
+                            If you encountered any inconvenience, we apologize and ask for your understanding.
+                        </div>
+                    </div>
+
+                    <div class="valorpay-divider">-------------------------------------------------</div>
+
+                    <div class="valorpay-receipt-details">
+                        <div class="valorpay-row">
+                            <span class="valorpay-label">Username:</span>
+                            <span class="valorpay-value">${escapeHtml(data.username)}</span>
+                        </div>
+                        <div class="valorpay-row">
+                            <span class="valorpay-label">UID:</span>
+                            <span class="valorpay-value mono">${escapeHtml(data.uid)}</span>
+                        </div>
+                        <div class="valorpay-row">
+                            <span class="valorpay-label">Số Tiền:</span>
+                            <span class="valorpay-value highlight">${formatNumber(data.price)} ChickenP</span>
+                        </div>
+                        <div class="valorpay-row">
+                            <span class="valorpay-label">🕒 Thời Gian Thanh Toán:</span>
+                            <span class="valorpay-value" style="font-size: 0.85em;">${formatDateTime(data.paymentTime)}</span>
+                        </div>
+                        <div class="valorpay-row">
+                            <span class="valorpay-label">🆔 Transaction ID:</span>
+                            <span class="valorpay-value mono" style="font-size: 0.75em;">${data.transactionId}</span>
+                        </div>
+                    </div>
+
+                    <button class="valorpay-close-btn" onclick="closeValorPay()">✓ Đóng</button>
+                </div>
+            `;
+        }
+
+        function closeValorPay() {
+            document.getElementById('valorpayModal').classList.remove('active');
+            window._valorPayData = null;
         }
 
         // ============ ADMIN FUNCTIONS ============
         function banUser() {
             const username = document.getElementById('banUsername').value.trim();
-            if (!username) {
-                showNotification('❌ Lỗi!', 'Vui lòng nhập tên người dùng cần BAN!', 'error', 3000);
-                return;
-            }
+            if (!username) { showNotification('❌ Lỗi!', 'Vui lòng nhập tên!', 'error', 3000); return; }
+            if (username === currentUser.username) { showNotification('❌ Lỗi!', 'Không thể BAN chính mình!', 'error', 3000); return; }
+            if (username.toLowerCase() === ROOT_ADMIN_USERNAME.toLowerCase()) { showNotification('❌ Lỗi!', 'Không thể BAN Root Admin!', 'error', 3000); return; }
 
-            if (username === currentUser.username) {
-                showNotification('❌ Lỗi!', 'Bạn không thể BAN chính mình!', 'error', 3000);
-                return;
-            }
-
-            if (username.toLowerCase() === ROOT_ADMIN_USERNAME.toLowerCase()) {
-                showNotification('❌ Lỗi!', 'Không thể BAN Root Admin!', 'error', 3000);
-                return;
-            }
-
-            showConfirm('🚫 BAN User', `Bạn có chắc muốn BAN tài khoản "${username}"?`, async () => {
+            showConfirm('🚫 BAN User', `Bạn có chắc muốn BAN "${username}"?`, async () => {
                 try {
                     const snapshot = await database.ref('users/' + username).once('value');
-                    if (!snapshot.exists()) {
-                        showNotification('❌ Không tìm thấy!', `Không tìm thấy người dùng "${username}"!`, 'error', 3000);
+                    if (!snapshot.exists()) { showNotification('❌ Không tìm thấy!', `Không tìm thấy "${username}"!`, 'error', 3000); return; }
+
+                    const targetUser = snapshot.val();
+                    if (targetUser.isAdmin && !currentUser.isRootAdmin) {
+                        showNotification('❌ Không có quyền!', 'Admin thường không thể BAN admin khác!', 'error', 5000);
                         return;
                     }
 
-                    const targetUser = snapshot.val();
-
-                    if (targetUser.isAdmin) {
-                        if (!currentUser.isRootAdmin) {
-                            showNotification('❌ Không có quyền!', 
-                                `Admin thường không thể BAN admin khác! Chỉ Root Admin mới có quyền này.`, 
-                                'error', 5000);
-                            return;
-                        }
-                    }
-
                     await database.ref('users/' + username + '/banned').set(true);
-                    
                     await database.ref('adminLogs/bans').push({
-                        bannedUser: username,
-                        bannedBy: currentUser.username,
-                        timestamp: Date.now(),
-                        reason: 'Admin action'
+                        bannedUser: username, bannedBy: currentUser.username,
+                        timestamp: Date.now(), reason: 'Admin action'
                     });
+                    await addAdminHistoryEntry(username, 'admin', '🚫 Bị BAN', `Bị BAN bởi "${currentUser.username}"`, 0, currentUser.username);
 
-                    await addAdminHistoryEntry(username, 'admin', 
-                        '🚫 Bị BAN', 
-                        `Tài khoản đã bị BAN bởi admin "${currentUser.username}"`, 
-                        0, 
-                        currentUser.username
-                    );
-
-                    showNotification('🚫 BAN thành công!', 
-                        `Đã BAN tài khoản "${username}" thành công!`, 
-                        'warning', 5000);
-                    
+                    showNotification('🚫 BAN thành công!', `Đã BAN "${username}"!`, 'warning', 5000);
                     document.getElementById('banUsername').value = '';
-
                 } catch (error) {
-                    showNotification('❌ Lỗi!', 'Lỗi khi BAN: ' + error.message, 'error', 3000);
+                    showNotification('❌ Lỗi!', error.message, 'error', 3000);
                 }
             });
         }
 
         function unwarnUser() {
             const username = document.getElementById('unwarnUsername').value.trim();
-            if (!username) {
-                showNotification('❌ Lỗi!', 'Vui lòng nhập tên người dùng!', 'error', 3000);
-                return;
-            }
+            if (!username) { showNotification('❌ Lỗi!', 'Vui lòng nhập tên!', 'error', 3000); return; }
 
-            showConfirm('UNWARN User', `Bạn có chắc muốn bỏ cảnh báo cho ${username}?`, async () => {
+            showConfirm('UNWARN User', `Bỏ cảnh báo cho ${username}?`, async () => {
                 try {
                     const snapshot = await database.ref('users/' + username).once('value');
-                    if (!snapshot.exists()) {
-                        showNotification('❌ Không tìm thấy!', 'Không tìm thấy người dùng!', 'error', 3000);
-                        return;
-                    }
+                    if (!snapshot.exists()) { showNotification('❌ Không tìm thấy!', 'Không tìm thấy!', 'error', 3000); return; }
                     await database.ref('users/' + username + '/warned').set(false);
-                    
-                    await addAdminHistoryEntry(username, 'admin', 
-                        '✅ Bỏ cảnh báo (UNWARN)', 
-                        `Đã bỏ cảnh cáo bởi admin "${currentUser.username}"`, 
-                        0, 
-                        currentUser.username
-                    );
-                    
-                    showNotification('✅ Thành công!', `Đã UNWARN thành công cho "${username}"!`, 'success', 3000);
+                    await addAdminHistoryEntry(username, 'admin', '✅ UNWARN', `Bỏ cảnh cáo bởi "${currentUser.username}"`, 0, currentUser.username);
+                    showNotification('✅ Thành công!', `Đã UNWARN "${username}"!`, 'success', 3000);
                     document.getElementById('unwarnUsername').value = '';
-                } catch (error) {
-                    showNotification('❌ Lỗi!', error.message, 'error', 3000);
-                }
+                } catch (error) { showNotification('❌ Lỗi!', error.message, 'error', 3000); }
             });
         }
 
         function unbanUser() {
             const username = document.getElementById('unbanUsername').value.trim();
-            if (!username) {
-                showNotification('❌ Lỗi!', 'Vui lòng nhập tên người dùng!', 'error', 3000);
-                return;
-            }
+            if (!username) { showNotification('❌ Lỗi!', 'Vui lòng nhập tên!', 'error', 3000); return; }
 
-            showConfirm('UNBAN User', `Bạn có chắc muốn bỏ BAN cho ${username}?`, async () => {
+            showConfirm('UNBAN User', `Bỏ BAN cho ${username}?`, async () => {
                 try {
                     const snapshot = await database.ref('users/' + username).once('value');
-                    if (!snapshot.exists()) {
-                        showNotification('❌ Không tìm thấy!', 'Không tìm thấy người dùng!', 'error', 3000);
-                        return;
-                    }
+                    if (!snapshot.exists()) { showNotification('❌ Không tìm thấy!', 'Không tìm thấy!', 'error', 3000); return; }
                     await database.ref('users/' + username + '/banned').set(false);
-                    
-                    await addAdminHistoryEntry(username, 'admin', 
-                        '🔓 Bỏ BAN (UNBAN)', 
-                        `Đã bỏ BAN bởi admin "${currentUser.username}"`, 
-                        0, 
-                        currentUser.username
-                    );
-                    
-                    showNotification('✅ Thành công!', `Đã UNBAN thành công cho "${username}"!`, 'success', 3000);
+                    await addAdminHistoryEntry(username, 'admin', '🔓 UNBAN', `Bỏ BAN bởi "${currentUser.username}"`, 0, currentUser.username);
+                    showNotification('✅ Thành công!', `Đã UNBAN "${username}"!`, 'success', 3000);
                     document.getElementById('unbanUsername').value = '';
-                } catch (error) {
-                    showNotification('❌ Lỗi!', error.message, 'error', 3000);
-                }
+                } catch (error) { showNotification('❌ Lỗi!', error.message, 'error', 3000); }
             });
         }
 
         function addAdmin() {
-            if (!currentUser.isRootAdmin) {
-                showNotification('❌ Không có quyền!', 'Chỉ Root Admin mới có thể thêm Admin!', 'error', 3000);
-                return;
-            }
+            if (!currentUser.isRootAdmin) { showNotification('❌ Không có quyền!', 'Chỉ Root Admin!', 'error', 3000); return; }
             const username = document.getElementById('addAdminUsername').value.trim();
-            if (!username) {
-                showNotification('❌ Lỗi!', 'Vui lòng nhập tên người dùng!', 'error', 3000);
-                return;
-            }
-            if (username.toLowerCase() === ROOT_ADMIN_USERNAME.toLowerCase()) {
-                showNotification('❌ Lỗi!', 'Không thể thêm Root Admin!', 'error', 3000);
-                return;
-            }
+            if (!username) { showNotification('❌ Lỗi!', 'Vui lòng nhập tên!', 'error', 3000); return; }
+            if (username.toLowerCase() === ROOT_ADMIN_USERNAME.toLowerCase()) { showNotification('❌ Lỗi!', 'Không thể thêm Root Admin!', 'error', 3000); return; }
 
-            showConfirm('ADD ADMIN', `Bạn có chắc muốn cấp quyền ADMIN cho ${username}?`, async () => {
+            showConfirm('ADD ADMIN', `Cấp quyền ADMIN cho ${username}?`, async () => {
                 try {
                     const snapshot = await database.ref('users/' + username).once('value');
-                    if (!snapshot.exists()) {
-                        showNotification('❌ Không tìm thấy!', 'Không tìm thấy người dùng!', 'error', 3000);
-                        return;
-                    }
+                    if (!snapshot.exists()) { showNotification('❌ Không tìm thấy!', 'Không tìm thấy!', 'error', 3000); return; }
                     await database.ref('users/' + username).update({ isAdmin: true, isRootAdmin: false });
-                    
-                    await addAdminHistoryEntry(username, 'admin', 
-                        '👑 Được cấp quyền ADMIN', 
-                        `Được cấp quyền Admin bởi Root Admin "${currentUser.username}"`, 
-                        0, 
-                        currentUser.username
-                    );
-                    
-                    showNotification('✅ Thành công!', `Đã thêm ADMIN cho "${username}" thành công!`, 'success', 3000);
+                    await addAdminHistoryEntry(username, 'admin', '👑 ADD ADMIN', `Cấp quyền bởi "${currentUser.username}"`, 0, currentUser.username);
+                    showNotification('✅ Thành công!', `Đã thêm ADMIN cho "${username}"!`, 'success', 3000);
                     document.getElementById('addAdminUsername').value = '';
-                } catch (error) {
-                    showNotification('❌ Lỗi!', error.message, 'error', 3000);
-                }
+                } catch (error) { showNotification('❌ Lỗi!', error.message, 'error', 3000); }
             });
         }
 
         function unadminUser() {
-            if (!currentUser.isRootAdmin) {
-                showNotification('❌ Không có quyền!', 'Chỉ Root Admin mới có thể gỡ quyền Admin!', 'error', 3000);
-                return;
-            }
+            if (!currentUser.isRootAdmin) { showNotification('❌ Không có quyền!', 'Chỉ Root Admin!', 'error', 3000); return; }
             const username = document.getElementById('unadminUsername').value.trim();
-            if (!username) {
-                showNotification('❌ Lỗi!', 'Vui lòng nhập tên admin!', 'error', 3000);
-                return;
-            }
-            if (username.toLowerCase() === ROOT_ADMIN_USERNAME.toLowerCase()) {
-                showNotification('❌ Lỗi!', 'Không thể gỡ quyền Root Admin!', 'error', 3000);
-                return;
-            }
+            if (!username) { showNotification('❌ Lỗi!', 'Vui lòng nhập tên!', 'error', 3000); return; }
+            if (username.toLowerCase() === ROOT_ADMIN_USERNAME.toLowerCase()) { showNotification('❌ Lỗi!', 'Không thể gỡ Root Admin!', 'error', 3000); return; }
 
-            showConfirm('UNADMIN', `Bạn có chắc muốn gỡ quyền ADMIN của ${username}?`, async () => {
+            showConfirm('UNADMIN', `Gỡ quyền ADMIN của ${username}?`, async () => {
                 try {
                     const snapshot = await database.ref('users/' + username).once('value');
-                    if (!snapshot.exists()) {
-                        showNotification('❌ Không tìm thấy!', 'Không tìm thấy người dùng!', 'error', 3000);
-                        return;
-                    }
+                    if (!snapshot.exists()) { showNotification('❌ Không tìm thấy!', 'Không tìm thấy!', 'error', 3000); return; }
                     await database.ref('users/' + username).update({ isAdmin: false, isRootAdmin: false });
-                    
-                    await addAdminHistoryEntry(username, 'admin', 
-                        '❌ Bị gỡ quyền ADMIN', 
-                        `Bị gỡ quyền Admin bởi Root Admin "${currentUser.username}"`, 
-                        0, 
-                        currentUser.username
-                    );
-                    
-                    showNotification('✅ Thành công!', `Đã gỡ quyền ADMIN của "${username}" thành công!`, 'success', 3000);
+                    await addAdminHistoryEntry(username, 'admin', '❌ UNADMIN', `Gỡ quyền bởi "${currentUser.username}"`, 0, currentUser.username);
+                    showNotification('✅ Thành công!', `Đã gỡ ADMIN của "${username}"!`, 'success', 3000);
                     document.getElementById('unadminUsername').value = '';
-                } catch (error) {
-                    showNotification('❌ Lỗi!', error.message, 'error', 3000);
-                }
+                } catch (error) { showNotification('❌ Lỗi!', error.message, 'error', 3000); }
             });
         }
 
         function giftPoints() {
             const username = document.getElementById('giftUsername').value.trim();
             const amountStr = document.getElementById('giftAmount').value.trim();
-            if (!username || !amountStr) {
-                showNotification('❌ Lỗi!', 'Vui lòng nhập đầy đủ thông tin!', 'error', 3000);
-                return;
-            }
+            if (!username || !amountStr) { showNotification('❌ Lỗi!', 'Vui lòng nhập đầy đủ!', 'error', 3000); return; }
 
             const amount = parseFloat(amountStr);
             if (isNaN(amount) || amount < 0.00000000000000000000001 || amount > 100000) {
-                showNotification('❌ Lỗi!', 'Số ChickenP phải từ 0.00000000000000000000001 đến 100000!', 'error', 3000);
+                showNotification('❌ Lỗi!', 'Số ChickenP không hợp lệ!', 'error', 3000);
                 return;
             }
 
-            showConfirm('GIFT ChickenP', `Bạn có chắc muốn tặng ${amount.toLocaleString()} ChickenP cho ${username}?`, async () => {
+            showConfirm('GIFT ChickenP', `Tặng ${formatNumber(amount)} ChickenP cho ${username}?`, async () => {
                 try {
                     const snapshot = await database.ref('users/' + username).once('value');
-                    if (!snapshot.exists()) {
-                        showNotification('❌ Không tìm thấy!', 'Không tìm thấy người dùng!', 'error', 3000);
-                        return;
-                    }
-                    await addPointsSafely(username, amount);
+                    if (!snapshot.exists()) { showNotification('❌ Không tìm thấy!', 'Không tìm thấy!', 'error', 3000); return; }
                     
-                    await addAdminHistoryEntry(username, 'gift', 
-                        '🎁 Nhận Gift từ Admin', 
-                        `Nhận ${formatNumber(amount)} ChickenP từ admin "${currentUser.username}"`, 
-                        amount, 
-                        currentUser.username
-                    );
+                    const pointsRef = database.ref('users/' + username + '/points');
+                    await pointsRef.transaction((c) => (c || 0) + amount);
                     
-                    await addHistoryEntry('admin', 
-                        `🎁 Gift cho ${username}`, 
-                        `Tặng ${formatNumber(amount)} ChickenP cho "${username}"`, 
-                        0
-                    );
+                    await addAdminHistoryEntry(username, 'gift', '🎁 Nhận Gift', `Nhận ${formatNumber(amount)} từ "${currentUser.username}"`, amount, currentUser.username);
+                    await addHistoryEntry('admin', `🎁 Gift cho ${username}`, `Tặng ${formatNumber(amount)} cho "${username}"`, 0);
                     
-                    showNotification('🎁 Thành công!', `Đã tặng ${formatNumber(amount)} ChickenP cho "${username}"!`, 'success', 4000);
+                    showNotification('🎁 Thành công!', `Đã tặng ${formatNumber(amount)} cho "${username}"!`, 'success', 4000);
                     document.getElementById('giftUsername').value = '';
                     document.getElementById('giftAmount').value = '';
-                } catch (error) {
-                    showNotification('❌ Lỗi!', error.message, 'error', 3000);
-                }
+                } catch (error) { showNotification('❌ Lỗi!', error.message, 'error', 3000); }
             });
         }
 
@@ -4425,11 +4286,14 @@
             confirmCallback = null;
         }
 
+        function closeWarning() {
+            document.getElementById('warningModal').classList.remove('active');
+        }
+
         function logout() {
             if (confirm('Bạn có chắc muốn đăng xuất?')) {
-                if (currentUser && userListener) {
-                    database.ref('users/' + currentUser.username).off('value', userListener);
-                }
+                if (currentUser && userListener) database.ref('users/' + currentUser.username).off('value', userListener);
+                if (cooldownListener) database.ref('cooldowns/' + currentUser.username).off('value', cooldownListener);
                 localStorage.removeItem('currentUser');
                 currentUser = null;
                 location.reload();
