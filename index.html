@@ -11,6 +11,12 @@
     <!-- Quảng cáo Social Bar -->
     <script src="https://pl29689256.effectivecpmnetwork.com/35/fa/61/35fa61c3388906bcafe3265af6c6d9b2.js"></script>
     
+    <!-- Ads Script -->
+    <script src="/path/to/ads.js"></script>
+    
+    <!-- Anti-Adblock Script -->
+    <script src="/path/to/anti-adblock.js"></script>
+    
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
@@ -95,7 +101,7 @@
 
         .tab {
             flex: 1;
-            min-width: 150px;
+            min-width: 120px;
             padding: 15px;
             text-align: center;
             cursor: pointer;
@@ -165,6 +171,10 @@
             margin-bottom: 20px;
             color: #667eea;
             text-align: center;
+        }
+
+        .modal-content.large {
+            max-width: 600px;
         }
 
         .form-group {
@@ -346,75 +356,779 @@
             cursor: not-allowed;
         }
 
-        .quest-link-box {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            margin: 20px 0;
-            border: 3px solid #667eea;
-            display: none;
+        .quest-info {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #0066cc;
             text-align: left;
         }
 
-        .quest-link-box.show {
-            display: block;
+        .quest-info strong {
+            color: #0066cc;
+        }
+
+        .success-box {
+            background: #d4edda;
+            color: #155724;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border: 2px solid #c3e6cb;
+        }
+
+        .success-box h3 {
+            color: #155724;
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #6c757d;
+            font-size: 0.9em;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+        }
+
+        /* ============ NOTIFICATION SYSTEM ============ */
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 400px;
+        }
+
+        .notification {
+            background: white;
+            border-radius: 12px;
+            padding: 15px 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideInRight 0.4s ease;
+            border-left: 5px solid #667eea;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .notification.removing {
+            animation: slideOutRight 0.3s ease forwards;
+        }
+
+        .notification.success { border-left-color: #28a745; }
+        .notification.error { border-left-color: #dc3545; }
+        .notification.warning { border-left-color: #ffc107; }
+        .notification.info { border-left-color: #17a2b8; }
+
+        .notification-icon { font-size: 1.5em; flex-shrink: 0; }
+        .notification-body { flex: 1; }
+        .notification-title { font-weight: bold; font-size: 0.95em; color: #333; margin-bottom: 2px; }
+        .notification-message { font-size: 0.85em; color: #666; line-height: 1.4; }
+
+        .notification-close {
+            background: none;
+            border: none;
+            font-size: 1.2em;
+            cursor: pointer;
+            color: #999;
+            padding: 0 5px;
+            transition: color 0.2s;
+        }
+
+        .notification-close:hover { color: #333; }
+
+        .notification-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: #667eea;
+            animation: shrink 5s linear forwards;
+        }
+
+        .notification.success .notification-progress { background: #28a745; }
+        .notification.error .notification-progress { background: #dc3545; }
+        .notification.warning .notification-progress { background: #ffc107; }
+        .notification.info .notification-progress { background: #17a2b8; }
+
+        @keyframes slideInRight {
+            from { transform: translateX(120%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideOutRight {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(120%); opacity: 0; }
+        }
+
+        @keyframes shrink {
+            from { width: 100%; }
+            to { width: 0%; }
+        }
+
+        /* ============ ADBLOCK WARNING ============ */
+        .adblock-warning {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 99999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .adblock-warning.active { display: flex; }
+
+        .adblock-warning-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
             animation: popIn 0.5s;
         }
 
-        .quest-link {
-            background: #1e1e1e;
-            color: #00ff00;
-            padding: 15px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            word-break: break-all;
-            margin: 15px 0;
-            border: 2px solid #667eea;
+        .adblock-warning-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            animation: pulse 1.5s infinite;
+        }
+
+        .adblock-warning h2 {
+            color: #dc3545;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .adblock-warning p {
+            color: #495057;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .adblock-warning .lang-en {
+            color: #6c757d;
+            font-style: italic;
             font-size: 0.9em;
-            line-height: 1.5;
-            max-height: 200px;
-            overflow-y: auto;
+            margin-bottom: 20px;
         }
 
-        .quest-link-label {
-            font-weight: bold;
-            color: #667eea;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .copy-btn {
-            background: #17a2b8;
+        .adblock-warning .retry-btn {
+            background: linear-gradient(135deg, #28a745, #20c997);
             color: white;
             border: none;
-            padding: 12px 25px;
-            border-radius: 5px;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
             cursor: pointer;
-            margin: 5px;
-            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 15px;
+        }
+
+        .adblock-warning .retry-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+        }
+
+        /* ============ UPDATE LOG ============ */
+        .update-log-section {
+            background: linear-gradient(135deg, #e7f3ff 0%, #f0e6ff 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 25px;
+            border: 2px solid #667eea;
+        }
+
+        .update-log-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .update-log-list { list-style: none; padding: 0; }
+
+        .update-log-item {
+            background: white;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #667eea;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
             transition: all 0.3s;
         }
 
-        .copy-btn:hover {
-            background: #138496;
-            transform: translateY(-2px);
+        .update-log-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
 
-        .verify-box {
-            background: #f8f9fa;
-            padding: 20px;
+        .update-log-date {
+            background: #667eea;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.75em;
+            font-weight: bold;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .update-log-text {
+            color: #495057;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .update-log-text strong { color: #667eea; }
+
+        /* ============ PROFILE SECTION ============ */
+        .profile-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 2px solid #e9ecef;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .profile-avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .profile-avatar:hover .avatar-edit-overlay {
+            opacity: 1;
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-edit-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.5em;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-weight: normal;
+        }
+
+        .profile-details h3 {
+            color: #333;
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+
+        .profile-details p {
+            color: #6c757d;
+            font-size: 0.95em;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .profile-stat-card {
+            background: white;
+            padding: 15px;
             border-radius: 10px;
-            margin: 20px 0;
-            border: 2px dashed #667eea;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
-        .verify-box input {
+        .profile-stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .profile-stat-label {
+            font-size: 0.85em;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+
+        /* ============ AVATAR MODAL ============ */
+        .avatar-modal-content {
+            max-width: 500px;
+        }
+
+        .avatar-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4em;
+            color: white;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .avatar-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .avatar-tab {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            font-weight: 600;
+            color: #6c757d;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .avatar-tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .avatar-panel {
+            display: none;
+        }
+
+        .avatar-panel.active {
+            display: block;
+        }
+
+        .emoji-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 8px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .emoji-item {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            background: white;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .emoji-item:hover {
+            transform: scale(1.1);
+            border-color: #667eea;
+        }
+
+        .emoji-item.selected {
+            border-color: #667eea;
+            background: #e7f3ff;
+            transform: scale(1.05);
+        }
+
+        .avatar-url-input {
             width: 100%;
             padding: 12px;
             border: 2px solid #e9ecef;
             border-radius: 8px;
-            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+
+        .avatar-url-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .avatar-url-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 15px auto;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 3px dashed #e9ecef;
+        }
+
+        .avatar-url-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-url-preview.error {
+            border-color: #dc3545;
+            background: #f8d7da;
+        }
+
+        /* ============ MULTIPLIER INFO BOX ============ */
+        .multiplier-info-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .multiplier-info-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotateBg 10s linear infinite;
+        }
+
+        @keyframes rotateBg {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .multiplier-info-box .multi-label {
+            font-size: 1em;
+            opacity: 0.9;
+            margin-bottom: 5px;
+            position: relative;
+        }
+
+        .multiplier-info-box .multi-value {
+            font-size: 3.5em;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            cursor: pointer;
+            display: inline-block;
+            padding: 5px 20px;
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+
+        .multiplier-info-box .multi-value:hover {
+            background: rgba(255,255,255,0.15);
+            transform: scale(1.05);
+        }
+
+        .multiplier-info-box .multi-value::after {
+            content: '✏️';
+            font-size: 0.4em;
+            margin-left: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .multiplier-info-box .multi-value:hover::after {
+            opacity: 1;
+        }
+
+        .multiplier-info-box .multi-desc {
             font-size: 0.9em;
+            opacity: 0.85;
+            margin-top: 8px;
+            position: relative;
+        }
+
+        .multiplier-info-box .multi-glow {
+            animation: multiGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes multiGlow {
+            from { text-shadow: 0 0 10px rgba(255,255,255,0.5), 2px 2px 4px rgba(0,0,0,0.3); }
+            to { text-shadow: 0 0 20px rgba(255,255,255,0.9), 0 0 40px rgba(255,255,255,0.5), 2px 2px 4px rgba(0,0,0,0.3); }
+        }
+
+        /* ============ MULTIPLIER EDIT INLINE ============ */
+        .multiplier-edit-inline {
+            display: none;
+            position: relative;
+            margin: 15px 0;
+        }
+
+        .multiplier-edit-inline.active {
+            display: block;
+            animation: popIn 0.3s;
+        }
+
+        .multiplier-edit-inline input {
+            width: 150px;
+            padding: 10px 15px;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+            border: 3px solid white;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.95);
+            color: #667eea;
+            outline: none;
+        }
+
+        .multiplier-edit-inline .edit-hint {
+            color: white;
+            font-size: 0.85em;
+            margin-top: 8px;
+            opacity: 0.9;
+        }
+
+        .multiplier-edit-inline .edit-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .multiplier-edit-inline .edit-buttons button {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .multiplier-edit-inline .edit-save {
+            background: #28a745;
+            color: white;
+        }
+
+        .multiplier-edit-inline .edit-cancel {
+            background: rgba(255,255,255,0.3);
+            color: white;
+        }
+
+        .multiplier-edit-inline .edit-save:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .multiplier-edit-inline .edit-cancel:hover {
+            background: rgba(255,255,255,0.5);
+        }
+
+        /* ============ HISTORY TAB STYLES ============ */
+        .history-section {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .history-header h2 { color: #333; }
+
+        .history-filter {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 6px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 20px;
+            background: white;
+            cursor: pointer;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #6c757d;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .history-list { list-style: none; padding: 0; }
+
+        .history-item {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .history-item:hover {
+            transform: translateX(3px);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .history-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3em;
+            flex-shrink: 0;
+        }
+
+        .history-icon.earn { background: #d4edda; }
+        .history-icon.spend { background: #f8d7da; }
+        .history-icon.gift { background: #fff3cd; }
+        .history-icon.admin { background: #e7f3ff; }
+        .history-icon.system { background: #f0e6ff; }
+
+        .history-details { flex: 1; }
+
+        .history-title {
+            font-weight: bold;
+            color: #333;
+            font-size: 0.95em;
+            margin-bottom: 3px;
+        }
+
+        .history-desc {
+            font-size: 0.85em;
+            color: #6c757d;
+        }
+
+        .history-amount {
+            font-weight: bold;
+            font-size: 1.1em;
+            white-space: nowrap;
+        }
+
+        .history-amount.positive { color: #28a745; }
+        .history-amount.negative { color: #dc3545; }
+        .history-amount.neutral { color: #6c757d; }
+
+        .history-time {
+            font-size: 0.75em;
+            color: #adb5bd;
+            white-space: nowrap;
+        }
+
+        .history-empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6c757d;
+        }
+
+        .history-empty .empty-icon {
+            font-size: 4em;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        .history-load-more {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .history-load-more button {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            padding: 10px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #6c757d;
+            transition: all 0.3s;
+        }
+
+        .history-load-more button:hover {
+            border-color: #667eea;
+            color: #667eea;
         }
 
         /* Warning Modal */
@@ -527,19 +1241,145 @@
             background: #c82333;
         }
 
-        .multiplier-display {
-            background: #667eea;
+        /* Multiplier Admin Card - NEW */
+        .multiplier-admin-display {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 15px;
-            border-radius: 8px;
+            padding: 20px;
+            border-radius: 10px;
             text-align: center;
-            font-size: 1.3em;
-            margin: 15px 0;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
         }
 
-        .range-slider {
+        .multiplier-admin-display:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .multiplier-admin-display .current-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .multiplier-admin-display .current-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .multiplier-admin-display .edit-hint {
+            font-size: 0.8em;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .multiplier-admin-edit {
+            display: none;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 2px dashed #667eea;
+        }
+
+        .multiplier-admin-edit.active {
+            display: block;
+            animation: popIn 0.3s;
+        }
+
+        .multiplier-admin-edit label {
+            display: block;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        .multiplier-admin-edit input {
             width: 100%;
-            margin: 15px 0;
+            padding: 12px;
+            font-size: 1.3em;
+            font-weight: bold;
+            text-align: center;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            color: #667eea;
+        }
+
+        .multiplier-admin-edit input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .multiplier-admin-edit .range-hint {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8em;
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+
+        .multiplier-admin-edit .edit-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .multiplier-admin-edit .edit-actions button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .multiplier-admin-edit .btn-save {
+            background: #28a745;
+            color: white;
+        }
+
+        .multiplier-admin-edit .btn-save:hover {
+            background: #218838;
+        }
+
+        .multiplier-admin-edit .btn-cancel {
+            background: #6c757d;
+            color: white;
+        }
+
+        .multiplier-admin-edit .btn-cancel:hover {
+            background: #5a6268;
+        }
+
+        .multiplier-presets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .multiplier-preset {
+            padding: 5px 12px;
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #6c757d;
+            transition: all 0.2s;
+        }
+
+        .multiplier-preset:hover {
+            border-color: #667eea;
+            color: #667eea;
+            transform: translateY(-1px);
         }
 
         .confirm-modal .modal-content {
@@ -563,27 +1403,19 @@
             transition: all 0.3s;
         }
 
-        .confirm-yes {
-            background: #28a745;
-            color: white;
-        }
-
-        .confirm-no {
-            background: #dc3545;
-            color: white;
-        }
-
-        .confirm-yes:hover {
-            background: #218838;
-        }
-
-        .confirm-no:hover {
-            background: #c82333;
-        }
+        .confirm-yes { background: #28a745; color: white; }
+        .confirm-no { background: #dc3545; color: white; }
+        .confirm-yes:hover { background: #218838; }
+        .confirm-no:hover { background: #c82333; }
 
         @keyframes popIn {
             from { transform: scale(0.8); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .error-flash {
@@ -604,374 +1436,39 @@
             font-weight: bold;
         }
 
-        .badge-admin {
-            background: #ffc107;
-            color: #856404;
-        }
+        .badge-admin { background: #ffc107; color: #856404; }
+        .badge-root { background: #ff416c; color: white; }
+        .badge-warned { background: #fd7e14; color: white; }
+        .badge-banned { background: #dc3545; color: white; }
 
-        .badge-root {
-            background: #ff416c;
+        .cooldown-display {
+            background: linear-gradient(135deg, #6c757d, #495057);
             color: white;
-        }
-
-        .badge-warned {
-            background: #fd7e14;
-            color: white;
-        }
-
-        .badge-banned {
-            background: #dc3545;
-            color: white;
-        }
-
-        .quest-info {
-            background: #e7f3ff;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-            border-left: 4px solid #0066cc;
-            text-align: left;
-        }
-
-        .quest-info strong {
-            color: #0066cc;
-        }
-
-        .success-box {
-            background: #d4edda;
-            color: #155724;
-            padding: 30px;
-            border-radius: 15px;
-            margin-top: 20px;
-            border: 2px solid #c3e6cb;
-        }
-
-        .success-box h3 {
-            color: #155724;
-            font-size: 2em;
-            margin-bottom: 15px;
-        }
-
-        .footer {
-            text-align: center;
             padding: 20px;
-            color: #6c757d;
-            font-size: 0.9em;
-            background: #f8f9fa;
-            border-top: 1px solid #e9ecef;
-        }
-
-        /* ============ NOTIFICATION SYSTEM ============ */
-        .notification-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 10000;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            max-width: 400px;
-        }
-
-        .notification {
-            background: white;
-            border-radius: 12px;
-            padding: 15px 20px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            animation: slideInRight 0.4s ease;
-            border-left: 5px solid #667eea;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .notification.removing {
-            animation: slideOutRight 0.3s ease forwards;
-        }
-
-        .notification.success {
-            border-left-color: #28a745;
-        }
-
-        .notification.error {
-            border-left-color: #dc3545;
-        }
-
-        .notification.warning {
-            border-left-color: #ffc107;
-        }
-
-        .notification.info {
-            border-left-color: #17a2b8;
-        }
-
-        .notification-icon {
-            font-size: 1.5em;
-            flex-shrink: 0;
-        }
-
-        .notification-body {
-            flex: 1;
-        }
-
-        .notification-title {
-            font-weight: bold;
-            font-size: 0.95em;
-            color: #333;
-            margin-bottom: 2px;
-        }
-
-        .notification-message {
-            font-size: 0.85em;
-            color: #666;
-            line-height: 1.4;
-        }
-
-        .notification-close {
-            background: none;
-            border: none;
-            font-size: 1.2em;
-            cursor: pointer;
-            color: #999;
-            padding: 0 5px;
-            transition: color 0.2s;
-        }
-
-        .notification-close:hover {
-            color: #333;
-        }
-
-        .notification-progress {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 3px;
-            background: #667eea;
-            animation: shrink 5s linear forwards;
-        }
-
-        .notification.success .notification-progress { background: #28a745; }
-        .notification.error .notification-progress { background: #dc3545; }
-        .notification.warning .notification-progress { background: #ffc107; }
-        .notification.info .notification-progress { background: #17a2b8; }
-
-        @keyframes slideInRight {
-            from { transform: translateX(120%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        @keyframes slideOutRight {
-            from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(120%); opacity: 0; }
-        }
-
-        @keyframes shrink {
-            from { width: 100%; }
-            to { width: 0%; }
-        }
-
-        /* ============ ADBLOCK WARNING ============ */
-        .adblock-warning {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 99999;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .adblock-warning.active {
-            display: flex;
-        }
-
-        .adblock-warning-content {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 500px;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-            animation: popIn 0.5s;
-        }
-
-        .adblock-warning-icon {
-            font-size: 4em;
-            margin-bottom: 20px;
-            animation: pulse 1.5s infinite;
-        }
-
-        .adblock-warning h2 {
-            color: #dc3545;
-            margin-bottom: 15px;
-            font-size: 1.5em;
-        }
-
-        .adblock-warning p {
-            color: #495057;
-            line-height: 1.6;
-            margin-bottom: 10px;
-            font-size: 1em;
-        }
-
-        .adblock-warning .lang-en {
-            color: #6c757d;
-            font-style: italic;
-            font-size: 0.9em;
-            margin-bottom: 20px;
-        }
-
-        .adblock-warning .retry-btn {
-            background: linear-gradient(135deg, #28a745, #20c997);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 8px;
-            font-size: 1em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 15px;
-        }
-
-        .adblock-warning .retry-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
-        }
-
-        /* ============ UPDATE LOG ============ */
-        .update-log-section {
-            background: linear-gradient(135deg, #e7f3ff 0%, #f0e6ff 100%);
-            border-radius: 15px;
-            padding: 25px;
-            margin-top: 25px;
-            border: 2px solid #667eea;
-        }
-
-        .update-log-section h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 1.4em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .update-log-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .update-log-item {
-            background: white;
-            padding: 12px 15px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            border-left: 4px solid #667eea;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            transition: all 0.3s;
-        }
-
-        .update-log-item:hover {
-            transform: translateX(5px);
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
-
-        .update-log-date {
-            background: #667eea;
-            color: white;
-            padding: 3px 10px;
-            border-radius: 15px;
-            font-size: 0.75em;
-            font-weight: bold;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-
-        .update-log-text {
-            color: #495057;
-            font-size: 0.95em;
-            line-height: 1.5;
-        }
-
-        .update-log-text strong {
-            color: #667eea;
-        }
-
-        /* ============ PROFILE SECTION ============ */
-        .profile-section {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 25px;
-            border: 2px solid #e9ecef;
-        }
-
-        .profile-header {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .profile-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5em;
-            color: white;
-            font-weight: bold;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        .profile-details h3 {
-            color: #333;
-            font-size: 1.5em;
-            margin-bottom: 5px;
-        }
-
-        .profile-details p {
-            color: #6c757d;
-            font-size: 0.95em;
-        }
-
-        .profile-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-        }
-
-        .profile-stat-card {
-            background: white;
-            padding: 15px;
             border-radius: 10px;
             text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            font-size: 1.3em;
+            margin: 20px 0;
         }
 
-        .profile-stat-value {
-            font-size: 1.8em;
+        .cooldown-display .time {
+            font-size: 2em;
             font-weight: bold;
-            color: #667eea;
+            color: #ffc107;
+            font-family: 'Courier New', monospace;
         }
 
-        .profile-stat-label {
-            font-size: 0.85em;
-            color: #6c757d;
-            margin-top: 5px;
+        /* UID Badge */
+        .uid-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            display: inline-block;
+            margin-left: 8px;
         }
 
         /* ============ MISSION PAGE STYLES ============ */
@@ -981,9 +1478,7 @@
             padding: 20px;
         }
 
-        .mission-page.active {
-            display: block;
-        }
+        .mission-page.active { display: block; }
 
         .mission-container {
             max-width: 900px;
@@ -1032,9 +1527,7 @@
             font-size: 0.9em;
         }
 
-        .mission-body {
-            padding: 40px;
-        }
+        .mission-body { padding: 40px; }
 
         .task-card {
             background: #f8f9fa;
@@ -1045,19 +1538,9 @@
             transition: all 0.3s;
         }
 
-        .task-card.active {
-            border-left-color: #667eea;
-            background: #e7f3ff;
-        }
-
-        .task-card.completed {
-            border-left-color: #28a745;
-            background: #d4edda;
-        }
-
-        .task-card.locked {
-            opacity: 0.6;
-        }
+        .task-card.active { border-left-color: #667eea; background: #e7f3ff; }
+        .task-card.completed { border-left-color: #28a745; background: #d4edda; }
+        .task-card.locked { opacity: 0.6; }
 
         .task-header {
             display: flex;
@@ -1081,25 +1564,9 @@
             font-weight: bold;
         }
 
-        .status-pending {
-            background: #ffc107;
-            color: #856404;
-        }
-
-        .status-active {
-            background: #667eea;
-            color: white;
-        }
-
-        .status-done {
-            background: #28a745;
-            color: white;
-        }
-
-        .status-locked {
-            background: #6c757d;
-            color: white;
-        }
+        .status-active { background: #667eea; color: white; }
+        .status-done { background: #28a745; color: white; }
+        .status-locked { background: #6c757d; color: white; }
 
         .task-body {
             display: none;
@@ -1108,11 +1575,8 @@
             border-top: 2px dashed #dee2e6;
         }
 
-        .task-card.active .task-body {
-            display: block;
-        }
+        .task-card.active .task-body { display: block; }
 
-        /* Task 1: Verify Link */
         .link-verify-box {
             background: white;
             padding: 20px;
@@ -1130,7 +1594,6 @@
             margin-bottom: 10px;
         }
 
-        /* Task 2: Quiz */
         .quiz-container {
             background: white;
             padding: 25px;
@@ -1164,22 +1627,9 @@
             text-align: center;
         }
 
-        .quiz-option:hover {
-            background: #e7f3ff;
-            border-color: #667eea;
-        }
-
-        .quiz-option.correct {
-            background: #d4edda;
-            border-color: #28a745;
-            color: #155724;
-        }
-
-        .quiz-option.wrong {
-            background: #f8d7da;
-            border-color: #dc3545;
-            color: #721c24;
-        }
+        .quiz-option:hover { background: #e7f3ff; border-color: #667eea; }
+        .quiz-option.correct { background: #d4edda; border-color: #28a745; color: #155724; }
+        .quiz-option.wrong { background: #f8d7da; border-color: #dc3545; color: #721c24; }
 
         .quiz-stats {
             display: flex;
@@ -1190,9 +1640,7 @@
             border-radius: 8px;
         }
 
-        .quiz-stat {
-            text-align: center;
-        }
+        .quiz-stat { text-align: center; }
 
         .quiz-stat-value {
             font-size: 2em;
@@ -1205,7 +1653,6 @@
             color: #6c757d;
         }
 
-        /* Task 3: Ad */
         .ad-container {
             background: white;
             padding: 25px;
@@ -1239,7 +1686,6 @@
             font-size: 1.1em;
         }
 
-        /* Task 4: Countdown */
         .countdown-container {
             background: white;
             padding: 40px;
@@ -1268,11 +1714,6 @@
             animation: pulse 1s infinite;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-        }
-
         .star-target {
             position: absolute;
             font-size: 3em;
@@ -1283,16 +1724,13 @@
             transition: transform 0.2s;
         }
 
-        .star-target:hover {
-            transform: scale(1.3);
-        }
+        .star-target:hover { transform: scale(1.3); }
 
         @keyframes starGlow {
             from { transform: scale(1); filter: drop-shadow(0 0 10px gold); }
             to { transform: scale(1.2); filter: drop-shadow(0 0 20px gold); }
         }
 
-        /* Click Power fist animation */
         .fist-target {
             position: absolute;
             font-size: 4em;
@@ -1303,9 +1741,7 @@
             filter: drop-shadow(0 0 15px #ff416c);
         }
 
-        .fist-target:hover {
-            transform: scale(1.3);
-        }
+        .fist-target:hover { transform: scale(1.3); }
 
         @keyframes fistPunch {
             from { transform: scale(1) rotate(-10deg); filter: drop-shadow(0 0 10px #ff416c); }
@@ -1321,7 +1757,6 @@
             overflow: hidden;
         }
 
-        /* Star status bar */
         .star-status-bar {
             background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
             padding: 15px 20px;
@@ -1338,9 +1773,7 @@
             animation: popIn 0.4s;
         }
 
-        .star-status-bar .status-text {
-            font-size: 1.1em;
-        }
+        .star-status-bar .status-text { font-size: 1.1em; }
 
         .star-status-bar .status-count {
             background: #667eea;
@@ -1357,11 +1790,8 @@
             color: #155724;
         }
 
-        .star-status-bar.complete .status-count {
-            background: #28a745;
-        }
+        .star-status-bar.complete .status-count { background: #28a745; }
 
-        /* Restart Button */
         .restart-btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -1397,9 +1827,7 @@
             animation: popIn 0.5s;
         }
 
-        .paused-notice.show {
-            display: block;
-        }
+        .paused-notice.show { display: block; }
 
         .paused-notice h3 {
             color: #856404;
@@ -1420,7 +1848,6 @@
             margin: 15px 0;
         }
 
-        /* Reward animation */
         .reward-popup {
             position: fixed;
             top: 50%;
@@ -1444,23 +1871,6 @@
             100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
 
-        .cooldown-display {
-            background: linear-gradient(135deg, #6c757d, #495057);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            font-size: 1.3em;
-            margin: 20px 0;
-        }
-
-        .cooldown-display .time {
-            font-size: 2em;
-            font-weight: bold;
-            color: #ffc107;
-            font-family: 'Courier New', monospace;
-        }
-
         /* Responsive */
         @media (max-width: 768px) {
             .header h1 { font-size: 1.8em; }
@@ -1475,6 +1885,9 @@
             .profile-header { flex-direction: column; text-align: center; }
             .star-target { font-size: 2.5em; }
             .fist-target { font-size: 3.5em; }
+            .multiplier-info-box .multi-value { font-size: 2.5em; }
+            .history-item { flex-wrap: wrap; }
+            .emoji-grid { grid-template-columns: repeat(5, 1fr); }
         }
     </style>
 </head>
@@ -1532,6 +1945,41 @@
             </div>
         </div>
 
+        <!-- Avatar Modal -->
+        <div id="avatarModal" class="modal">
+            <div class="modal-content avatar-modal-content">
+                <h2>🖼️ Thay đổi Avatar</h2>
+                
+                <div class="avatar-preview" id="avatarPreview">?</div>
+                
+                <div class="avatar-tabs">
+                    <button class="avatar-tab active" onclick="switchAvatarTab('emoji', this)">😊 Emoji</button>
+                    <button class="avatar-tab" onclick="switchAvatarTab('url', this)">🔗 URL ảnh</button>
+                </div>
+                
+                <!-- Emoji Panel -->
+                <div class="avatar-panel active" id="emojiPanel">
+                    <p style="text-align: center; color: #6c757d; margin-bottom: 10px; font-size: 0.9em;">Chọn một emoji làm avatar:</p>
+                    <div class="emoji-grid" id="emojiGrid"></div>
+                </div>
+                
+                <!-- URL Panel -->
+                <div class="avatar-panel" id="urlPanel">
+                    <label style="font-weight: 600; color: #495057; display: block; margin-bottom: 8px;">Nhập URL ảnh:</label>
+                    <input type="text" class="avatar-url-input" id="avatarUrlInput" placeholder="https://example.com/avatar.jpg" oninput="previewAvatarUrl()">
+                    <div class="avatar-url-preview" id="avatarUrlPreview">
+                        <span style="color: #adb5bd; font-size: 0.8em;">Xem trước</span>
+                    </div>
+                    <p style="font-size: 0.8em; color: #6c757d; text-align: center;">💡 Ảnh sẽ được hiển thị trong hình tròn</p>
+                </div>
+                
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button class="btn" onclick="saveAvatar()">💾 Lưu Avatar</button>
+                    <button class="btn btn-secondary" onclick="closeAvatarModal()">Hủy</button>
+                </div>
+            </div>
+        </div>
+
         <!-- Warning Modal -->
         <div id="warningModal" class="modal">
             <div class="warning-modal">
@@ -1572,6 +2020,7 @@
             <div class="user-info">
                 <div>
                     <strong id="currentUser" style="font-size: 1.1em;"></strong>
+                    <span id="userUidBadge" class="uid-badge" style="display:none;"></span>
                     <span id="adminBadge" class="status-badge badge-admin" style="display: none;">👑 ADMIN</span>
                     <span id="rootAdminBadge" class="status-badge badge-root" style="display: none;">🔥 ROOT</span>
                     <span id="warnedBadge" class="status-badge badge-warned" style="display: none;">⚠️ WARNED</span>
@@ -1587,6 +2036,7 @@
                 <button class="tab active" onclick="showTab('info', event)">📖 Giới thiệu</button>
                 <button class="tab" onclick="showTab('shop', event)">🛒 Shop</button>
                 <button class="tab" onclick="showTab('earn', event)">💎 Kiếm điểm</button>
+                <button class="tab" onclick="showTab('history', event)">📜 History</button>
                 <button class="tab" id="adminTab" onclick="showTab('admin', event)" style="display: none;">⚙️ Admin</button>
             </div>
 
@@ -1594,12 +2044,33 @@
             <div id="info" class="tab-content active">
                 <h2>📖 Giới thiệu về ChickenP Game</h2>
                 
+                <!-- Multiplier Info Box -->
+                <div class="multiplier-info-box" id="multiplierInfoBox">
+                    <div class="multi-label">🔢 Hệ số nhân hiện tại</div>
+                    <div class="multi-value multi-glow" id="infoMultiplierValue" onclick="openMultiplierEditInline()">1x</div>
+                    <div class="multi-desc">Mỗi quest hoàn thành sẽ nhận được <strong id="infoMultiplierReward">1</strong> ChickenP</div>
+                    
+                    <!-- Inline Edit -->
+                    <div class="multiplier-edit-inline" id="multiplierEditInline">
+                        <input type="number" id="multiplierInlineInput" step="0.1" min="1" max="100" placeholder="1.0 - 100">
+                        <div class="edit-hint">Nhập từ 1 đến 100 (hỗ trợ số thập phân: 1.5, 2.5, 10.2...)</div>
+                        <div class="edit-buttons">
+                            <button class="edit-save" onclick="saveMultiplierInline()">✅ Lưu</button>
+                            <button class="edit-cancel" onclick="closeMultiplierEditInline()">❌ Hủy</button>
+                        </div>
+                    </div>
+                </div>
+                
                 <!-- Profile Section -->
                 <div class="profile-section" id="profileSection">
                     <div class="profile-header">
-                        <div class="profile-avatar" id="profileAvatar">?</div>
+                        <div class="profile-avatar" id="profileAvatar" onclick="openAvatarModal()">
+                            <span id="profileAvatarContent">?</span>
+                            <div class="avatar-edit-overlay">📷 Đổi</div>
+                        </div>
                         <div class="profile-details">
                             <h3 id="profileName">...</h3>
+                            <p id="profileUid">UID: ...</p>
                             <p id="profileJoinDate">Đang tải...</p>
                         </div>
                     </div>
@@ -1630,7 +2101,7 @@
                     <h3 style="color: #667eea; margin-bottom: 15px;">🎯 Tính năng chính:</h3>
                     <ul style="list-style: none; padding-left: 0;">
                         <li style="padding: 10px; background: #f8f9fa; margin-bottom: 10px; border-radius: 5px;">
-                            ✅ <strong>Kiếm điểm:</strong> Hoàn thành quest để nhận ChickenP
+                            ✅ <strong>Kiếm điểm:</strong> Hoàn thành quest để nhận ChickenP (có hệ số nhân)
                         </li>
                         <li style="padding: 10px; background: #f8f9fa; margin-bottom: 10px; border-radius: 5px;">
                             🛍️ <strong>Shop:</strong> Mua sắm vật phẩm với ChickenP
@@ -1642,7 +2113,10 @@
                             🔐 <strong>Bảo mật:</strong> Chống cheat/bot/tools với IP verification
                         </li>
                         <li style="padding: 10px; background: #f8f9fa; margin-bottom: 10px; border-radius: 5px;">
-                            👤 <strong>Profile:</strong> Xem thông tin cá nhân và thống kê
+                            👤 <strong>Profile & UID & Avatar:</strong> Xem thông tin cá nhân, UID riêng và thay đổi avatar
+                        </li>
+                        <li style="padding: 10px; background: #f8f9fa; margin-bottom: 10px; border-radius: 5px;">
+                            📜 <strong>History:</strong> Lịch sử giao dịch chi tiết
                         </li>
                         <li style="padding: 10px; background: #f8f9fa; margin-bottom: 10px; border-radius: 5px;">
                             🔔 <strong>Thông báo:</strong> Hệ thống notification riêng của web
@@ -1658,63 +2132,75 @@
                     <h3>📝 UPDATE LOG</h3>
                     <ul class="update-log-list">
                         <li class="update-log-item">
-                            <span class="update-log-date">10/06/2026</span>
+                            <span class="update-log-date">13/06/2026</span>
                             <span class="update-log-text">
-                                <strong>💪 Quest 4 Upgrade:</strong> Countdown có thêm <strong>Click Power 🥊</strong> (25s-20s) và <strong>Tìm 5 ngôi sao ⭐</strong> (15s-10s) với status bar hiển thị tiến trình
+                                <strong>🆔 UID System:</strong> Đổi prefix thành <strong>VP-</strong> + random chữ & số. Đảm bảo mỗi user có UID duy nhất
+                            </span>
+                        </li>
+                        <li class="update-log-item">
+                            <span class="update-log-date">13/06/2026</span>
+                            <span class="update-log-text">
+                                <strong>🖼️ Avatar System:</strong> Thêm tính năng thay đổi avatar - chọn emoji hoặc nhập URL ảnh
+                            </span>
+                        </li>
+                        <li class="update-log-item">
+                            <span class="update-log-date">13/06/2026</span>
+                            <span class="update-log-text">
+                                <strong>🔢 Multiplier Pro:</strong> Click vào giá trị hệ số nhân để nhập trực tiếp số thập phân (1.2x, 2.5x...). Range 1x-100x với các preset nhanh
+                            </span>
+                        </li>
+                        <li class="update-log-item">
+                            <span class="update-log-date">13/06/2026</span>
+                            <span class="update-log-text">
+                                <strong>🔒 Username Unique:</strong> Đảm bảo tên tài khoản không trùng (case-insensitive)
+                            </span>
+                        </li>
+                        <li class="update-log-item">
+                            <span class="update-log-date">12/06/2026</span>
+                            <span class="update-log-text">
+                                <strong>🔢 Multiplier Fix:</strong> Sửa lỗi hệ số nhân - giờ đây multiplier thực sự nhân điểm khi hoàn thành quest
+                            </span>
+                        </li>
+                        <li class="update-log-item">
+                            <span class="update-log-date">12/06/2026</span>
+                            <span class="update-log-text">
+                                <strong>📜 History Tab:</strong> Thêm tab History - Lịch sử giao dịch chi tiết
+                            </span>
+                        </li>
+                        <li class="update-log-item">
+                            <span class="update-log-date">12/06/2026</span>
+                            <span class="update-log-text">
+                                <strong>📢 Ads & Anti-Adblock Scripts:</strong> Thêm script hỗ trợ quảng cáo và phát hiện chặn quảng cáo
                             </span>
                         </li>
                         <li class="update-log-item">
                             <span class="update-log-date">10/06/2026</span>
                             <span class="update-log-text">
-                                <strong>🔔 Notification System:</strong> Thêm hệ thống thông báo riêng của web với nhiều loại (success, error, warning, info)
+                                <strong>💪 Quest 4 Upgrade:</strong> Click Power 🥊 và Tìm 5 ngôi sao ⭐
                             </span>
                         </li>
                         <li class="update-log-item">
                             <span class="update-log-date">10/06/2026</span>
                             <span class="update-log-text">
-                                <strong>🚫 BAN System:</strong> Thêm tính năng BAN user trong Admin Panel. Admin thường không thể BAN admin khác, chỉ Root Admin mới có quyền BAN tất cả.
+                                <strong>🔔 Notification System:</strong> Hệ thống thông báo riêng của web
                             </span>
                         </li>
                         <li class="update-log-item">
                             <span class="update-log-date">10/06/2026</span>
                             <span class="update-log-text">
-                                <strong>👤 Profile Section:</strong> Thêm phần hiển thị thông tin cá nhân (tên, ngày tham gia, thống kê) ở tab Giới thiệu
-                            </span>
-                        </li>
-                        <li class="update-log-item">
-                            <span class="update-log-date">10/06/2026</span>
-                            <span class="update-log-text">
-                                <strong>📝 UPDATE LOG:</strong> Thêm phần ghi lại các cập nhật mới của web
-                            </span>
-                        </li>
-                        <li class="update-log-item">
-                            <span class="update-log-date">10/06/2026</span>
-                            <span class="update-log-text">
-                                <strong>🛡️ Adblock Detection:</strong> Thêm tính năng phát hiện Adblock và yêu cầu người dùng tắt để sử dụng web
+                                <strong>🚫 BAN System:</strong> Tính năng BAN user trong Admin Panel
                             </span>
                         </li>
                         <li class="update-log-item">
                             <span class="update-log-date">09/06/2026</span>
                             <span class="update-log-text">
-                                <strong>🎯 Quest System:</strong> Hệ thống nhiệm vụ 4 bước (Verify Link, Quiz, Ad, Countdown)
-                            </span>
-                        </li>
-                        <li class="update-log-item">
-                            <span class="update-log-date">09/06/2026</span>
-                            <span class="update-log-text">
-                                <strong>🛒 Shop:</strong> Cửa hàng vật phẩm với HotDog (1,200 ChickenP)
-                            </span>
-                        </li>
-                        <li class="update-log-item">
-                            <span class="update-log-date">09/06/2026</span>
-                            <span class="update-log-text">
-                                <strong>⚙️ Admin Panel:</strong> Multiplier, UNWARN, UNBAN, ADD ADMIN, UNADMIN, GIFT ChickenP
+                                <strong>🎯 Quest System & Shop:</strong> Hệ thống nhiệm vụ 4 bước và cửa hàng vật phẩm
                             </span>
                         </li>
                         <li class="update-log-item">
                             <span class="update-log-date">08/06/2026</span>
                             <span class="update-log-text">
-                                <strong>🚀 Initial Release:</strong> Phiên bản đầu tiên của ChickenP Game với Firebase Database
+                                <strong>🚀 Initial Release:</strong> Phiên bản đầu tiên của ChickenP Game
                             </span>
                         </li>
                     </ul>
@@ -1748,7 +2234,8 @@
                     <div id="questStartBox">
                         <p style="margin: 20px 0; color: #495057; font-size: 1.1em;">Hoàn thành 4 nhiệm vụ để nhận ChickenP!</p>
                         <div class="quest-info">
-                            <strong>📋 Phần thưởng:</strong> 1 ChickenP mỗi lần hoàn thành<br>
+                            <strong>📋 Phần thưởng:</strong> <span id="questRewardDisplay">1</span> ChickenP mỗi lần hoàn thành 
+                            <span id="questMultiplierNote" style="background: #667eea; color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.85em; font-weight: bold;">(đang nhân 1x)</span><br>
                             <strong>⏱️ Thời gian cooldown:</strong> 1 phút giữa các lần<br>
                             <strong>🔒 Bảo mật:</strong> Token 1 lần duy nhất
                         </div>
@@ -1756,6 +2243,32 @@
                         <div id="cooldownBox" class="cooldown-display" style="display: none;">
                             ⏰ Chờ <span class="time" id="cooldownTime">60</span> giây để làm nhiệm vụ tiếp theo
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab History -->
+            <div id="history" class="tab-content">
+                <div class="history-section">
+                    <div class="history-header">
+                        <h2>📜 Lịch sử giao dịch</h2>
+                        <div class="history-filter">
+                            <button class="filter-btn active" onclick="filterHistory('all', this)">Tất cả</button>
+                            <button class="filter-btn" onclick="filterHistory('earn', this)">💎 Kiếm</button>
+                            <button class="filter-btn" onclick="filterHistory('spend', this)">💸 Chi</button>
+                            <button class="filter-btn" onclick="filterHistory('gift', this)">🎁 Gift</button>
+                            <button class="filter-btn" onclick="filterHistory('admin', this)">🛡️ Admin</button>
+                            <button class="filter-btn" onclick="filterHistory('system', this)">⚙️ Hệ thống</button>
+                        </div>
+                    </div>
+                    <ul class="history-list" id="historyList">
+                        <li class="history-empty">
+                            <div class="empty-icon">📜</div>
+                            <p>Đang tải lịch sử...</p>
+                        </li>
+                    </ul>
+                    <div class="history-load-more" id="historyLoadMore" style="display: none;">
+                        <button onclick="loadMoreHistory()">📜 Xem thêm</button>
                     </div>
                 </div>
             </div>
@@ -1779,19 +2292,39 @@
                             </div>
                         </div>
 
-                        <!-- Multiplier Control -->
+                        <!-- Multiplier Control - NEW UI -->
                         <div class="admin-card">
                             <h4>🔢 Hệ số nhân ChickenP</h4>
-                            <div class="multiplier-display">
-                                Hệ số hiện tại: <strong id="currentMultiplier">1</strong>x
+                            
+                            <div class="multiplier-admin-display" onclick="openMultiplierAdminEdit()">
+                                <div class="current-label">Hệ số hiện tại</div>
+                                <div class="current-value" id="currentMultiplier">1x</div>
+                                <div class="edit-hint">👆 Nhấn vào để thay đổi</div>
                             </div>
-                            <input type="range" min="1" max="100" value="1" class="range-slider" id="multiplierRange" oninput="updateMultiplierDisplay(this.value)">
-                            <div style="text-align: center; margin: 10px 0; color: #6c757d;">
-                                <span>1x</span>
-                                <span style="margin: 0 20px;">50x</span>
-                                <span>100x</span>
+                            
+                            <div class="multiplier-admin-edit" id="multiplierAdminEdit">
+                                <label>Nhập hệ số nhân mới (1 - 100):</label>
+                                <input type="number" id="multiplierAdminInput" step="0.1" min="1" max="100" placeholder="Ví dụ: 1.5, 2, 10.5" oninput="validateMultiplierInput(this)">
+                                <div class="range-hint">
+                                    <span>Min: 1x</span>
+                                    <span>Max: 100x</span>
+                                </div>
+                                <div class="multiplier-presets">
+                                    <span class="multiplier-preset" onclick="setMultiplierPreset(1)">1x</span>
+                                    <span class="multiplier-preset" onclick="setMultiplierPreset(1.5)">1.5x</span>
+                                    <span class="multiplier-preset" onclick="setMultiplierPreset(2)">2x</span>
+                                    <span class="multiplier-preset" onclick="setMultiplierPreset(3)">3x</span>
+                                    <span class="multiplier-preset" onclick="setMultiplierPreset(5)">5x</span>
+                                    <span class="multiplier-preset" onclick="setMultiplierPreset(10)">10x</span>
+                                    <span class="multiplier-preset" onclick="setMultiplierPreset(20)">20x</span>
+                                    <span class="multiplier-preset" onclick="setMultiplierPreset(50)">50x</span>
+                                    <span class="multiplier-preset" onclick="setMultiplierPreset(100)">100x</span>
+                                </div>
+                                <div class="edit-actions" style="margin-top: 15px;">
+                                    <button class="btn-save" onclick="saveMultiplierAdmin()">✅ Áp dụng</button>
+                                    <button class="btn-cancel" onclick="closeMultiplierAdminEdit()">❌ Hủy</button>
+                                </div>
                             </div>
-                            <button class="admin-btn" onclick="setMultiplier()" style="width: 100%;">Áp dụng</button>
                         </div>
 
                         <div class="admin-card">
@@ -1851,7 +2384,7 @@
         </div>
     </div>
 
-    <!-- ============ MISSION PAGE (opens in new tab) ============ -->
+    <!-- ============ MISSION PAGE ============ -->
     <div id="missionPage" class="mission-page">
         <div class="mission-container">
             <div class="mission-header">
@@ -1867,7 +2400,7 @@
             </div>
 
             <div class="mission-body">
-                <!-- Task 1: Verify Link -->
+                <!-- Task 1 -->
                 <div class="task-card active" id="task1Card">
                     <div class="task-header">
                         <div class="task-title">📋 Nhiệm vụ 1: Xác thực Link</div>
@@ -1885,7 +2418,7 @@
                     </div>
                 </div>
 
-                <!-- Task 2: Quiz -->
+                <!-- Task 2 -->
                 <div class="task-card locked" id="task2Card">
                     <div class="task-header">
                         <div class="task-title">📚 Nhiệm vụ 2: Trả lời câu hỏi</div>
@@ -1915,7 +2448,7 @@
                     </div>
                 </div>
 
-                <!-- Task 3: Ad -->
+                <!-- Task 3 -->
                 <div class="task-card locked" id="task3Card">
                     <div class="task-header">
                         <div class="task-title">📺 Nhiệm vụ 3: Xem quảng cáo</div>
@@ -1933,7 +2466,7 @@
                     </div>
                 </div>
 
-                <!-- Task 4: Countdown -->
+                <!-- Task 4 -->
                 <div class="task-card locked" id="task4Card">
                     <div class="task-header">
                         <div class="task-title">⏱️ Nhiệm vụ 4: Chờ 30 giây</div>
@@ -1955,7 +2488,6 @@
                             <div class="countdown-display" id="countdownDisplay">30</div>
                             <div id="countdownPrompt"></div>
                             
-                            <!-- Star Status Bar - hiển thị tiến trình tìm sao -->
                             <div class="star-status-bar" id="starStatusBar" style="display: none;">
                                 <span class="status-text" id="starStatusText">⭐ Đang tìm ngôi sao...</span>
                                 <span class="status-count" id="starStatusCount">0/5</span>
@@ -1976,7 +2508,7 @@
                 <div id="missionComplete" style="display: none; text-align: center; padding: 40px;">
                     <div class="success-box">
                         <h3>🎉 HOÀN THÀNH TẤT CẢ NHIỆM VỤ!</h3>
-                        <p style="font-size: 1.3em; margin: 20px 0;">Bạn đã nhận được <strong style="color: #155724; font-size: 1.5em;">+1 ChickenP</strong></p>
+                        <p style="font-size: 1.3em; margin: 20px 0;">Bạn đã nhận được <strong style="color: #155724; font-size: 1.5em;" id="missionRewardText">+1 ChickenP</strong></p>
                         <p style="margin-top: 20px;">Đang quay lại trang chính...</p>
                     </div>
                 </div>
@@ -1988,7 +2520,7 @@
         </div>
     </div>
 
-    <!-- Adblock bait elements (hidden) -->
+    <!-- Adblock bait elements -->
     <div class="adsbox ad-banner pub_300x250 pub_300x250_text pub_728x90_text" style="width:1px;height:1px;position:absolute;left:-9999px;top:-9999px;" id="adBait"></div>
 
     <script>
@@ -2010,10 +2542,242 @@
         const ROOT_ADMIN_USERNAME = 'Cooking102';
         const ROOT_ADMIN_PASSWORD = '25121989';
 
+        // Avatar emoji preset list
+        const AVATAR_EMOJIS = [
+            '😀','😃','😄','😁','😆','😅','😂','🤣','😊','😇',
+            '🙂','🙃','😉','😌','😍','🥰','😘','😗','😙','😚',
+            '😋','😛','😝','😜','🤪','🤨','🧐','🤓','😎','🤩',
+            '🥳','😏','😒','😞','😔','😟','😕','🙁','☹️','😣',
+            '😖','😫','😩','🥺','😢','😭','😤','😠','😡','🤬',
+            '🐔','🐥','🐣','🐤','🐓','🦃','🦆','🦅','🦉','🦇',
+            '🐺','🐗','🐴','🦄','🐝','🐛','🦋','🐌','🐞','🐜',
+            '🐢','🐍','🦎','🐙','🦑','🦐','🦞','🦀','🐡','🐠',
+            '🐳','🐋','🦈','🐊','🐅','🐆','🦓','🦍','🐘','🦏',
+            '🐪','🐫','🦒','🦘','🐃','🐂','🐄','🐎','🐖','🐏',
+            '👑','🎩','🎓','🧢','⛑️','💎','🎮','🎯','🎲','🎸',
+            '🔥','⭐','🌟','✨','💫','🌈','☀️','🌙','❤️','💙',
+            '💚','💛','💜','🖤','🤍','🤎','💯','💢','💥','💫'
+        ];
+
         let currentUser = null;
         let confirmCallback = null;
         let userListener = null;
         let cooldownInterval = null;
+        let currentGlobalMultiplier = 1;
+        let multiplierListener = null;
+
+        // Avatar modal state
+        let selectedAvatarType = 'emoji'; // 'emoji' or 'url'
+        let selectedAvatarValue = null; // emoji string or URL
+        let pendingAvatarUrl = null;
+
+        // ============ UID SYSTEM (VP- prefix) ============
+        function generateUID() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let part1 = '';
+            let part2 = '';
+            for (let i = 0; i < 6; i++) {
+                part1 += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            for (let i = 0; i < 4; i++) {
+                part2 += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return 'VP-' + part1 + '-' + part2;
+        }
+
+        async function ensureUniqueUID() {
+            // Generate UID and check uniqueness
+            let uid = generateUID();
+            let attempts = 0;
+            const maxAttempts = 10;
+            
+            while (attempts < maxAttempts) {
+                const snapshot = await database.ref('uidIndex/' + uid).once('value');
+                if (!snapshot.exists()) {
+                    return uid;
+                }
+                uid = generateUID();
+                attempts++;
+            }
+            
+            // Fallback with timestamp
+            return 'VP-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substr(2, 4).toUpperCase();
+        }
+
+        async function registerUID(uid, username) {
+            // Register UID in index to ensure uniqueness
+            await database.ref('uidIndex/' + uid).set({
+                username: username,
+                createdAt: Date.now()
+            });
+            // Also store in user data
+            await database.ref('users/' + username + '/uid').set(uid);
+        }
+
+        // ============ HISTORY SYSTEM ============
+        let historyFilter = 'all';
+        let historyLoadedCount = 0;
+        const HISTORY_PER_PAGE = 20;
+
+        async function addHistoryEntry(type, title, description, amount = 0) {
+            if (!currentUser) return;
+            try {
+                const entry = {
+                    type: type,
+                    title: title,
+                    description: description,
+                    amount: amount,
+                    timestamp: Date.now(),
+                    username: currentUser.username
+                };
+                await database.ref('history/' + currentUser.username).push(entry);
+            } catch (error) {
+                console.error('Lỗi ghi history:', error);
+            }
+        }
+
+        async function addAdminHistoryEntry(targetUsername, type, title, description, amount = 0, adminUsername = '') {
+            try {
+                const entry = {
+                    type: type,
+                    title: title,
+                    description: description,
+                    amount: amount,
+                    timestamp: Date.now(),
+                    username: targetUsername,
+                    admin: adminUsername
+                };
+                await database.ref('history/' + targetUsername).push(entry);
+            } catch (error) {
+                console.error('Lỗi ghi admin history:', error);
+            }
+        }
+
+        function filterHistory(filter, btn) {
+            historyFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            historyLoadedCount = 0;
+            loadHistory();
+        }
+
+        async function loadHistory() {
+            if (!currentUser) return;
+            
+            try {
+                const snapshot = await database.ref('history/' + currentUser.username).orderByChild('timestamp').once('value');
+                const historyList = document.getElementById('historyList');
+                
+                if (!snapshot.exists()) {
+                    historyList.innerHTML = `
+                        <li class="history-empty">
+                            <div class="empty-icon">📜</div>
+                            <p>Chưa có giao dịch nào</p>
+                            <p style="font-size: 0.9em; margin-top: 5px;">Các hoạt động của bạn sẽ được ghi lại ở đây</p>
+                        </li>
+                    `;
+                    document.getElementById('historyLoadMore').style.display = 'none';
+                    return;
+                }
+                
+                let entries = [];
+                snapshot.forEach(child => {
+                    entries.push({ id: child.key, ...child.val() });
+                });
+                
+                entries.sort((a, b) => b.timestamp - a.timestamp);
+                
+                if (historyFilter !== 'all') {
+                    entries = entries.filter(e => e.type === historyFilter);
+                }
+                
+                if (entries.length === 0) {
+                    historyList.innerHTML = `
+                        <li class="history-empty">
+                            <div class="empty-icon">🔍</div>
+                            <p>Không có giao dịch nào trong bộ lọc này</p>
+                        </li>
+                    `;
+                    document.getElementById('historyLoadMore').style.display = 'none';
+                    return;
+                }
+                
+                const displayCount = Math.min(entries.length, HISTORY_PER_PAGE + historyLoadedCount);
+                const displayEntries = entries.slice(0, displayCount);
+                
+                historyList.innerHTML = '';
+                displayEntries.forEach(entry => {
+                    const li = document.createElement('li');
+                    li.className = 'history-item';
+                    
+                    const iconMap = {
+                        earn: '💎',
+                        spend: '💸',
+                        gift: '🎁',
+                        admin: '🛡️',
+                        system: '⚙️'
+                    };
+                    
+                    const amountClass = entry.amount > 0 ? 'positive' : (entry.amount < 0 ? 'negative' : 'neutral');
+                    const amountText = entry.amount > 0 ? `+${formatNumber(entry.amount)}` : (entry.amount < 0 ? formatNumber(entry.amount) : '');
+                    
+                    const timeStr = formatTimeAgo(entry.timestamp);
+                    
+                    li.innerHTML = `
+                        <div class="history-icon ${entry.type || 'system'}">${iconMap[entry.type] || '⚙️'}</div>
+                        <div class="history-details">
+                            <div class="history-title">${escapeHtml(entry.title)}</div>
+                            <div class="history-desc">${escapeHtml(entry.description)}</div>
+                        </div>
+                        ${amountText ? `<div class="history-amount ${amountClass}">${amountText}</div>` : ''}
+                        <div class="history-time">${timeStr}</div>
+                    `;
+                    historyList.appendChild(li);
+                });
+                
+                if (displayCount < entries.length) {
+                    document.getElementById('historyLoadMore').style.display = 'block';
+                } else {
+                    document.getElementById('historyLoadMore').style.display = 'none';
+                }
+                
+            } catch (error) {
+                console.error('Lỗi tải history:', error);
+            }
+        }
+
+        function loadMoreHistory() {
+            historyLoadedCount += HISTORY_PER_PAGE;
+            loadHistory();
+        }
+
+        function formatNumber(num) {
+            if (Number.isInteger(num)) return num.toLocaleString();
+            return num.toLocaleString(undefined, { maximumFractionDigits: 10 });
+        }
+
+        function formatTimeAgo(timestamp) {
+            const now = Date.now();
+            const diff = now - timestamp;
+            const seconds = Math.floor(diff / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const hours = Math.floor(minutes / 60);
+            const days = Math.floor(hours / 24);
+            
+            if (seconds < 60) return 'Vừa xong';
+            if (minutes < 60) return `${minutes} phút trước`;
+            if (hours < 24) return `${hours} giờ trước`;
+            if (days < 30) return `${days} ngày trước`;
+            
+            return new Date(timestamp).toLocaleDateString('vi-VN');
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
 
         // ============ NOTIFICATION SYSTEM ============
         function showNotification(title, message, type = 'info', duration = 5000) {
@@ -2021,12 +2785,7 @@
             const notification = document.createElement('div');
             notification.className = `notification ${type}`;
             
-            const icons = {
-                success: '✅',
-                error: '❌',
-                warning: '⚠️',
-                info: 'ℹ️'
-            };
+            const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
 
             notification.innerHTML = `
                 <div class="notification-icon">${icons[type] || 'ℹ️'}</div>
@@ -2044,9 +2803,7 @@
                 if (notification.parentNode) {
                     notification.classList.add('removing');
                     setTimeout(() => {
-                        if (notification.parentNode) {
-                            notification.remove();
-                        }
+                        if (notification.parentNode) notification.remove();
                     }, 300);
                 }
             }, duration);
@@ -2056,15 +2813,11 @@
             const notification = btn.closest('.notification');
             notification.classList.add('removing');
             setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.remove();
-                }
+                if (notification.parentNode) notification.remove();
             }, 300);
         }
 
         // ============ ADBLOCK DETECTION ============
-        let adblockDetected = false;
-
         function detectAdblock() {
             return new Promise((resolve) => {
                 const bait = document.getElementById('adBait');
@@ -2082,11 +2835,8 @@
                 testImg.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
                 
                 setTimeout(() => {
-                    if (window.google_jobrunner || window.uabInject) {
-                        resolve(true);
-                    } else {
-                        resolve(false);
-                    }
+                    if (window.google_jobrunner || window.uabInject) resolve(true);
+                    else resolve(false);
                 }, 100);
             });
         }
@@ -2094,7 +2844,6 @@
         async function checkAdblock() {
             const detected = await detectAdblock();
             if (detected) {
-                adblockDetected = true;
                 document.getElementById('adblockWarning').classList.add('active');
                 return true;
             }
@@ -2120,6 +2869,7 @@
         window.onload = async function() {
             await checkAdblock();
             await initializeAdminAccount();
+            listenToGlobalMultiplier();
             
             if (linkToken) {
                 const savedUser = localStorage.getItem('currentUser');
@@ -2145,6 +2895,305 @@
             }
         };
 
+        // ============ GLOBAL MULTIPLIER LISTENER ============
+        function listenToGlobalMultiplier() {
+            if (multiplierListener) {
+                database.ref('config/globalMultiplier').off('value', multiplierListener);
+            }
+            
+            multiplierListener = database.ref('config/globalMultiplier').on('value', (snapshot) => {
+                const multi = snapshot.exists() ? (parseFloat(snapshot.val()) || 1) : 1;
+                currentGlobalMultiplier = multi;
+                updateMultiplierUI();
+            });
+        }
+
+        function updateMultiplierUI() {
+            // Info tab multiplier box
+            const infoValue = document.getElementById('infoMultiplierValue');
+            const infoReward = document.getElementById('infoMultiplierReward');
+            if (infoValue) infoValue.innerText = formatMultiplier(currentGlobalMultiplier);
+            if (infoReward) infoReward.innerText = formatNumber(1 * currentGlobalMultiplier);
+            
+            // Quest reward display
+            const questReward = document.getElementById('questRewardDisplay');
+            const questNote = document.getElementById('questMultiplierNote');
+            if (questReward) questReward.innerText = formatNumber(1 * currentGlobalMultiplier);
+            if (questNote) questNote.innerText = `(đang nhân ${formatMultiplier(currentGlobalMultiplier)})`;
+            
+            // Admin panel
+            const adminMulti = document.getElementById('currentMultiplier');
+            if (adminMulti) adminMulti.innerText = formatMultiplier(currentGlobalMultiplier);
+        }
+
+        function formatMultiplier(value) {
+            // Format: remove trailing zeros
+            const num = parseFloat(value);
+            if (Number.isInteger(num)) return num + 'x';
+            // Round to 2 decimal places
+            const rounded = Math.round(num * 100) / 100;
+            return rounded + 'x';
+        }
+
+        // ============ MULTIPLIER INLINE EDIT (Info Tab) ============
+        function openMultiplierEditInline() {
+            if (!currentUser || !currentUser.isAdmin) {
+                showNotification('❌ Không có quyền!', 'Chỉ Admin mới có thể thay đổi hệ số nhân!', 'error', 3000);
+                return;
+            }
+            if (!currentUser.isRootAdmin) {
+                showNotification('❌ Không có quyền!', 'Chỉ Root Admin mới có thể thay đổi hệ số nhân!', 'error', 3000);
+                return;
+            }
+            
+            const editBox = document.getElementById('multiplierEditInline');
+            const input = document.getElementById('multiplierInlineInput');
+            input.value = currentGlobalMultiplier;
+            editBox.classList.add('active');
+            input.focus();
+            input.select();
+        }
+
+        function closeMultiplierEditInline() {
+            document.getElementById('multiplierEditInline').classList.remove('active');
+        }
+
+        async function saveMultiplierInline() {
+            const input = document.getElementById('multiplierInlineInput');
+            const value = parseFloat(input.value);
+            
+            if (isNaN(value) || value < 1 || value > 100) {
+                showNotification('❌ Giá trị không hợp lệ!', 'Hệ số nhân phải từ 1 đến 100', 'error', 3000);
+                return;
+            }
+            
+            showConfirm('Xác nhận thay đổi hệ số nhân', 
+                `Bạn có chắc muốn đặt hệ số nhân thành ${formatMultiplier(value)}?`, 
+                async () => {
+                    try {
+                        await database.ref('config/globalMultiplier').set(value);
+                        showNotification('✅ Thành công!', `Đã cập nhật hệ số nhân thành ${formatMultiplier(value)}`, 'success', 3000);
+                        closeMultiplierEditInline();
+                    } catch (error) {
+                        showNotification('❌ Lỗi!', error.message, 'error', 3000);
+                    }
+                });
+        }
+
+        // ============ MULTIPLIER ADMIN EDIT (Admin Tab) ============
+        function openMultiplierAdminEdit() {
+            const editBox = document.getElementById('multiplierAdminEdit');
+            const input = document.getElementById('multiplierAdminInput');
+            input.value = currentGlobalMultiplier;
+            editBox.classList.add('active');
+            input.focus();
+            input.select();
+        }
+
+        function closeMultiplierAdminEdit() {
+            document.getElementById('multiplierAdminEdit').classList.remove('active');
+        }
+
+        function setMultiplierPreset(value) {
+            document.getElementById('multiplierAdminInput').value = value;
+            validateMultiplierInput(document.getElementById('multiplierAdminInput'));
+        }
+
+        function validateMultiplierInput(input) {
+            const value = parseFloat(input.value);
+            if (isNaN(value)) {
+                input.style.borderColor = '#e9ecef';
+                return;
+            }
+            if (value < 1 || value > 100) {
+                input.style.borderColor = '#dc3545';
+            } else {
+                input.style.borderColor = '#28a745';
+            }
+        }
+
+        async function saveMultiplierAdmin() {
+            if (!currentUser.isRootAdmin) {
+                showNotification('❌ Không có quyền!', 'Chỉ Root Admin mới có thể thay đổi hệ số nhân!', 'error', 3000);
+                return;
+            }
+
+            const input = document.getElementById('multiplierAdminInput');
+            const value = parseFloat(input.value);
+            
+            if (isNaN(value) || value < 1 || value > 100) {
+                showNotification('❌ Giá trị không hợp lệ!', 'Hệ số nhân phải từ 1 đến 100 (hỗ trợ số thập phân)', 'error', 3000);
+                return;
+            }
+            
+            showConfirm('Xác nhận thay đổi hệ số nhân', 
+                `Bạn có chắc muốn đặt hệ số nhân thành ${formatMultiplier(value)}?`, 
+                async () => {
+                    try {
+                        await database.ref('config/globalMultiplier').set(value);
+                        showNotification('✅ Thành công!', `Đã cập nhật hệ số nhân thành ${formatMultiplier(value)}`, 'success', 3000);
+                        closeMultiplierAdminEdit();
+                    } catch (error) {
+                        showNotification('❌ Lỗi!', error.message, 'error', 3000);
+                    }
+                });
+        }
+
+        // ============ AVATAR SYSTEM ============
+        function initAvatarEmojiGrid() {
+            const grid = document.getElementById('emojiGrid');
+            grid.innerHTML = '';
+            AVATAR_EMOJIS.forEach(emoji => {
+                const item = document.createElement('div');
+                item.className = 'emoji-item';
+                item.innerText = emoji;
+                item.onclick = () => selectEmojiAvatar(emoji, item);
+                grid.appendChild(item);
+            });
+        }
+
+        function selectEmojiAvatar(emoji, element) {
+            // Deselect all
+            document.querySelectorAll('.emoji-item').forEach(e => e.classList.remove('selected'));
+            element.classList.add('selected');
+            
+            selectedAvatarType = 'emoji';
+            selectedAvatarValue = emoji;
+            
+            // Update preview
+            const preview = document.getElementById('avatarPreview');
+            preview.innerHTML = emoji;
+            preview.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+        }
+
+        function switchAvatarTab(tab, btn) {
+            document.querySelectorAll('.avatar-tab').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.avatar-panel').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            
+            if (tab === 'emoji') {
+                document.getElementById('emojiPanel').classList.add('active');
+                selectedAvatarType = 'emoji';
+            } else {
+                document.getElementById('urlPanel').classList.add('active');
+                selectedAvatarType = 'url';
+            }
+        }
+
+        function previewAvatarUrl() {
+            const url = document.getElementById('avatarUrlInput').value.trim();
+            const preview = document.getElementById('avatarUrlPreview');
+            
+            if (!url) {
+                preview.innerHTML = '<span style="color: #adb5bd; font-size: 0.8em;">Xem trước</span>';
+                preview.classList.remove('error');
+                pendingAvatarUrl = null;
+                return;
+            }
+            
+            preview.innerHTML = `<img src="${escapeHtml(url)}" onerror="this.parentElement.classList.add('error'); this.parentElement.innerHTML='<span style=\\'color:#dc3545;font-size:0.8em;\\'>❌ URL không hợp lệ</span>';" onload="this.parentElement.classList.remove('error');">`;
+            pendingAvatarUrl = url;
+            selectedAvatarValue = url;
+        }
+
+        function openAvatarModal() {
+            initAvatarEmojiGrid();
+            
+            // Reset state
+            selectedAvatarType = 'emoji';
+            selectedAvatarValue = null;
+            pendingAvatarUrl = null;
+            document.getElementById('avatarUrlInput').value = '';
+            document.getElementById('avatarUrlPreview').innerHTML = '<span style="color: #adb5bd; font-size: 0.8em;">Xem trước</span>';
+            document.getElementById('avatarUrlPreview').classList.remove('error');
+            
+            // Set current avatar as preview
+            const preview = document.getElementById('avatarPreview');
+            if (currentUser.avatarType === 'url' && currentUser.avatar) {
+                preview.innerHTML = `<img src="${escapeHtml(currentUser.avatar)}">`;
+                preview.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            } else if (currentUser.avatarType === 'emoji' && currentUser.avatar) {
+                preview.innerHTML = currentUser.avatar;
+                preview.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                // Highlight current emoji
+                setTimeout(() => {
+                    document.querySelectorAll('.emoji-item').forEach(item => {
+                        if (item.innerText === currentUser.avatar) {
+                            item.classList.add('selected');
+                            selectedAvatarValue = currentUser.avatar;
+                        }
+                    });
+                }, 50);
+            } else {
+                preview.innerHTML = currentUser.username.charAt(0).toUpperCase();
+            }
+            
+            // Switch to emoji tab
+            document.querySelectorAll('.avatar-tab').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.avatar-panel').forEach(p => p.classList.remove('active'));
+            document.querySelector('.avatar-tab').classList.add('active');
+            document.getElementById('emojiPanel').classList.add('active');
+            
+            document.getElementById('avatarModal').classList.add('active');
+        }
+
+        function closeAvatarModal() {
+            document.getElementById('avatarModal').classList.remove('active');
+        }
+
+        async function saveAvatar() {
+            if (selectedAvatarType === 'url') {
+                const url = document.getElementById('avatarUrlInput').value.trim();
+                if (!url) {
+                    showNotification('❌ Lỗi!', 'Vui lòng nhập URL ảnh!', 'error', 3000);
+                    return;
+                }
+                selectedAvatarValue = url;
+            } else if (selectedAvatarType === 'emoji') {
+                if (!selectedAvatarValue) {
+                    showNotification('❌ Lỗi!', 'Vui lòng chọn một emoji!', 'error', 3000);
+                    return;
+                }
+            }
+            
+            try {
+                await database.ref('users/' + currentUser.username).update({
+                    avatarType: selectedAvatarType,
+                    avatar: selectedAvatarValue
+                });
+                
+                currentUser.avatarType = selectedAvatarType;
+                currentUser.avatar = selectedAvatarValue;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                updateProfile();
+                closeAvatarModal();
+                
+                showNotification('✅ Thành công!', 'Đã cập nhật avatar mới!', 'success', 3000);
+                
+                // Log to history
+                await addHistoryEntry('system', 
+                    '🖼️ Thay đổi Avatar', 
+                    `Đã thay đổi avatar mới (${selectedAvatarType === 'emoji' ? 'emoji' : 'URL'})`, 
+                    0
+                );
+            } catch (error) {
+                showNotification('❌ Lỗi!', 'Không thể lưu avatar: ' + error.message, 'error', 3000);
+            }
+        }
+
+        function renderAvatar(avatarEl, user) {
+            const contentEl = avatarEl.querySelector('#profileAvatarContent') || avatarEl;
+            
+            if (user.avatarType === 'url' && user.avatar) {
+                contentEl.innerHTML = `<img src="${escapeHtml(user.avatar)}" onerror="this.parentElement.innerHTML='${user.username.charAt(0).toUpperCase()}';">`;
+            } else if (user.avatarType === 'emoji' && user.avatar) {
+                contentEl.innerText = user.avatar;
+            } else {
+                contentEl.innerText = user.username.charAt(0).toUpperCase();
+            }
+        }
+
         // ============ MISSION PAGE LOGIC ============
         let missionData = null;
         let currentTask = 1;
@@ -2155,17 +3204,15 @@
         let countdownStopped = false;
         let countdownStarted = false;
 
-        // New state for quest 4 upgrades
-        let clickPowerShown = false;   // Đã hiện Click Power chưa
-        let starsShown = false;        // Đã hiện 5 ngôi sao chưa
-        let starsFound = 0;            // Số sao đã tìm được
+        let clickPowerShown = false;
+        let starsShown = false;
+        let starsFound = 0;
         const TOTAL_STARS = 5;
 
         function openMissionPage() {
             document.getElementById('mainPage').style.display = 'none';
             document.getElementById('missionPage').classList.add('active');
             document.getElementById('missionUser').innerText = 'User: ' + currentUser.username;
-            
             loadMissionData();
         }
 
@@ -2231,11 +3278,9 @@
             }
             currentTask = taskNum;
             updateProgress();
-            
             document.getElementById('task' + taskNum + 'Card').scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
-        // ============ TASK 1: VERIFY LINK ============
         async function verifyTask1() {
             const input = document.getElementById('task1Input').value.trim();
             const expected = buildQuestURL(missionData.token, missionData.ip, missionData.accountId);
@@ -2253,7 +3298,6 @@
             }
         }
 
-        // ============ TASK 2: QUIZ ============
         function generateQuizQuestions() {
             const questions = [];
             const operators = ['+', '-', 'x'];
@@ -2341,9 +3385,7 @@
                 btn.classList.add('wrong');
                 quizState.wrong++;
                 allOptions.forEach(o => {
-                    if (parseInt(o.innerText) === q.answer) {
-                        o.classList.add('correct');
-                    }
+                    if (parseInt(o.innerText) === q.answer) o.classList.add('correct');
                 });
             }
             
@@ -2396,7 +3438,6 @@
             startQuiz();
         }
 
-        // ============ TASK 3: AD ============
         function completeTask3() {
             if (confirm('Bạn có chắc đã xem quảng cáo?')) {
                 showNotification('✅ Hoàn thành!', 'Nhiệm vụ 3 đã hoàn thành! Chuyển sang nhiệm vụ 4...', 'success', 3000);
@@ -2404,7 +3445,6 @@
             }
         }
 
-        // ============ TASK 4: COUNTDOWN ============
         function startCountdown() {
             document.getElementById('countdownStartBtn').style.display = 'none';
             countdownSeconds = 30;
@@ -2428,15 +3468,11 @@
                 countdownSeconds--;
                 updateCountdownDisplay();
                 
-                // ===== CLICK POWER (25s-20s) =====
-                // Hiện icon 🥊 ở khoảng 25-20s, chỉ hiện 1 lần
                 if (!clickPowerShown && countdownSeconds >= 20 && countdownSeconds <= 25) {
                     showClickPower();
                     clickPowerShown = true;
                 }
                 
-                // ===== FIND 5 STARS (15s-10s) =====
-                // Hiện 5 ngôi sao ở khoảng 15-10s, chỉ hiện 1 lần
                 if (!starsShown && countdownSeconds >= 10 && countdownSeconds <= 15) {
                     showStars();
                     starsShown = true;
@@ -2450,13 +3486,11 @@
             document.addEventListener('visibilitychange', handleVisibilityChange);
         }
 
-        // ===== CLICK POWER - Icon 🥊 để tiếp tục =====
         function showClickPower() {
             countdownPaused = true;
             const area = document.getElementById('countdownArea');
             area.style.display = 'block';
             
-            // Hiện thông báo
             showNotification('💪 CLICK POWER!', 'Nhấn vào nắm đấm 🥊 để tiếp tục đếm ngược!', 'warning', 10000);
             
             const promptDiv = document.getElementById('countdownPrompt');
@@ -2467,13 +3501,10 @@
             promptDiv.innerText = '💪 CLICK POWER! Nhấn vào 🥊 để tiếp tục!';
             promptDiv.style.display = 'block';
             
-            // Tạo icon 🥊 ở vị trí ngẫu nhiên
             const fist = document.createElement('div');
             fist.className = 'fist-target';
             fist.innerText = '🥊';
-            fist.id = 'clickPowerFist';
             
-            // Đợi area render xong mới lấy kích thước
             setTimeout(() => {
                 const maxX = Math.max(50, area.clientWidth - 80);
                 const maxY = Math.max(50, area.clientHeight - 80);
@@ -2482,7 +3513,6 @@
             }, 50);
             
             fist.onclick = () => {
-                // Hiệu ứng biến mất
                 fist.style.transition = 'all 0.3s';
                 fist.style.transform = 'scale(2) rotate(360deg)';
                 fist.style.opacity = '0';
@@ -2491,7 +3521,6 @@
                     fist.remove();
                     countdownPaused = false;
                     promptDiv.style.display = 'none';
-                    // Reset style prompt
                     promptDiv.style.background = '';
                     promptDiv.style.color = '';
                     promptDiv.style.borderColor = '';
@@ -2502,19 +3531,16 @@
             area.appendChild(fist);
         }
 
-        // ===== FIND 5 STARS - Tìm 5 ngôi sao =====
         function showStars() {
             const area = document.getElementById('countdownArea');
             area.style.display = 'block';
             
             starsFound = 0;
             
-            // Hiện thông báo
             showNotification('⭐ NHIỆM VỤ: TÌM 5 NGÔI SAO!', 
                 `Hãy tìm và nhấn vào 5 ngôi sao ⭐ ẩn trong khu vực bên dưới!`, 
                 'info', 8000);
             
-            // Hiện status bar
             const statusBar = document.getElementById('starStatusBar');
             statusBar.style.display = 'flex';
             statusBar.classList.remove('complete');
@@ -2526,12 +3552,10 @@
             promptDiv.innerText = `⭐ Tìm ${TOTAL_STARS} ngôi sao! Hãy nhấn vào từng ngôi sao!`;
             promptDiv.style.display = 'block';
             
-            // Đợi area render xong
             setTimeout(() => {
                 const maxX = Math.max(50, area.clientWidth - 60);
                 const maxY = Math.max(50, area.clientHeight - 60);
                 
-                // Tạo 5 ngôi sao ở vị trí ngẫu nhiên
                 for (let i = 0; i < TOTAL_STARS; i++) {
                     const star = document.createElement('div');
                     star.className = 'star-target';
@@ -2546,7 +3570,6 @@
                         if (star.dataset.found === 'true') return;
                         star.dataset.found = 'true';
                         
-                        // Hiệu ứng khi tìm được
                         star.style.transition = 'all 0.4s';
                         star.style.transform = 'scale(1.5)';
                         star.style.opacity = '0.3';
@@ -2556,14 +3579,12 @@
                         
                         starsFound++;
                         
-                        // Cập nhật status bar
                         document.getElementById('starStatusCount').innerText = `${starsFound}/${TOTAL_STARS}`;
                         
                         if (starsFound < TOTAL_STARS) {
                             document.getElementById('starStatusText').innerText = `⭐ Đang tìm... Còn ${TOTAL_STARS - starsFound} ngôi sao!`;
                             showNotification('⭐ Tìm thấy!', `Đã tìm được ${starsFound}/${TOTAL_STARS} ngôi sao!`, 'success', 1500);
                         } else {
-                            // Tìm đủ 5 sao
                             document.getElementById('starStatusText').innerText = `🎉 XUẤT SẮC! Đã tìm đủ ${TOTAL_STARS} ngôi sao!`;
                             statusBar.classList.add('complete');
                             
@@ -2577,7 +3598,6 @@
                             
                             setTimeout(() => {
                                 promptDiv.style.display = 'none';
-                                // Reset style
                                 promptDiv.style.background = '';
                                 promptDiv.style.borderColor = '';
                                 promptDiv.style.color = '';
@@ -2593,20 +3613,13 @@
         function restartCountdown() {
             document.getElementById('pausedNotice').classList.remove('show');
             document.getElementById('restartBtn').classList.remove('show');
-            
             countdownStopped = false;
             countdownPaused = false;
-            
-            console.log('Restart countdown from ' + countdownSeconds + 's');
         }
 
         function updateCountdownDisplay() {
             document.getElementById('countdownDisplay').innerText = countdownSeconds;
             document.getElementById('pausedTime').innerText = countdownSeconds;
-        }
-
-        function showStar() {
-            // Giữ lại để tương thích (không dùng nữa)
         }
 
         function handleVisibilityChange() {
@@ -2622,11 +3635,7 @@
                 
                 document.getElementById('pausedTime').innerText = countdownSeconds;
                 document.getElementById('pausedNotice').classList.add('show');
-                
                 document.getElementById('restartBtn').classList.add('show');
-                
-            } else {
-                console.log('Tab visible again. Waiting for restart...');
             }
         }
 
@@ -2634,18 +3643,34 @@
             clearInterval(countdownTimer);
             document.removeEventListener('visibilitychange', handleVisibilityChange);
             
+            let multiplier = 1;
+            try {
+                const multiSnap = await database.ref('config/globalMultiplier').once('value');
+                multiplier = multiSnap.exists() ? (parseFloat(multiSnap.val()) || 1) : 1;
+            } catch (e) {
+                multiplier = 1;
+            }
+            
+            const rewardAmount = 1 * multiplier;
+            
             await database.ref('quests/' + currentUser.username + '/used').set(true);
             await database.ref('quests/' + currentUser.username + '/completedAt').set(Date.now());
             
             const pointsRef = database.ref('users/' + currentUser.username + '/points');
-            await pointsRef.transaction((current) => (current || 0) + 1);
+            await pointsRef.transaction((current) => (current || 0) + rewardAmount);
             
             await database.ref('users/' + currentUser.username).update({
-                totalEarned: firebase.database.ServerValue.increment(1),
+                totalEarned: firebase.database.ServerValue.increment(rewardAmount),
                 earnCount: firebase.database.ServerValue.increment(1)
             });
             
             await database.ref('cooldowns/' + currentUser.username).set(Date.now() + 60000);
+            
+            await addHistoryEntry('earn', 
+                '🎯 Hoàn thành Quest', 
+                `Hoàn thành 4 nhiệm vụ quest (Hệ số nhân ${formatMultiplier(multiplier)})`, 
+                rewardAmount
+            );
             
             document.querySelectorAll('.task-card').forEach(c => {
                 c.className = 'task-card completed';
@@ -2657,20 +3682,18 @@
             fill.style.width = '100%';
             fill.innerText = '100%';
             
+            document.getElementById('missionRewardText').innerText = `+${formatNumber(rewardAmount)} ChickenP`;
             document.getElementById('missionComplete').style.display = 'block';
             
             const reward = document.createElement('div');
             reward.className = 'reward-popup';
-            reward.innerHTML = '🎉 +1 ChickenP!';
+            reward.innerHTML = `🎉 +${formatNumber(rewardAmount)} ChickenP!`;
             document.body.appendChild(reward);
             
             setTimeout(() => {
                 reward.remove();
-                if (window.opener) {
-                    window.close();
-                } else {
-                    window.location.href = window.location.pathname;
-                }
+                if (window.opener) window.close();
+                else window.location.href = window.location.pathname;
             }, 3000);
         }
 
@@ -2681,6 +3704,7 @@
                 const snapshot = await adminRef.once('value');
                 
                 if (!snapshot.exists()) {
+                    const uid = await ensureUniqueUID();
                     await adminRef.set({
                         password: ROOT_ADMIN_PASSWORD,
                         points: 999999,
@@ -2691,10 +3715,21 @@
                         multiplier: 1,
                         totalEarned: 0,
                         earnCount: 0,
+                        uid: uid,
+                        avatarType: 'emoji',
+                        avatar: '👑',
                         createdAt: Date.now()
                     });
+                    await registerUID(uid, ROOT_ADMIN_USERNAME);
                 } else {
-                    await adminRef.update({ isAdmin: true, isRootAdmin: true });
+                    const updates = { isAdmin: true, isRootAdmin: true };
+                    const val = snapshot.val();
+                    if (!val.uid) {
+                        const uid = await ensureUniqueUID();
+                        updates.uid = uid;
+                        await registerUID(uid, ROOT_ADMIN_USERNAME);
+                    }
+                    await adminRef.update(updates);
                 }
 
                 const configRef = database.ref('config');
@@ -2731,6 +3766,28 @@
             document.getElementById('alertBox').className = 'alert';
         }
 
+        // Check username exists (case-insensitive)
+        async function checkUsernameExists(username) {
+            // Check exact match
+            const snapshot = await database.ref('users/' + username).once('value');
+            if (snapshot.exists()) return true;
+            
+            // Check case-insensitive by scanning all users
+            const allUsersSnap = await database.ref('users').once('value');
+            if (allUsersSnap.exists()) {
+                const lowerUsername = username.toLowerCase();
+                let found = false;
+                allUsersSnap.forEach(child => {
+                    if (child.key.toLowerCase() === lowerUsername) {
+                        found = true;
+                    }
+                });
+                if (found) return true;
+            }
+            
+            return false;
+        }
+
         async function register() {
             const username = document.getElementById('regUsername').value.trim();
             const password = document.getElementById('regPassword').value.trim();
@@ -2740,17 +3797,26 @@
                 return;
             }
 
-            if (username === ROOT_ADMIN_USERNAME) {
+            if (username.length < 3) {
+                showAlert('Tên đăng nhập phải có ít nhất 3 ký tự!', 'error');
+                return;
+            }
+
+            if (username.toLowerCase() === ROOT_ADMIN_USERNAME.toLowerCase()) {
                 showAlert('Tên đăng nhập này không được phép sử dụng!', 'error');
                 return;
             }
 
             try {
-                const snapshot = await database.ref('users/' + username).once('value');
-                if (snapshot.exists()) {
-                    showAlert('Tên đăng nhập đã tồn tại!', 'error');
+                // Check username uniqueness (case-insensitive)
+                const exists = await checkUsernameExists(username);
+                if (exists) {
+                    showAlert('Tên đăng nhập đã tồn tại! (không phân biệt hoa/thường)', 'error');
                     return;
                 }
+
+                // Generate unique UID
+                const uid = await ensureUniqueUID();
 
                 await database.ref('users/' + username).set({
                     password: password,
@@ -2761,8 +3827,14 @@
                     banned: false,
                     totalEarned: 0,
                     earnCount: 0,
+                    uid: uid,
+                    avatarType: 'emoji',
+                    avatar: '😀',
                     createdAt: Date.now()
                 });
+
+                // Register UID in index
+                await registerUID(uid, username);
 
                 showAlert('Đăng ký thành công! Vui lòng đăng nhập.', 'success');
                 setTimeout(() => {
@@ -2784,7 +3856,28 @@
             }
 
             try {
-                const snapshot = await database.ref('users/' + username).once('value');
+                // Try exact match first
+                let snapshot = await database.ref('users/' + username).once('value');
+                let actualUsername = username;
+                
+                // If not found, try case-insensitive search
+                if (!snapshot.exists()) {
+                    const allUsersSnap = await database.ref('users').once('value');
+                    if (allUsersSnap.exists()) {
+                        const lowerUsername = username.toLowerCase();
+                        allUsersSnap.forEach(child => {
+                            if (child.key.toLowerCase() === lowerUsername) {
+                                actualUsername = child.key;
+                                snapshot = database.ref('users/' + actualUsername).once('value');
+                            }
+                        });
+                        // Need to await the new snapshot
+                        if (actualUsername !== username) {
+                            snapshot = await database.ref('users/' + actualUsername).once('value');
+                        }
+                    }
+                }
+                
                 if (!snapshot.exists()) {
                     showAlert('Sai tên đăng nhập hoặc mật khẩu!', 'error');
                     return;
@@ -2801,9 +3894,25 @@
                     return;
                 }
 
-                currentUser = { username: username, ...userData };
+                // Ensure UID exists
+                if (!userData.uid) {
+                    const newUid = await ensureUniqueUID();
+                    await database.ref('users/' + actualUsername + '/uid').set(newUid);
+                    await registerUID(newUid, actualUsername);
+                    userData.uid = newUid;
+                }
+
+                // Register UID in index if not there
+                const uidIndexSnap = await database.ref('uidIndex/' + userData.uid).once('value');
+                if (!uidIndexSnap.exists()) {
+                    await registerUID(userData.uid, actualUsername);
+                }
+
+                currentUser = { username: actualUsername, ...userData };
                 localStorage.setItem('currentUser', JSON.stringify(currentUser));
                 showAlert('Đăng nhập thành công!', 'success');
+                
+                await addHistoryEntry('system', '🔐 Đăng nhập', `Đăng nhập vào tài khoản`, 0);
                 
                 setTimeout(() => {
                     showMainInterface();
@@ -2820,6 +3929,14 @@
             document.getElementById('mainContainer').style.display = 'block';
             document.getElementById('currentUser').innerText = currentUser.username;
             
+            const uidBadge = document.getElementById('userUidBadge');
+            if (currentUser.uid) {
+                uidBadge.innerText = '#' + currentUser.uid;
+                uidBadge.style.display = 'inline-block';
+            } else {
+                uidBadge.style.display = 'none';
+            }
+            
             document.getElementById('adminBadge').style.display = currentUser.isAdmin ? 'inline-block' : 'none';
             document.getElementById('rootAdminBadge').style.display = currentUser.isRootAdmin ? 'inline-block' : 'none';
             document.getElementById('warnedBadge').style.display = currentUser.warned ? 'inline-block' : 'none';
@@ -2830,11 +3947,11 @@
                 if (currentUser.isRootAdmin) {
                     document.getElementById('unadminCard').style.display = 'block';
                 }
-                loadMultiplier();
             }
             
             updateUserInfo();
             updateProfile();
+            updateMultiplierUI();
         }
 
         function updateUserInfo() {
@@ -2845,10 +3962,13 @@
         function updateProfile() {
             if (!currentUser) return;
             
-            const avatar = document.getElementById('profileAvatar');
-            avatar.innerText = currentUser.username.charAt(0).toUpperCase();
+            const avatarEl = document.getElementById('profileAvatar');
+            renderAvatar(avatarEl, currentUser);
             
             document.getElementById('profileName').innerText = currentUser.username;
+            
+            const uidDisplay = currentUser.uid || 'Chưa có';
+            document.getElementById('profileUid').innerText = `🆔 UID: ${uidDisplay}`;
             
             const joinDate = currentUser.createdAt ? new Date(currentUser.createdAt).toLocaleDateString('vi-VN') : 'N/A';
             document.getElementById('profileJoinDate').innerText = `📅 Tham gia: ${joinDate}`;
@@ -2876,6 +3996,12 @@
                     localStorage.setItem('currentUser', JSON.stringify(currentUser));
                     updateUserInfo();
                     updateProfile();
+                    
+                    const uidBadge = document.getElementById('userUidBadge');
+                    if (currentUser.uid) {
+                        uidBadge.innerText = '#' + currentUser.uid;
+                        uidBadge.style.display = 'inline-block';
+                    }
                     
                     document.getElementById('adminBadge').style.display = currentUser.isAdmin ? 'inline-block' : 'none';
                     document.getElementById('rootAdminBadge').style.display = currentUser.isRootAdmin ? 'inline-block' : 'none';
@@ -2930,7 +4056,6 @@
             document.getElementById('cooldownBox').style.display = 'none';
         }
 
-        // ============ START QUEST ============
         async function startQuest() {
             try {
                 let deviceIP = 'unknown';
@@ -2954,7 +4079,8 @@
                     ip: deviceIP,
                     accountId: accountId,
                     used: false,
-                    timestamp: Date.now()
+                    timestamp: Date.now(),
+                    multiplier: currentGlobalMultiplier
                 };
                 
                 await database.ref('quests/' + currentUser.username).set(questData);
@@ -2965,7 +4091,7 @@
                 if (!newTab) {
                     showNotification('❌ Lỗi!', 'Trình duyệt đã chặn tab mới. Vui lòng cho phép mở tab mới và thử lại.', 'error', 5000);
                 } else {
-                    showNotification('🎯 Quest bắt đầu!', 'Nhiệm vụ mới đã được mở trong tab mới. Chúc bạn hoàn thành!', 'success', 4000);
+                    showNotification('🎯 Quest bắt đầu!', `Nhiệm vụ mới đã được mở. Phần thưởng: ${formatNumber(1 * currentGlobalMultiplier)} ChickenP (${formatMultiplier(currentGlobalMultiplier)})`, 'success', 5000);
                 }
                 
                 await database.ref('cooldowns/' + currentUser.username).set(Date.now() + 60000);
@@ -2989,6 +4115,8 @@
             if (event) event.target.classList.add('active');
             
             window.location.hash = tabName;
+            
+            if (tabName === 'history') loadHistory();
         }
 
         async function addPointsSafely(username, amount) {
@@ -3015,6 +4143,11 @@
                 try {
                     const result = await subtractPointsSafely(currentUser.username, price);
                     if (result.committed) {
+                        await addHistoryEntry('spend', 
+                            `🛒 Mua ${itemName}`, 
+                            `Mua vật phẩm "${itemName}" từ Shop`, 
+                            -price
+                        );
                         showNotification('🎉 Mua thành công!', `Bạn đã mua ${itemName} thành công!`, 'success', 4000);
                     } else {
                         showNotification('❌ Thất bại!', 'Không đủ ChickenP!', 'error', 3000);
@@ -3025,49 +4158,11 @@
             }
         }
 
-        function showWarning() {
-            document.getElementById('warningModal').classList.add('active');
-        }
-
         function closeWarning() {
             document.getElementById('warningModal').classList.remove('active');
         }
 
         // ============ ADMIN FUNCTIONS ============
-        async function loadMultiplier() {
-            try {
-                const snapshot = await database.ref('config/globalMultiplier').once('value');
-                const multiplier = snapshot.exists() ? snapshot.val() : 1;
-                document.getElementById('currentMultiplier').innerText = multiplier;
-                document.getElementById('multiplierRange').value = multiplier;
-            } catch (error) {
-                console.error('Lỗi tải multiplier:', error);
-            }
-        }
-
-        function updateMultiplierDisplay(value) {
-            document.getElementById('currentMultiplier').innerText = value;
-        }
-
-        async function setMultiplier() {
-            if (!currentUser.isRootAdmin) {
-                showNotification('❌ Không có quyền!', 'Chỉ Root Admin mới có thể thay đổi hệ số nhân!', 'error', 3000);
-                return;
-            }
-
-            const value = parseInt(document.getElementById('multiplierRange').value);
-            showConfirm('Xác nhận thay đổi hệ số nhân', `Bạn có chắc muốn đặt hệ số nhân thành ${value}x?`, async () => {
-                try {
-                    await database.ref('config/globalMultiplier').set(value);
-                    showNotification('✅ Thành công!', `Đã cập nhật hệ số nhân thành ${value}x`, 'success', 3000);
-                    loadMultiplier();
-                } catch (error) {
-                    showNotification('❌ Lỗi!', error.message, 'error', 3000);
-                }
-            });
-        }
-
-        // ============ BAN USER FUNCTION ============
         function banUser() {
             const username = document.getElementById('banUsername').value.trim();
             if (!username) {
@@ -3080,7 +4175,7 @@
                 return;
             }
 
-            if (username === ROOT_ADMIN_USERNAME) {
+            if (username.toLowerCase() === ROOT_ADMIN_USERNAME.toLowerCase()) {
                 showNotification('❌ Lỗi!', 'Không thể BAN Root Admin!', 'error', 3000);
                 return;
             }
@@ -3098,7 +4193,7 @@
                     if (targetUser.isAdmin) {
                         if (!currentUser.isRootAdmin) {
                             showNotification('❌ Không có quyền!', 
-                                `Admin thường không thể BAN admin khác! "${username}" là Admin. Chỉ Root Admin mới có quyền này.`, 
+                                `Admin thường không thể BAN admin khác! Chỉ Root Admin mới có quyền này.`, 
                                 'error', 5000);
                             return;
                         }
@@ -3112,6 +4207,13 @@
                         timestamp: Date.now(),
                         reason: 'Admin action'
                     });
+
+                    await addAdminHistoryEntry(username, 'admin', 
+                        '🚫 Bị BAN', 
+                        `Tài khoản đã bị BAN bởi admin "${currentUser.username}"`, 
+                        0, 
+                        currentUser.username
+                    );
 
                     showNotification('🚫 BAN thành công!', 
                         `Đã BAN tài khoản "${username}" thành công!`, 
@@ -3140,6 +4242,14 @@
                         return;
                     }
                     await database.ref('users/' + username + '/warned').set(false);
+                    
+                    await addAdminHistoryEntry(username, 'admin', 
+                        '✅ Bỏ cảnh báo (UNWARN)', 
+                        `Đã bỏ cảnh cáo bởi admin "${currentUser.username}"`, 
+                        0, 
+                        currentUser.username
+                    );
+                    
                     showNotification('✅ Thành công!', `Đã UNWARN thành công cho "${username}"!`, 'success', 3000);
                     document.getElementById('unwarnUsername').value = '';
                 } catch (error) {
@@ -3163,6 +4273,14 @@
                         return;
                     }
                     await database.ref('users/' + username + '/banned').set(false);
+                    
+                    await addAdminHistoryEntry(username, 'admin', 
+                        '🔓 Bỏ BAN (UNBAN)', 
+                        `Đã bỏ BAN bởi admin "${currentUser.username}"`, 
+                        0, 
+                        currentUser.username
+                    );
+                    
                     showNotification('✅ Thành công!', `Đã UNBAN thành công cho "${username}"!`, 'success', 3000);
                     document.getElementById('unbanUsername').value = '';
                 } catch (error) {
@@ -3181,7 +4299,7 @@
                 showNotification('❌ Lỗi!', 'Vui lòng nhập tên người dùng!', 'error', 3000);
                 return;
             }
-            if (username === ROOT_ADMIN_USERNAME) {
+            if (username.toLowerCase() === ROOT_ADMIN_USERNAME.toLowerCase()) {
                 showNotification('❌ Lỗi!', 'Không thể thêm Root Admin!', 'error', 3000);
                 return;
             }
@@ -3194,6 +4312,14 @@
                         return;
                     }
                     await database.ref('users/' + username).update({ isAdmin: true, isRootAdmin: false });
+                    
+                    await addAdminHistoryEntry(username, 'admin', 
+                        '👑 Được cấp quyền ADMIN', 
+                        `Được cấp quyền Admin bởi Root Admin "${currentUser.username}"`, 
+                        0, 
+                        currentUser.username
+                    );
+                    
                     showNotification('✅ Thành công!', `Đã thêm ADMIN cho "${username}" thành công!`, 'success', 3000);
                     document.getElementById('addAdminUsername').value = '';
                 } catch (error) {
@@ -3212,7 +4338,7 @@
                 showNotification('❌ Lỗi!', 'Vui lòng nhập tên admin!', 'error', 3000);
                 return;
             }
-            if (username === ROOT_ADMIN_USERNAME) {
+            if (username.toLowerCase() === ROOT_ADMIN_USERNAME.toLowerCase()) {
                 showNotification('❌ Lỗi!', 'Không thể gỡ quyền Root Admin!', 'error', 3000);
                 return;
             }
@@ -3225,6 +4351,14 @@
                         return;
                     }
                     await database.ref('users/' + username).update({ isAdmin: false, isRootAdmin: false });
+                    
+                    await addAdminHistoryEntry(username, 'admin', 
+                        '❌ Bị gỡ quyền ADMIN', 
+                        `Bị gỡ quyền Admin bởi Root Admin "${currentUser.username}"`, 
+                        0, 
+                        currentUser.username
+                    );
+                    
                     showNotification('✅ Thành công!', `Đã gỡ quyền ADMIN của "${username}" thành công!`, 'success', 3000);
                     document.getElementById('unadminUsername').value = '';
                 } catch (error) {
@@ -3255,7 +4389,21 @@
                         return;
                     }
                     await addPointsSafely(username, amount);
-                    showNotification('🎁 Thành công!', `Đã tặng ${amount.toLocaleString()} ChickenP cho "${username}"!`, 'success', 4000);
+                    
+                    await addAdminHistoryEntry(username, 'gift', 
+                        '🎁 Nhận Gift từ Admin', 
+                        `Nhận ${formatNumber(amount)} ChickenP từ admin "${currentUser.username}"`, 
+                        amount, 
+                        currentUser.username
+                    );
+                    
+                    await addHistoryEntry('admin', 
+                        `🎁 Gift cho ${username}`, 
+                        `Tặng ${formatNumber(amount)} ChickenP cho "${username}"`, 
+                        0
+                    );
+                    
+                    showNotification('🎁 Thành công!', `Đã tặng ${formatNumber(amount)} ChickenP cho "${username}"!`, 'success', 4000);
                     document.getElementById('giftUsername').value = '';
                     document.getElementById('giftAmount').value = '';
                 } catch (error) {
