@@ -1,0 +1,118 @@
+-- Script Teleport Executor - Phiên bản Full
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+
+-- Tạo ScreenGui
+local gui = Instance.new("ScreenGui")
+gui.Name = "TeleportGUI"
+gui.ResetOnSpawn = false
+gui.Parent = LocalPlayer:WaitForChild("PlayerGui")
+
+-- ===== UI CỦA MAIN FRAME =====
+local mainFrame = Instance.new("Frame", gui)
+mainFrame.Size = UDim2.new(0, 250, 0, 150)
+mainFrame.Position = UDim2.new(0.5, -125, 0.5, -75)
+mainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+mainFrame.BorderColor3 = Color3.fromRGB(0, 255, 255)
+mainFrame.BorderSizePixel = 2
+mainFrame.Active = true
+mainFrame.Visible = true
+
+-- Logic Kéo thả
+local dragging, dragStart, startPos
+mainFrame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        dragging = true
+        dragStart = input.Position
+        startPos = mainFrame.Position
+    end
+end)
+UserInputService.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement and dragging then
+        local delta = input.Position - dragStart
+        mainFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+    end
+end)
+UserInputService.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then dragging = false end
+end)
+
+-- UI Elements
+local title = Instance.new("TextLabel", mainFrame)
+title.Size = UDim2.new(1, 0, 0, 30)
+title.BackgroundTransparency = 1
+title.Text = "TELEPORT SYSTEM"
+title.TextColor3 = Color3.fromRGB(0, 255, 255)
+title.Font = Enum.Font.SourceSansBold
+title.TextScaled = true
+
+local setPointBtn = Instance.new("TextButton", mainFrame)
+setPointBtn.Size = UDim2.new(0.8, 0, 0, 40)
+setPointBtn.Position = UDim2.new(0.1, 0, 0.35, 0)
+setPointBtn.BackgroundColor3 = Color3.fromRGB(0, 100, 100)
+setPointBtn.Text = "SET POINT"
+setPointBtn.TextColor3 = Color3.new(1, 1, 1)
+setPointBtn.TextScaled = true
+
+local statusLabel = Instance.new("TextLabel", mainFrame)
+statusLabel.Size = UDim2.new(1, 0, 0, 30)
+statusLabel.Position = UDim2.new(0, 0, 0.7, 0)
+statusLabel.BackgroundTransparency = 1
+statusLabel.Text = "Status: Idle"
+statusLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+
+local hideBtn = Instance.new("TextButton", mainFrame)
+hideBtn.Size = UDim2.new(0, 30, 0, 30)
+hideBtn.Position = UDim2.new(1, -35, 0, 5)
+hideBtn.Text = "-"
+hideBtn.TextColor3 = Color3.new(1, 1, 1)
+
+local showBtn = Instance.new("TextButton", gui)
+showBtn.Size = UDim2.new(0, 50, 0, 50)
+showBtn.Position = UDim2.new(1, -60, 0, 10)
+showBtn.Text = "+"
+showBtn.Visible = false
+
+-- ===== LOGIC CHÍNH =====
+local targetPosition = nil
+
+hideBtn.MouseButton1Click:Connect(function() mainFrame.Visible = false; showBtn.Visible = true end)
+showBtn.MouseButton1Click:Connect(function() mainFrame.Visible = true; showBtn.Visible = false end)
+
+setPointBtn.MouseButton1Click:Connect(function()
+    local char = LocalPlayer.Character
+    if char and char:FindFirstChild("HumanoidRootPart") then
+        targetPosition = char.HumanoidRootPart.CFrame
+        statusLabel.Text = "Point Set!"
+        setPointBtn.BackgroundColor3 = Color3.fromRGB(0, 200, 0)
+        task.wait(1)
+        setPointBtn.BackgroundColor3 = Color3.fromRGB(0, 100, 100)
+    end
+end)
+
+-- Vòng lặp Auto-Teleport 10s
+task.spawn(function()
+    while true do
+        task.wait(10)
+        if targetPosition then
+            local char = LocalPlayer.Character
+            if char and char:FindFirstChild("HumanoidRootPart") and char:FindFirstChild("Humanoid") then
+                if char.Humanoid.Health > 0 then
+                    char.HumanoidRootPart.CFrame = targetPosition
+                end
+            end
+        end
+    end
+end)
+
+-- Kích hoạt UI bằng chat
+LocalPlayer.Chatted:Connect(function(msg)
+    if msg == ")" then
+        mainFrame.Visible = true
+        showBtn.Visible = false
+    end
+end)
+
+print("Script Teleport Loaded Successfully!")
