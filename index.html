@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JICEO Group | Music Hub</title>
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon: #00f2ff;
+            --neon-glow: rgba(0, 242, 255, 0.4);
+            --bg-dark: #06080f;
+            --card-glass: rgba(255, 255, 255, 0.04);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --text-primary: #f0f4ff;
+            --text-secondary: #a0b4d0;
+            --radius: 20px;
+            --shadow-glow: 0 0 40px rgba(0, 242, 255, 0.08);
+        }
+
+        html,
+        body {
+            height: 100%;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: radial-gradient(ellipse at 20% 50%, #0d1a2b 0%, var(--bg-dark) 70%);
+            min-height: 100vh;
+        }
+
+        /* ===== LANGUAGE TOGGLE ===== */
+        .lang-toggle {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 9998;
+            display: flex;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glass);
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .lang-toggle button {
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            background: transparent;
+            color: var(--text-secondary);
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .lang-toggle button:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .lang-toggle button.active {
+            background: rgba(0, 242, 255, 0.12);
+            color: var(--neon);
+            box-shadow: inset 0 0 15px rgba(0, 242, 255, 0.06);
+        }
+
+        /* ===== LOADING SCREEN ===== */
+        #loader {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(ellipse at center, #0a1628, #020408);
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        #loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .loader-ring {
+            position: relative;
+            width: 120px;
+            height: 120px;
+        }
+
+        .loader-ring svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .loader-ring .bg-circle {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.05);
+            stroke-width: 3;
+        }
+
+        .loader-ring .progress-circle {
+            fill: none;
+            stroke: url(#neonGrad);
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-dasharray: 314;
+            stroke-dashoffset: 314;
+            animation: loadCircle 2.2s ease-in-out infinite;
+        }
+
+        @keyframes loadCircle {
+            0% {
+                stroke-dashoffset: 314;
+            }
+            50% {
+                stroke-dashoffset: 0;
+            }
+            100% {
+                stroke-dashoffset: -314;
+            }
+        }
+
+        .loader-logo {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 22px;
+            color: var(--neon);
+            text-shadow: 0 0 30px var(--neon-glow);
+            letter-spacing: 2px;
+            animation: pulseLogo 1.8s ease-in-out infinite;
+        }
+
+        @keyframes pulseLogo {
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.9;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+        }
+
+        .loader-text {
+            margin-top: 30px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            animation: fadeText 1.2s ease-in-out infinite alternate;
+        }
+
+        @keyframes fadeText {
+            0% {
+                opacity: 0.4;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .loader-dots {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+        .loader-dots span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--neon);
+            animation: dotBounce 1.4s ease-in-out infinite both;
+        }
+        .loader-dots span:nth-child(1) {
+            animation-delay: 0s;
+        }
+        .loader-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .loader-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes dotBounce {
+            0%,
+            80%,
+            100% {
+                transform: scale(0.6);
+                opacity: 0.3;
+            }
+            40% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* ===== MAIN CONTAINER ===== */
+        .container {
+            width: 100%;
+            max-width: 680px;
+            background: var(--card-glass);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-glow), 0 20px 60px rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            transform: translateY(30px) scale(0.97);
+            transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+        }
+
+        .container.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Glow border animation */
+        .container::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: calc(var(--radius) + 2px);
+            padding: 2px;
+            background: conic-gradient(from 0deg, transparent, var(--neon), transparent, var(--neon), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.15;
+            pointer-events: none;
+            animation: rotateBorder 8s linear infinite;
+        }
+
+        @keyframes rotateBorder {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            padding: 28px 28px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-glass);
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 30%;
+            right: 30%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon), transparent);
+            opacity: 0.3;
+        }
+
+        .header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: clamp(24px, 5vw, 36px);
+            background: linear-gradient(135deg, var(--neon), #7b61ff, var(--neon));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmerText 4s ease-in-out infinite;
+            letter-spacing: 4px;
+        }
+
+        @keyframes shimmerText {
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            letter-spacing: 2px;
+            margin-top: 6px;
+            font-weight: 300;
+        }
+
+        .header .badge {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 4px 16px;
+            border-radius: 20px;
+            background: rgba(0, 242, 255, 0.10);
+            border: 1px solid rgba(0, 242, 255, 0.15);
+            font-size: 11px;
+            color: var(--neon);
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* ===== TABS ===== */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            padding: 16px 20px 0;
+        }
+
+        .tabs button {
+            flex: 1;
+            padding: 12px 10px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-secondary);
+            border: 1px solid transparent;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.35s ease;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .tabs button i {
+            font-size: 16px;
+        }
+
+        .tabs button:hover {
+            background: rgba(255, 255, 255, 0.06);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .tabs button.active {
+            background: rgba(0, 242, 255, 0.10);
+            border-color: var(--neon);
+            color: var(--neon);
+            box-shadow: 0 0 25px rgba(0, 242, 255, 0.06);
+        }
+
+        /* ===== TAB CONTENT ===== */
+        .tab-content {
+            display: none;
+            padding: 20px;
+            animation: fadeUp 0.5s ease;
+        }
+
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== INFO CARD ===== */
+        .info-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .info-card h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            color: var(--neon);
+            text-align: center;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+        }
+
+        .info-card .desc {
+            color: var(--text-secondary);
+            line-height: 1.9;
+            font-size: 15px;
+            text-align: center;
+        }
+
+        .info-card .desc b {
+            color: var(--neon);
+        }
+
+        .status-legend {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin: 18px 0 14px;
+            padding: 12px 0;
+            border-top: 1px solid var(--border-glass);
+            border-bottom: 1px solid var(--border-glass);
+        }
+
+        .status-legend .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .status-legend .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .dot.green {
+            background: #00ff88;
+            box-shadow: 0 0 12px rgba(0, 255, 136, 0.4);
+        }
+        .dot.red {
+            background: #ff4455;
+            box-shadow: 0 0 12px rgba(255, 68, 85, 0.4);
+        }
+        .dot.yellow {
+            background: #ffcc00;
+            box-shadow: 0 0 12px rgba(255, 204, 0, 0.4);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .features-grid .feature {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 10px 14px;
+            border-radius: 10px;
+            border-left: 2px solid var(--neon);
+            font-size: 13px;
+            color: var(--text-secondary);
+            transition: 0.3s;
+        }
+
+        .features-grid .feature:hover {
+            background: rgba(255, 255, 255, 0.04);
+            transform: translateX(3px);
+        }
+
+        .support-box {
+            margin-top: 18px;
+            text-align: center;
+            background: rgba(0, 242, 255, 0.04);
+            border: 1px solid rgba(0, 242, 255, 0.08);
+            border-radius: 12px;
+            padding: 14px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .support-box b {
+            color: var(--neon);
+        }
+
+        .gift-box {
+            margin-top: 16px;
+            text-align: center;
+            border: 1px dashed rgba(255, 221, 85, 0.25);
+            border-radius: 12px;
+            padding: 14px;
+            background: rgba(255, 221, 85, 0.03);
+            color: #ffdd55;
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .gift-box small {
+            display: block;
+            margin-top: 4px;
+            color: var(--text-secondary);
+            font-weight: 400;
+            font-size: 13px;
+        }
+
+        /* ===== MUSIC LIST ===== */
+        .search-box {
+            width: 100%;
+            padding: 14px 18px;
+            border: none;
+            outline: none;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            color: white;
+            border: 1px solid var(--border-glass);
+            font-size: 14px;
+            transition: 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .search-box::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .search-box:focus {
+            border-color: var(--neon);
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.04);
+        }
+
+        .music-count {
+            color: var(--text-secondary);
+            text-align: center;
+            font-size: 14px;
+            margin: 14px 0;
+            letter-spacing: 1px;
+        }
+
+        .music-count span {
+            color: var(--neon);
+            font-weight: 700;
+        }
+
+        #musicList {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .item {
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-glass);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 242, 255, 0.02), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+
+        .item:hover::before {
+            opacity: 1;
+        }
+
+        .item:hover {
+            transform: translateX(4px) scale(1.01);
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(0, 242, 255, 0.15);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .item:active {
+            transform: scale(0.97);
+        }
+
+        .song-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            transition: 0.3s;
+        }
+
+        .status-dot.green {
+            background: #00ff88;
+            box-shadow: 0 0 12px rgba(0, 255, 136, 0.3);
+            animation: pulseDot 2s ease-in-out infinite;
+        }
+        .status-dot.red {
+            background: #ff4455;
+            box-shadow: 0 0 12px rgba(255, 68, 85, 0.3);
+            animation: pulseDot 2s ease-in-out infinite;
+        }
+        .status-dot.yellow {
+            background: #ffcc00;
+            box-shadow: 0 0 12px rgba(255, 204, 0, 0.3);
+            animation: pulseDot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseDot {
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.7;
+            }
+        }
+
+        .song-name {
+            font-weight: 600;
+            font-size: 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: var(--text-primary);
+        }
+
+        .song-id {
+            color: var(--neon);
+            font-family: 'Consolas', monospace;
+            font-weight: 600;
+            font-size: 13px;
+            white-space: nowrap;
+            background: rgba(0, 242, 255, 0.06);
+            padding: 2px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 242, 255, 0.06);
+            flex-shrink: 0;
+        }
+
+        .item .copy-icon {
+            color: var(--text-secondary);
+            font-size: 14px;
+            opacity: 0.3;
+            transition: 0.3s;
+            flex-shrink: 0;
+        }
+
+        .item:hover .copy-icon {
+            opacity: 0.8;
+            color: var(--neon);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            padding: 18px 20px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 13px;
+            border-top: 1px solid var(--border-glass);
+        }
+
+        .footer b {
+            color: var(--neon);
+        }
+
+        .footer .gift-message {
+            margin-top: 6px;
+            color: #ffdd55;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        .footer .thanks {
+            margin-top: 4px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            opacity: 0.6;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                max-width: 100%;
+                border-radius: 16px;
+            }
+            .header {
+                padding: 20px 16px 14px;
+            }
+            .tabs {
+                padding: 12px 12px 0;
+                gap: 6px;
+            }
+            .tabs button {
+                font-size: 12px;
+                padding: 10px 6px;
+            }
+            .tabs button i {
+                font-size: 14px;
+            }
+            .tab-content {
+                padding: 14px;
+            }
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            .item {
+                padding: 10px 12px;
+                flex-wrap: wrap;
+            }
+            .song-id {
+                font-size: 11px;
+                padding: 2px 8px;
+            }
+            .song-name {
+                font-size: 13px;
+            }
+            .status-legend {
+                gap: 14px;
+                font-size: 12px;
+            }
+            .info-card .desc {
+                font-size: 14px;
+            }
+            .loader-ring {
+                width: 90px;
+                height: 90px;
+            }
+            .loader-logo {
+                font-size: 18px;
+            }
+            .lang-toggle {
+                top: 10px;
+                right: 10px;
+            }
+            .lang-toggle button {
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .song-id {
+                font-size: 10px;
+                padding: 1px 6px;
+            }
+            .item {
+                gap: 6px;
+            }
+            .song-left {
+                gap: 8px;
+            }
+            .status-dot {
+                width: 10px;
+                height: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== LANGUAGE TOGGLE ===== -->
+    <div class="lang-toggle">
+        <button id="btnVI" class="active" onclick="setLang('vi')">VI</button>
+        <button id="btnEN" onclick="setLang('en')">EN</button>
+    </div>
+
+    <!-- ===== LOADING SCREEN ===== -->
+    <div id="loader">
+        <div class="loader-ring">
+            <svg viewBox="0 0 120 120">
+                <defs>
+                    <linearGradient id="neonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#00f2ff" />
+                        <stop offset="100%" stop-color="#7b61ff" />
+                    </linearGradient>
+                </defs>
+                <circle class="bg-circle" cx="60" cy="60" r="50" />
+                <circle class="progress-circle" cx="60" cy="60" r="50" />
+            </svg>
+            <div class="loader-logo">JICEO</div>
+        </div>
+        <div class="loader-text" data-vi="Đang tải Music Hub" data-en="Loading Music Hub">Loading Music Hub</div>
+        <div class="loader-dots">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+
+    <!-- ===== MAIN APP ===== -->
+    <div class="container" id="app">
+
+        <!-- HEADER -->
+        <div class="header">
+            <h1>JICEO MUSIC</h1>
+            <p data-vi="Hỗ trợ tất cả game Roblox & GAG2" data-en="Support All Roblox Games & GAG2">Support All Roblox Games &amp; GAG2</p>
+            <span class="badge"><i class="fas fa-headphones" style="margin-right:6px;"></i> <span data-vi="14 bài hát" data-en="14 tracks">14 tracks</span> · <span data-vi="trực tuyến" data-en="live">live</span></span>
+        </div>
+
+        <!-- TABS -->
+        <div class="tabs">
+            <button id="defaultOpen" onclick="openTab(event, 'info')">
+                <i class="fas fa-home"></i> <span data-vi="TRANG CHỦ" data-en="HOME">HOME</span>
+            </button>
+            <button onclick="openTab(event, 'music')">
+                <i class="fas fa-music"></i> <span data-vi="ID NHẠC" data-en="MUSIC IDS">MUSIC IDS</span>
+            </button>
+        </div>
+
+        <!-- TAB: INFO -->
+        <div id="info" class="tab-content">
+            <div class="info-card">
+                <h2 data-vi="🌐 MẠNG LƯỚI JICEO" data-en="🌐 JICEO NETWORK">🌐 JICEO NETWORK</h2>
+
+                <p class="desc" data-vi='Chào mừng đến với thư viện âm thanh chính thức của <b>JICEO Group</b>.<br>Tổng hợp ID nhạc Roblox được cập nhật liên tục.' data-en='Welcome to the official sound library of <b>JICEO Group</b>.<br>Roblox music IDs, updated continuously.'>
+                    Chào mừng đến với thư viện âm thanh chính thức của <b>JICEO Group</b>.<br>Tổng hợp ID nhạc Roblox được cập nhật liên tục.
+                </p>
+
+                <div class="status-legend">
+                    <span class="legend-item"><span class="dot green"></span> <span data-vi="Hoạt động" data-en="Working">Hoạt động</span></span>
+                    <span class="legend-item"><span class="dot red"></span> <span data-vi="Không hoạt động" data-en="Not working">Không hoạt động</span></span>
+                    <span class="legend-item"><span class="dot yellow"></span> <span data-vi="Bảo trì" data-en="Maintenance">Bảo trì</span></span>
+                </div>
+
+                <div style="text-align:center; font-size:13px; color:var(--text-secondary); margin-bottom:8px;">
+                    <i class="fas fa-sync-alt" style="color:var(--neon); margin-right:6px;"></i> <span data-vi="Kiểm tra định kỳ" data-en="Checked periodically">Kiểm tra định kỳ</span>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature" data-vi="🎮 TẤT CẢ GAME ROBLOX" data-en="🎮 ALL ROBLOX GAMES">🎮 ALL ROBLOX GAMES</div>
+                    <div class="feature" data-vi="🌱 Tương thích GAG2" data-en="🌱 GAG2 Compatible">🌱 GAG2 Compatible</div>
+                    <div class="feature" data-vi="🎵 Việt Nam & Quốc Tế" data-en="🎵 Vietnamese & International">🎵 Việt Nam &amp; Quốc Tế</div>
+                    <div class="feature" data-vi="⚡ Sao chép ID 1 chạm" data-en="⚡ Copy ID in 1 click">⚡ Copy ID 1 click</div>
+                </div>
+
+                <div class="support-box">
+                    📞 <b data-vi="Hỗ trợ GAG2" data-en="GAG2 Support">Support GAG2</b> &nbsp;·&nbsp; <span data-vi="Liên hệ hỗ trợ" data-en="Contact support">Liên hệ hỗ trợ</span>
+                </div>
+
+                <div class="gift-box">
+                    🙏 <span data-vi="HÃY TẶNG TÔI SEED/PET: JiceoTop2" data-en="PLS GIFT ME SEED/PET: JiceoTop2">PLS GIFT ME SEED/PET : JiceoTop2</span>
+                    <small data-vi="Cảm ơn bạn" data-en="Thank you">Cảm ơn bạn / Thank you</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: MUSIC -->
+        <div id="music" class="tab-content">
+
+            <input
+            type="text"
+            id="musicSearch"
+            class="search-box"
+            data-vi-placeholder="🔍 Tìm kiếm bài hát..."
+            data-en-placeholder="🔍 Search songs..."
+            placeholder="🔍 Tìm kiếm bài hát..."
+            onkeyup="filterMusic()"
+            />
+
+            <div class="music-count">
+                <i class="fas fa-headphones" style="color:var(--neon); margin-right:6px;"></i>
+                <span data-vi="Tổng cộng:" data-en="Total:">Tổng cộng:</span> <span id="songCount">14</span> <span data-vi="bài hát" data-en="songs">bài hát</span>
+            </div>
+
+            <div id="musicList">
+
+                <!-- 1. Rên – RED -->
+                <div class="item" onclick="copyText('94002873170394')">
+                    <div class="song-left">
+                        <span class="status-dot red"></span>
+                        <span class="song-name">Rên 🇻🇳</span>
+                    </div>
+                    <span class="song-id">94002873170394</span>
+                    <span class="copy-icon"><i class="fas fa-copy"></i></span>
+                </div>
+
+                <!-- 2. Khô gà – GREEN -->
+                <div class="item" onclick="copyText('99152674992699')">
+                    <div class="song-left">
+                        <span class="status-dot green"></span>
+                        <span class="song-name">Khô gà 🇻🇳</span>
+                    </div>
+                    <span class="song-id">99152674992699</span>
+                    <span class="copy-icon"><i class="fas fa-copy"></i></span>
+                </div>
+
+                <!-- 3. Ai đưa em về đêm nay – GREEN -->
+                <div class="item" onclick="copyText('110919291228823')">
+                    <div class="song-left">
+                        <span class="status-dot green"></span>
+                        <span class="song-name">Ai đưa em về đêm nay 🇻🇳</span>
+                    </div>
+                    <span class="song-id">110919291228823</span>
+                    <span class="copy-icon"><i class="fas fa-copy"></i></span>
+                </div>
+
+                <!-- 4. 落泪 - Rơi Lệ Remix – GREEN -->
+                <div class="item" onclick="copyText('77063870786604')">
+                    <div class="song-left">
+                        <span class="status-dot green"></span>
+                        <span class="song-name">落泪 - Rơi Lệ Remix 🇨🇳</span>
+                    </div>
+                    <span class="song-id">77063870786604</span>
+                    <span class="copy-icon"><i class="fas fa-copy"></i></span>
+                </div>
+
+                <!-- 5. LUCKY – GREEN -->
+                <div class="item" onclick="copyText('120785124326826')">
+                    <div class="song-left">
+                        <span class="status-dot green"></span>
+                        <span class="song-name">LUCKY 🌍</span>
+                    </div>
+                    <span class="song-id">120785124326826</span>
+                    <span class="copy-icon"><i class="fas fa-copy"></i></span>
+                </div>
+
+                <!-- 6. CHAMPIONS – GREEN -->
+                <div class="item" onclick="copyText('131017458771974')">
+                    <div class="song-left">
+                        <span class="status-dot green"></span>
+                        <span class="song-name">CHAMPIONS 🇺🇸</span>
+                    </div>
+                    <span class="song-id">131017458771974</span>
+                    <span class="copy-icon"><i class="fas fa-copy"></i></span>
+                </div>
+
+                <!-- 7. TheFatRat – GREEN -->
+                <div class="item" onclick="copyText('71225819538909')">
+                    <div class="song-left">
+                        <span class="status-dot green"></span>
+                        <span class="song-name">TheFatRat 🇩🇪</span>
+                    </div>
+                    <span class="song-id">71225819538909</span>
+                    <span class="copy-icon"><i class="fas fa-copy"></i></span>
+                </div>
+
+                <!-- 8. Tiki Tiki Phonk – GREEN -->
+                <div class="item" onclick="copyText('72957306505286')">
+                    <div class="song-left">
+                        <span class="status-dot green"></span>
+                        <span class="song-name">Tiki Tiki Phonk 🇧🇷</span>
+                    </div>
+                    <span class="song-id">72957306505286</span>
+                    <span class="copy-icon"><i class="fas fa-copy"></i></span>
+                </div>
+
+                <!-- 9. Rap Chửi – GREEN -->
+                <div class="item" onclick="copyText('2602546138')">
+                    <div class="song-left">
+                        <span class="status-dot green"></span>
+                        <span class="song-name">Rap Chửi 🇻🇳</span>
+                    </div>
+                    <span class="song-id">2602546138</span>
+                    <span class="copy-icon"><i class="fas fa-copy"></i></span>
+                </div>
+
+                <!-- 10. Y Que Fue – GREEN -->
+                <div class="item" onclick="copyText('125902207303673')">
+                    <div class="song-left">
+                        <span class="status-dot green"></span>
+                        <span class="song-name">Y Que Fue 🇪🇸</span>
+                    </div>
+                    <span class="song-id">125902207303673</span>
+                    <span class="copy-icon"><i class="fas fa-copy"></i></span>
+                </div>
+
+                <!-- 11. Crazy Frog – GREEN -->
+                <div class="item" onclick="copyText('93284472282799')">
+                    <div class="song-left">
+                        <span class="status-dot green"></span>
+                        <span class="song-name">Crazy Frog 🐸</span>
+                    </div>
+                    <span class="song-id">93284472282799</span>
+                    <span class="copy-icon"><i class="fas fa-copy"></i></span>
+                </div>
+
+                <!-- 12. Mưa Đợi Chờ – GREEN -->
+                <div class="item" onclick="copyText('82627558368623')">
+                    <div class="song-left">
+                        <span class="status-dot green"></span>
+                        <span class="song-name">Mưa Đợi Chờ 🇻🇳</span>
+                    </div>
+                    <span class="song-id">82627558368623</span>
+                    <span class="copy-icon"><i class="fas fa-copy"></i></span>
+                </div>
+
+                <!-- 13. 半點心 - Nửa Trái Tim – GREEN -->
+                <div class="item" onclick="copyText('77654003503401')">
+                    <div class="song-left">
+                        <span class="status-dot green"></span>
+                        <span class="song-name">半點心 - Nửa Trái Tim 🇨🇳</span>
+                    </div>
+                    <span class="song-id">77654003503401</span>
+                    <span class="copy-icon"><i class="fas fa-copy"></i></span>
+                </div>
+
+                <!-- 14. Track mới – GREEN -->
+                <div class="item" onclick="copyText('133758365650956')">
+                    <div class="song-left">
+                        <span class="status-dot green"></span>
+                        <span class="song-name">🎵 Đừng Đóng Vai Anh</span>
+                    </div>
+                    <span class="song-id">133758365650956</span>
+                    <span class="copy-icon"><i class="fas fa-copy"></i></span>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            © 2026 <b>JICEO Group</b> &nbsp;·&nbsp; <span data-vi="Cung cấp bởi" data-en="Powered by">Powered by</span> <b>TIKTOK AND PLAYER AND YTB</b>
+            <div class="gift-message">🎁 PLS GIFT ME SEED/PET : JiceoTop2</div>
+            <div class="thanks" data-vi="🙏 Cảm ơn bạn" data-en="🙏 Thank You">🙏 Cảm ơn bạn / Thanks You</div>
+        </div>
+
+    </div>
+
+    <script>
+        // ===== LANGUAGE SYSTEM =====
+        let currentLang = 'vi';
+
+        function setLang(lang) {
+            currentLang = lang;
+
+            // Update toggle buttons
+            document.getElementById('btnVI').classList.toggle('active', lang === 'vi');
+            document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+
+            // Update all elements with data-vi / data-en
+            document.querySelectorAll('[data-vi]').forEach(el => {
+                const text = el.getAttribute('data-' + lang);
+                if (text !== null) {
+                    el.innerHTML = text;
+                }
+            });
+
+            // Update placeholders
+            document.querySelectorAll('[data-vi-placeholder]').forEach(el => {
+                const ph = el.getAttribute('data-' + lang + '-placeholder');
+                if (ph !== null) {
+                    el.placeholder = ph;
+                }
+            });
+
+            // Save preference
+            localStorage.setItem('jiceo-lang', lang);
+        }
+
+        // Load saved language
+        window.addEventListener('DOMContentLoaded', function() {
+            const saved = localStorage.getItem('jiceo-lang');
+            if (saved === 'en' || saved === 'vi') {
+                setLang(saved);
+            }
+        });
+
+        // ===== LOADER =====
+        window.addEventListener('load', function() {
+            const loader = document.getElementById('loader');
+            const app = document.getElementById('app');
+
+            // Show app with animation after loader
+            setTimeout(() => {
+                loader.classList.add('hidden');
+                app.classList.add('visible');
+            }, 2200); // 2.2s loader
+        });
+
+        // ===== TABS =====
+        document.getElementById('defaultOpen').click();
+
+        function openTab(evt, tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.style.display = 'none';
+            });
+            document.querySelectorAll('.tabs button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(tabName).style.display = 'block';
+            evt.currentTarget.classList.add('active');
+        }
+
+        // ===== COPY =====
+        function copyText(id) {
+            navigator.clipboard.writeText(id).then(() => {
+                // Visual feedback: flash the item
+                const items = document.querySelectorAll('.item');
+                let target = null;
+                items.forEach(item => {
+                    if (item.innerText.includes(id)) {
+                        target = item;
+                    }
+                });
+                if (target) {
+                    target.style.transition = '0.15s';
+                    target.style.borderColor = 'var(--neon)';
+                    target.style.boxShadow = '0 0 30px rgba(0,242,255,0.2)';
+                    setTimeout(() => {
+                        target.style.borderColor = '';
+                        target.style.boxShadow = '';
+                    }, 400);
+                }
+
+                // Toast notification
+                const msg = currentLang === 'vi' ? '✅ Đã sao chép ID: ' + id : '✅ Copied ID: ' + id;
+                showToast(msg);
+            }).catch(() => {
+                const msg = currentLang === 'vi' ? '✅ Đã sao chép ID:\n\n' + id : '✅ Copied ID:\n\n' + id;
+                alert(msg);
+            });
+        }
+
+        // ===== TOAST =====
+        function showToast(msg) {
+            const existing = document.querySelector('.toast-msg');
+            if (existing) existing.remove();
+
+            const toast = document.createElement('div');
+            toast.className = 'toast-msg';
+            toast.textContent = msg;
+            Object.assign(toast.style, {
+                position: 'fixed',
+                bottom: '30px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                background: 'rgba(0,0,0,0.85)',
+                backdropFilter: 'blur(12px)',
+                color: '#fff',
+                padding: '14px 28px',
+                borderRadius: '12px',
+                border: '1px solid rgba(0,242,255,0.2)',
+                fontSize: '15px',
+                fontWeight: '500',
+                zIndex: '99999',
+                boxShadow: '0 10px 40px rgba(0,0,0,0.6)',
+                animation: 'fadeUp 0.3s ease',
+                fontFamily: 'Inter, sans-serif',
+                letterSpacing: '0.3px',
+                maxWidth: '90%',
+                textAlign: 'center'
+            });
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.transition = 'opacity 0.5s ease, transform 0.4s ease';
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(-50%) translateY(20px)';
+                setTimeout(() => toast.remove(), 500);
+            }, 2200);
+        }
+
+        // ===== FILTER =====
+        function filterMusic() {
+            const input = document.getElementById('musicSearch').value.toLowerCase();
+            const items = document.querySelectorAll('#musicList .item');
+            let visible = 0;
+
+            items.forEach(item => {
+                const text = item.innerText.toLowerCase();
+                if (text.includes(input)) {
+                    item.style.display = 'flex';
+                    visible++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            document.getElementById('songCount').textContent = visible;
+        }
+
+        // ===== KEYBOARD SHORTCUT: ESC to clear search =====
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const search = document.getElementById('musicSearch');
+                if (document.activeElement === search) {
+                    search.value = '';
+                    filterMusic();
+                    search.blur();
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
