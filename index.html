@@ -30,9 +30,13 @@
             --shadow-glow: 0 0 40px rgba(0, 242, 255, 0.08);
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         html,
         body {
-            height: 100%;
+            min-height: 100%;
             font-family: 'Inter', sans-serif;
             background: var(--bg-dark);
             color: var(--text-primary);
@@ -41,10 +45,12 @@
         body {
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             padding: 20px;
             background: radial-gradient(ellipse at 20% 50%, #0d1a2b 0%, var(--bg-dark) 70%);
             min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
         /* ===== LANGUAGE TOGGLE ===== */
@@ -135,15 +141,9 @@
         }
 
         @keyframes loadCircle {
-            0% {
-                stroke-dashoffset: 314;
-            }
-            50% {
-                stroke-dashoffset: 0;
-            }
-            100% {
-                stroke-dashoffset: -314;
-            }
+            0% { stroke-dashoffset: 314; }
+            50% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: -314; }
         }
 
         .loader-logo {
@@ -162,15 +162,8 @@
         }
 
         @keyframes pulseLogo {
-            0%,
-            100% {
-                transform: scale(1);
-                opacity: 0.9;
-            }
-            50% {
-                transform: scale(1.05);
-                opacity: 1;
-            }
+            0%, 100% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.05); opacity: 1; }
         }
 
         .loader-text {
@@ -183,12 +176,8 @@
         }
 
         @keyframes fadeText {
-            0% {
-                opacity: 0.4;
-            }
-            100% {
-                opacity: 1;
-            }
+            0% { opacity: 0.4; }
+            100% { opacity: 1; }
         }
 
         .loader-dots {
@@ -203,27 +192,13 @@
             background: var(--neon);
             animation: dotBounce 1.4s ease-in-out infinite both;
         }
-        .loader-dots span:nth-child(1) {
-            animation-delay: 0s;
-        }
-        .loader-dots span:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-        .loader-dots span:nth-child(3) {
-            animation-delay: 0.4s;
-        }
+        .loader-dots span:nth-child(1) { animation-delay: 0s; }
+        .loader-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .loader-dots span:nth-child(3) { animation-delay: 0.4s; }
 
         @keyframes dotBounce {
-            0%,
-            80%,
-            100% {
-                transform: scale(0.6);
-                opacity: 0.3;
-            }
-            40% {
-                transform: scale(1);
-                opacity: 1;
-            }
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.3; }
+            40% { transform: scale(1); opacity: 1; }
         }
 
         /* ===== MAIN CONTAINER ===== */
@@ -235,12 +210,13 @@
             -webkit-backdrop-filter: blur(24px);
             border: 1px solid var(--border-glass);
             border-radius: var(--radius);
-            overflow: hidden;
+            overflow: visible;
             box-shadow: var(--shadow-glow), 0 20px 60px rgba(0, 0, 0, 0.6);
             opacity: 0;
             transform: translateY(30px) scale(0.97);
             transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
             position: relative;
+            margin: 20px auto;
         }
 
         .container.visible {
@@ -263,15 +239,12 @@
             opacity: 0.15;
             pointer-events: none;
             animation: rotateBorder 8s linear infinite;
+            z-index: -1;
         }
 
         @keyframes rotateBorder {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* ===== HEADER ===== */
@@ -307,13 +280,8 @@
         }
 
         @keyframes shimmerText {
-            0%,
-            100% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
         .header p {
@@ -385,6 +353,10 @@
             display: none;
             padding: 20px;
             animation: fadeUp 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
         }
 
         @keyframes fadeUp {
@@ -639,15 +611,8 @@
         }
 
         @keyframes pulseDot {
-            0%,
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            50% {
-                transform: scale(1.2);
-                opacity: 0.7;
-            }
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
         }
 
         .song-name {
@@ -836,10 +801,10 @@
 
         <!-- TABS -->
         <div class="tabs">
-            <button id="defaultOpen" onclick="openTab(event, 'info')">
+            <button id="tabHome" onclick="openTab('info', true)">
                 <i class="fas fa-home"></i> <span data-vi="TRANG CHỦ" data-en="HOME">HOME</span>
             </button>
-            <button onclick="openTab(event, 'music')">
+            <button id="tabMusic" onclick="openTab('music', true)">
                 <i class="fas fa-music"></i> <span data-vi="ID NHẠC" data-en="MUSIC IDS">MUSIC IDS</span>
             </button>
         </div>
@@ -1035,7 +1000,7 @@
                 <div class="item" onclick="copyText('133758365650956')">
                     <div class="song-left">
                         <span class="status-dot green"></span>
-                        <span class="song-name">🎵 Đừng Đóng Vai Anh</span>
+                        <span class="song-name">🎵 Track</span>
                     </div>
                     <span class="song-id">133758365650956</span>
                     <span class="copy-icon"><i class="fas fa-copy"></i></span>
@@ -1060,11 +1025,9 @@
         function setLang(lang) {
             currentLang = lang;
 
-            // Update toggle buttons
             document.getElementById('btnVI').classList.toggle('active', lang === 'vi');
             document.getElementById('btnEN').classList.toggle('active', lang === 'en');
 
-            // Update all elements with data-vi / data-en
             document.querySelectorAll('[data-vi]').forEach(el => {
                 const text = el.getAttribute('data-' + lang);
                 if (text !== null) {
@@ -1072,7 +1035,6 @@
                 }
             });
 
-            // Update placeholders
             document.querySelectorAll('[data-vi-placeholder]').forEach(el => {
                 const ph = el.getAttribute('data-' + lang + '-placeholder');
                 if (ph !== null) {
@@ -1080,7 +1042,6 @@
                 }
             });
 
-            // Save preference
             localStorage.setItem('jiceo-lang', lang);
         }
 
@@ -1092,36 +1053,95 @@
             }
         });
 
+        // ===== ROUTING SYSTEM =====
+        // Map tab names to URL paths
+        const routeMap = {
+            'info': '/',
+            'music': '/listmusic'
+        };
+
+        // Reverse map for loading from URL
+        const pathToTab = {
+            '/': 'info',
+            '/listmusic': 'music',
+            '': 'info'
+        };
+
+        function openTab(tabName, updateHistory = false) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+                tab.style.display = 'none';
+            });
+
+            // Remove active from all buttons
+            document.querySelectorAll('.tabs button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab
+            const tabEl = document.getElementById(tabName);
+            if (tabEl) {
+                tabEl.style.display = 'block';
+                // Force reflow for animation
+                void tabEl.offsetWidth;
+                tabEl.classList.add('active');
+            }
+
+            // Activate button
+            if (tabName === 'info') {
+                document.getElementById('tabHome').classList.add('active');
+            } else if (tabName === 'music') {
+                document.getElementById('tabMusic').classList.add('active');
+            }
+
+            // Update URL if requested
+            if (updateHistory && window.history) {
+                const path = routeMap[tabName] || '/';
+                const currentPath = window.location.pathname;
+                
+                // Only push state if path actually changed
+                if (currentPath !== path) {
+                    window.history.pushState({ tab: tabName }, '', path);
+                }
+            }
+
+            // Scroll to top when switching tabs
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Handle browser back/forward buttons
+        window.addEventListener('popstate', function(event) {
+            const path = window.location.pathname;
+            const tabName = pathToTab[path] || 'info';
+            openTab(tabName, false);
+        });
+
+        // Load correct tab based on URL on page load
+        function loadTabFromURL() {
+            const path = window.location.pathname;
+            const tabName = pathToTab[path] || 'info';
+            openTab(tabName, false);
+        }
+
         // ===== LOADER =====
         window.addEventListener('load', function() {
             const loader = document.getElementById('loader');
             const app = document.getElementById('app');
 
+            // Load tab from URL first
+            loadTabFromURL();
+
             // Show app with animation after loader
             setTimeout(() => {
                 loader.classList.add('hidden');
                 app.classList.add('visible');
-            }, 2200); // 2.2s loader
+            }, 2200);
         });
-
-        // ===== TABS =====
-        document.getElementById('defaultOpen').click();
-
-        function openTab(evt, tabName) {
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.style.display = 'none';
-            });
-            document.querySelectorAll('.tabs button').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            document.getElementById(tabName).style.display = 'block';
-            evt.currentTarget.classList.add('active');
-        }
 
         // ===== COPY =====
         function copyText(id) {
             navigator.clipboard.writeText(id).then(() => {
-                // Visual feedback: flash the item
                 const items = document.querySelectorAll('.item');
                 let target = null;
                 items.forEach(item => {
@@ -1139,7 +1159,6 @@
                     }, 400);
                 }
 
-                // Toast notification
                 const msg = currentLang === 'vi' ? '✅ Đã sao chép ID: ' + id : '✅ Copied ID: ' + id;
                 showToast(msg);
             }).catch(() => {
